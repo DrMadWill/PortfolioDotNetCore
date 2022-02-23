@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.Models
 {
-    public class SkillCode
+    public class ContactOnline
     {
         public int Id { get; set; }
 
-        [MaxLength(75)]
-        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(150)]
         [Required]
-        public int Percent { get; set; }
+        public string Url { get; set; }
 
-        public About About { get; set; }
-        public int AboutId { get; set; }
+        [MaxLength(200)]
+        [Required]
+        public string Icon { get; set; }
+        public Contact Contact { get; set; }
+        public int ContactId { get; set; }
 
     }
 }

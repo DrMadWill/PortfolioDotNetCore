@@ -7,19 +7,15 @@ using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.Models
 {
-    public class About
+    public class Admin
     {
         public int Id { get; set; }
+        public string FullName { get; set; }
 
-        [MaxLength(75)]
-        public string Name { get; set; }
-
-        [Column(TypeName ="ntext")]
-        public string Descriptoion { get; set; }
-
-        public List<Skill> Skills { get; set; }
-
-        public List<SkillCode> SkillCodes { get; set; }
+        [StringLength(25)]
+        [MinLength(10)]
+        public string Login { get; set; }
+        public string Password { get; set; }
 
     }
 }
