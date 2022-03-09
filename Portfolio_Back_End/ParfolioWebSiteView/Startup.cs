@@ -29,7 +29,6 @@ namespace ParfolioWebSiteView
             services.AddDbContext<PorfolioDbContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("Defaultdb"));
-
             });
         }
 

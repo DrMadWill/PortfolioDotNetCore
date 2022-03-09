@@ -26,8 +26,15 @@ using ParfolioWebSiteView.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\Views\_ViewImports.cshtml"
+using ParfolioWebSiteView.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ec59070982aad75f6e5f62c5d13583aa476d233a", @"/Views/Home/ProtfolioDetails.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"71b0af14feee7ac1712e74da6a25a642a4e39c8d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9143321d233c74a0a8179edfc1316b424f8169f0", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_ProtfolioDetails : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

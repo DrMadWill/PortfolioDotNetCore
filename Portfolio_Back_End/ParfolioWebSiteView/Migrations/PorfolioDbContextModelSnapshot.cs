@@ -29,6 +29,13 @@ namespace ParfolioWebSiteView.Migrations
                     b.Property<string>("Descriptoion")
                         .HasColumnType("ntext");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(75)")
                         .HasMaxLength(75);
@@ -142,6 +149,9 @@ namespace ParfolioWebSiteView.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
@@ -183,6 +193,31 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("ContactOnlines");
+                });
+
+            modelBuilder.Entity("ParfolioWebSiteView.Models.Home", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("HomeSlogan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Homes");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Portfolio", b =>

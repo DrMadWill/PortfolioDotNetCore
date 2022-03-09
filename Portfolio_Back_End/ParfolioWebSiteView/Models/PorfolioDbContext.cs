@@ -10,6 +10,7 @@ namespace ParfolioWebSiteView.Models
     {
         public PorfolioDbContext(DbContextOptions<PorfolioDbContext> dbContext) : base(dbContext) { }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Home> Homes { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Achievements> Achievements { get; set; }
         public DbSet<Blog> Blogs { get; set; }
