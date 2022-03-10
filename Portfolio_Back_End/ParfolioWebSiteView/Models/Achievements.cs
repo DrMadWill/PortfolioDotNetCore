@@ -8,11 +8,16 @@ namespace ParfolioWebSiteView.Models
 {
     public class Achievements
     {
-        [MaxLength(1)]
+        [MaxLength(5)]
         public int Id { get; set; }
-        public int WorksComplate { get; set; }
-        public int YearsExperoence { get; set; }
-        public int TotalClents { get; set; }
-        public int AwardWon { get; set; }
+        [Required(ErrorMessage = "Name Required")]
+        [MaxLength(100,ErrorMessage = "So Long Name")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "Name Required")]
+        public int Count { get; set; }
+        [Required(ErrorMessage = "Name Required")]
+        [MaxLength(200,ErrorMessage ="So Long Icon")]
+        public string Icon { get; set; }
+        
     }
 }

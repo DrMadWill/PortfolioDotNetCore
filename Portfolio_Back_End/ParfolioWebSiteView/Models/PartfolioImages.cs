@@ -53,6 +53,8 @@ namespace ParfolioWebSiteView.Models
             new PartfolioService(){title="Marketing Services",ClassName="bi bi-calendar4-week" }
         };
 
+        //<i class="bi bi-calendar4-week"></i>
+
         public static List<PartfolioService> PartfolioServices() => partfolioServices;
     }
 

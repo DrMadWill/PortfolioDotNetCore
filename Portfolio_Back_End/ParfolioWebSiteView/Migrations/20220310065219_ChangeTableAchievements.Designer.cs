@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310065219_ChangeTableAchievements")]
+    partial class ChangeTableAchievements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
-                        .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
@@ -194,28 +195,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasIndex("ContactId");
 
                     b.ToTable("ContactOnlines");
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.DetailImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<int>("PortfolioDetailId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PortfolioDetailId");
-
-                    b.ToTable("DetailImage");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Home", b =>
@@ -422,15 +401,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasOne("ParfolioWebSiteView.Models.Contact", "Contact")
                         .WithMany("ContactOnlines")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.DetailImage", b =>
-                {
-                    b.HasOne("ParfolioWebSiteView.Models.PortfolioDetail", "PortfolioDetail")
-                        .WithMany("DetailImages")
-                        .HasForeignKey("PortfolioDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

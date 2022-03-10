@@ -23,19 +23,15 @@ namespace ParfolioWebSiteView.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var contact = await dbContext.Contacts.FirstOrDefaultAsync(dr => dr.IsShow);
-            var about = await dbContext.Abouts.FirstOrDefaultAsync(dr => dr.IsShow);
+            
             IndexVM index = new IndexVM
             {
                 Home = await dbContext.Homes.FirstOrDefaultAsync(dr => dr.IsShow),
-                Achievement = await dbContext.Achievements.FirstAsync(),
-                About = about,
-                SkillCode = await dbContext.SkillCodes.Where(dr=>dr.AboutId== about.Id).ToListAsync(),
-                Skills = await dbContext.Skills.Where(dr => dr.AboutId == about.Id).ToListAsync(),
+                Achievements = await dbContext.Achievements.ToListAsync(),
+                About = await dbContext.Abouts.Include(x=>x.Skills).Include(x=>x.SkillCodes).FirstOrDefaultAsync(dr => dr.IsShow),
                 Blogs = await dbContext.Blogs.ToListAsync(),
-                Portfolios = await dbContext.Portfolios.ToListAsync(),
-                Contact = contact,
-                ContactOnlines = await dbContext.ContactOnlines.Where(dr=>dr.ContactId == contact.Id).ToListAsync(),
+                Portfolios = await dbContext.Portfolios.Include(x=>x.PortfolioCategory).ToListAsync(),
+                //Contact = await dbContext.Contacts.Include(c=>c.ContactOnlines).FirstOrDefaultAsync(dr => dr.IsShow),
                 Services = await dbContext.Services.ToListAsync(),
                 Referances = await dbContext.Referances.ToListAsync()
             };
@@ -48,6 +44,11 @@ namespace ParfolioWebSiteView.Controllers
         }
 
         public IActionResult SinglePage()
+        {
+            return View();
+        }
+
+        public IActionResult PortfolioSinglePage()
         {
             return View();
         }

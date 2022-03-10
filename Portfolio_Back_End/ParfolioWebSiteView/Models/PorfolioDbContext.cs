@@ -37,6 +37,5 @@ namespace ParfolioWebSiteView.Models
                 .HasDefaultValueSql("getdate()");
         }
 
-
     }
 }

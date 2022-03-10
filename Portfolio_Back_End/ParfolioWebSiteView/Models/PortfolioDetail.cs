@@ -14,13 +14,12 @@ namespace ParfolioWebSiteView.Models
         [Key, ForeignKey("Portfolio")]
         public int Id { get; set; }
         public Portfolio Portfolio { get; set; }
-
         [MaxLength(150)]
         public string Client { get; set; }
-
         [Column(TypeName = "ntext")]
         public string Descriptoion { get; set; }
         [MaxLength(200)]
         public string LocatoionURL { get; set; }
+        public List<DetailImage> DetailImages { get; set; }
     }
 }
