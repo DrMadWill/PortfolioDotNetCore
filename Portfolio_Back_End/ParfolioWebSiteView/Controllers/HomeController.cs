@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.Controllers
@@ -29,12 +30,14 @@ namespace ParfolioWebSiteView.Controllers
                 Home = await dbContext.Homes.FirstOrDefaultAsync(dr => dr.IsShow),
                 Achievements = await dbContext.Achievements.ToListAsync(),
                 About = await dbContext.Abouts.Include(x=>x.Skills).Include(x=>x.SkillCodes).FirstOrDefaultAsync(dr => dr.IsShow),
-                Blogs = await dbContext.Blogs.ToListAsync(),
+                Blogs = await dbContext.Blogs.Include(x=>x.BlogCategory).ToListAsync(),
                 Portfolios = await dbContext.Portfolios.Include(x=>x.PortfolioCategory).ToListAsync(),
-                //Contact = await dbContext.Contacts.Include(c=>c.ContactOnlines).FirstOrDefaultAsync(dr => dr.IsShow),
+                Contact = await dbContext.Contacts.Include(c=>c.ContactOnlines).FirstOrDefaultAsync(dr => dr.IsShow),
                 Services = await dbContext.Services.ToListAsync(),
                 Referances = await dbContext.Referances.ToListAsync()
             };
+
+            
 
             ViewBag.ImageData = PartfolioImages.AllImage();
             ViewBag.WorkImage = PartfolioImages.WorkImage();

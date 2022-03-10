@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310112847_CreateTableTagAndManyToManyRelationAndUnique")]
+    partial class CreateTableTagAndManyToManyRelationAndUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,10 +37,6 @@ namespace ParfolioWebSiteView.Migrations
 
                     b.Property<bool>("IsShow")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MainSkill")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(75)")
@@ -170,19 +168,14 @@ namespace ParfolioWebSiteView.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsShow")
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(75)")

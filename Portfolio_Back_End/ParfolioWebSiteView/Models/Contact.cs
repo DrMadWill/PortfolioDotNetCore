@@ -11,8 +11,11 @@ namespace ParfolioWebSiteView.Models
         public int Id { get; set; }
         [MaxLength(75)]
         public string PhoneNumber { get; set; }
+        [MaxLength(150)]
         public string Email { get; set; }
+        [MaxLength(300)]
         public string Location { get; set; }
+        public string Description { get; set; }
         public List<ContactOnline> ContactOnlines { get; set; }
         public bool IsShow { get; set; }
 

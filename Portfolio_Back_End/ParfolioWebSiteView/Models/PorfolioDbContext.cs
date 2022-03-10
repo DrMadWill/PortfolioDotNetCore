@@ -10,6 +10,7 @@ namespace ParfolioWebSiteView.Models
     {
         public PorfolioDbContext(DbContextOptions<PorfolioDbContext> dbContext) : base(dbContext) { }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<DetailImage> DetailImages { get; set; }
         public DbSet<Home> Homes { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Achievements> Achievements { get; set; }
@@ -24,6 +25,8 @@ namespace ParfolioWebSiteView.Models
         public DbSet<Service> Services { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillCode> SkillCodes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<BlogToTag> BlogToTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +38,45 @@ namespace ParfolioWebSiteView.Models
             modelBuilder.Entity<Blog>()
                 .Property(b => b.Date)
                 .HasDefaultValueSql("getdate()");
+
+
+            //Unique Key
+            modelBuilder.Entity<BlogCategory>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<PortfolioCategory>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Skill>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<SkillCode>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Service>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Tag>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<BlogToTag>()
+                .HasKey(x => new { x.TagId,x.BlogId});
+
+            modelBuilder.Entity<BlogToTag>()
+                .HasOne(x => x.Tag)
+                .WithMany(y => y.BlogToTags)
+                .HasForeignKey(fk => fk.TagId);
+            modelBuilder.Entity<BlogToTag>()
+                .HasOne(x => x.Blog)
+                .WithMany(y => y.BlogToTags)
+                .HasForeignKey(fk => fk.BlogId);
+
         }
 
     }

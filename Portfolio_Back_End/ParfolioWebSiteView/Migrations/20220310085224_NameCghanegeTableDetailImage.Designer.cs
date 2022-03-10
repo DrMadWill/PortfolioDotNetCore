@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220310085224_NameCghanegeTableDetailImage")]
+    partial class NameCghanegeTableDetailImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,10 +37,6 @@ namespace ParfolioWebSiteView.Migrations
 
                     b.Property<bool>("IsShow")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MainSkill")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(75)")
@@ -141,26 +139,7 @@ namespace ParfolioWebSiteView.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
-
                     b.ToTable("BlogCategories");
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.BlogToTag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TagId", "BlogId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogToTags");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Contact", b =>
@@ -170,19 +149,14 @@ namespace ParfolioWebSiteView.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsShow")
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(75)")
@@ -310,13 +284,9 @@ namespace ParfolioWebSiteView.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("PortfolioCategories");
                 });
@@ -389,9 +359,6 @@ namespace ParfolioWebSiteView.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Services");
                 });
 
@@ -413,9 +380,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AboutId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Skills");
                 });
@@ -443,30 +407,7 @@ namespace ParfolioWebSiteView.Migrations
 
                     b.HasIndex("AboutId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("SkillCodes");
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Blog", b =>
@@ -474,21 +415,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasOne("ParfolioWebSiteView.Models.BlogCategory", "BlogCategory")
                         .WithMany("Blogs")
                         .HasForeignKey("BlogCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.BlogToTag", b =>
-                {
-                    b.HasOne("ParfolioWebSiteView.Models.Blog", "Blog")
-                        .WithMany("BlogToTags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParfolioWebSiteView.Models.Tag", "Tag")
-                        .WithMany("BlogToTags")
-                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

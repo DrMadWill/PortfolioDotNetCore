@@ -18,5 +18,6 @@ namespace ParfolioWebSiteView.Models
         public BlogCategory BlogCategory { get; set; }
         public int BlogCategoryId { get; set; }
 
+        public List<BlogToTag> BlogToTags { get; set; }
     }
 }
