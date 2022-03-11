@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.Models
 {
-    public class PorfolioDbContext : DbContext
+    public class PorfolioDbContext : IdentityDbContext<User>
     {
         public PorfolioDbContext(DbContextOptions<PorfolioDbContext> dbContext) : base(dbContext) { }
-        public DbSet<Admin> Admins { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<DetailImage> DetailImages { get; set; }
         public DbSet<Home> Homes { get; set; }
         public DbSet<About> Abouts { get; set; }
@@ -30,7 +32,9 @@ namespace ParfolioWebSiteView.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Portfolio>()
                 .Property(b => b.Date)
                 .HasDefaultValueSql("getdate()");

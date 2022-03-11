@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using ParfolioWebSiteView.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace ParfolioWebSiteView
 {
@@ -30,6 +32,17 @@ namespace ParfolioWebSiteView
             {
                 option.UseSqlServer(Configuration.GetConnectionString("Defaultdb"));
             });
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<PorfolioDbContext>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +59,8 @@ namespace ParfolioWebSiteView
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -57,6 +70,11 @@ namespace ParfolioWebSiteView
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "Admin",
+                    pattern: "{controller=Account}/{action=Index}/{id?}");
+
             });
         }
     }
