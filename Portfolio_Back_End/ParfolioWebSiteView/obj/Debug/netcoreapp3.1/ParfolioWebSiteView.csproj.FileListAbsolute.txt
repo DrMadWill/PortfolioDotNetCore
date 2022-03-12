@@ -190,3 +190,12 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Debug\netcoreapp3.1\PagedList.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Debug\netcoreapp3.1\PagedList.Mvc.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Account\List.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\_ViewImports.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\_ViewStart.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_AdminLayout.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Create.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\List.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Update.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\System\Error404.cshtml.g.cs

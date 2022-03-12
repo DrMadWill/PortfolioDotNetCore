@@ -40,6 +40,9 @@ namespace ParfolioWebSiteView
             {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             });
 
@@ -62,7 +65,6 @@ namespace ParfolioWebSiteView
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -73,7 +75,7 @@ namespace ParfolioWebSiteView
 
                 endpoints.MapControllerRoute(
                     name: "Admin",
-                    pattern: "{controller=Account}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Account}/{action=List}/{id?}");
 
             });
         }

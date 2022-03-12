@@ -1,0 +1,127 @@
+﻿
+@model IList<User>
+
+@{ 
+    ViewData["Title"] = "Account List";
+}
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <h4 class="header-title ">Progress Table</h4>
+                        <button type="button" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></button>
+                    </div>
+                    
+                    <div class="single-table">
+                        <div class="table-responsive">
+                            <table class="table table-hover progress-table text-center">
+                                <thead class="text-uppercase">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">task</th>
+                                        <th scope="col">Deadline</th>
+                                        <th scope="col">Progress</th>
+                                        <th scope="col">status</th>
+                                        <th scope="col">action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>09 / 07 / 2018</td>
+                                        <td>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="status-p bg-primary">pending</span></td>
+                                        <td>
+                                            <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Mark</td>
+                                        <td>09 / 07 / 2018</td>
+                                        <td>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="status-p bg-warning">pending</span></td>
+                                        <td>
+                                            <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Mark</td>
+                                        <td>09 / 07 / 2018</td>
+                                        <td>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="status-p bg-success">complate</span></td>
+                                        <td>
+                                            <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Mark</td>
+                                        <td>09 / 07 / 2018</td>
+                                        <td>
+                                            <div class="progress" style="height: 8px;">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="status-p bg-warning">panding</span></td>
+                                        <td>
+                                            <ul class="d-flex justify-content-center">
+                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ul class="pagination mt-2">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Progress Table end -->
+    </div>
+</div>
+
+
