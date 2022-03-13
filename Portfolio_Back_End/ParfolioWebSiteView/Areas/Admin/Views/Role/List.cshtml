@@ -1,13 +1,13 @@
-﻿@model IList<IdentityRole>
+﻿@model RoleListVM
 
 @{
     ViewData["Title"] = "Role List";
 }
 <div class="main-content-inner">
     <div class="row">
-        @if (TempData["RoleAlert"]!=null)
+        @if (TempData["RoleAlert"] != null)
         {
-            <div class="col-12 alert-dismiss">
+            <div class="col-12 mt-2 alert-dismiss">
                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
                     @TempData["RoleAlert"].ToString()
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -36,7 +36,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.Roles)
                                     {
                                         <tr>
                                             <th scope="row">@item.Id</th>
@@ -51,23 +51,35 @@
                                     }
                                 </tbody>
                             </table>
-                            <ul class="pagination mt-2">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            @*@Html.PagedListPager(Model, page => Url.Action("List", new { page }));*@
+
+                        <ul class="pagination mt-2">
+                            <li class="page-item">
+                                <a class="page-link" href="/Admin/Role/List/@Model.Previous" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+
+                            @for (int i = 1; i <= Model.TotalPaged; i++)
+                            {
+                                if (i == Model.CurrentPage)
+                                {
+                                    <li class="page-item active"><button type="button" class="page-link">@i</button></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="/Admin/Role/List/@i">@i</a></li>
+                                }
+                            }
+
+                            <li class="page-item">
+                                <a class="page-link" href="/Admin/Role/List/@Model.Nextviews" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
                         </div>
                     </div>
                 </div>

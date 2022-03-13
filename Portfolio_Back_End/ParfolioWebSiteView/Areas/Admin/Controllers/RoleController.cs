@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PagedList;
+using PagedList.Mvc;
+using ParfolioWebSiteView.Areas.Admin.ViewModes;
 
 namespace ParfolioWebSiteView.Areas.Admin.Controllers
 {
@@ -22,10 +25,14 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
             roleManager = _roleManager;
         }
 
-
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List(int? id)
         {
-            var role = await roleManager.Roles.ToListAsync();
+            RoleListVM role = new RoleListVM
+            {
+                Roles = (await roleManager.Roles.ToListAsync()).ToPagedList(id ?? 1, 10),
+                CurrentPage = id ?? 1
+            };
+            role.PagedCount(role.Roles.TotalItemCount, 10);
             return View(role);
         }
 
@@ -37,6 +44,7 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IdentityRole role)
         {
 
@@ -67,6 +75,7 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(IdentityRole role)
         {
             // Empty
@@ -104,6 +113,7 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
             return Redirect("/Admin/Role/List");
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
             // Empty 
