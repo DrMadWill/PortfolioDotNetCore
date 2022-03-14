@@ -156,14 +156,10 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(string id)
         {
-            if(string.IsNullOrEmpty(id)) return Redirect("/Admin/System/Error404");
+            if(string.IsNullOrEmpty(id)) return Redirect("/System/Error404");
 
             var user = await userManager.FindByIdAsync(id);
-            if(user == null)
-            {
-                TempData["UserAlert"] = " User Not Found";
-                return Redirect("/Admin/Account/List");
-            }
+            if(user == null) return Redirect("/System/Error404");
 
             User_CU_VM user_CU = new User_CU_VM
             {
@@ -184,7 +180,7 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(User_CU_VM user_CU)
         {
-            if (string.IsNullOrEmpty(user_CU.Id)) return Redirect("/Admin/System/Error404");
+            if (string.IsNullOrEmpty(user_CU.Id)) return Redirect("/System/Error404");
 
             if (!ModelState.IsValid)
             {
@@ -330,10 +326,10 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-            if(string.IsNullOrEmpty(id))  return Redirect("/Admin/System/Error404");
+            if(string.IsNullOrEmpty(id))  return Redirect("/System/Error404");
             // Find User
             var user = await userManager.FindByIdAsync(id);
-            if(user ==null) return Redirect("/Admin/System/Error404");
+            if(user ==null) return Redirect("/System/Error404");
             
             // All Role Delete
             var userToRole = await dbContext.UserRoles.Where(dr => dr.UserId == user.Id).Select(x=>x.RoleId).ToListAsync();

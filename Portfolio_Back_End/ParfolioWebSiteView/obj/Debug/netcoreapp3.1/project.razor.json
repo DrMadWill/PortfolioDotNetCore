@@ -14462,6 +14462,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Account\\Create.cshtml",
+      "TargetPath": "Areas\\Admin\\Views\\Account\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\_ViewImports.cshtml",
       "TargetPath": "Areas\\Admin\\_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -14469,6 +14474,11 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
       "TargetPath": "Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Account\\Update.cshtml",
+      "TargetPath": "Areas\\Admin\\Views\\Account\\Update.cshtml",
       "FileKind": "mvc"
     },
     {

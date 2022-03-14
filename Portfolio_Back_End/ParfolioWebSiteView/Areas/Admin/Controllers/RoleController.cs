@@ -68,9 +68,9 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         public async Task<IActionResult> Update(string Id)
         {
 
-            if (Id == null)  return Redirect("/Admin/System/Error404");
+            if (Id == null)  return Redirect("/System/Error404");
             var role = await roleManager.FindByIdAsync(Id);
-            if (role == null)  return Redirect("/Admin/System/Error404");
+            if (role == null)  return Redirect("/System/Error404");
             return View(role);
         }
 
@@ -87,7 +87,7 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
 
             // NotFound Id
             var roleDb = await roleManager.FindByIdAsync(role.Id);
-            if (roleDb == null) return Redirect("/Admin/System/Error404");
+            if (roleDb == null) return Redirect("/System/Error404");
 
 
             // Already Added
@@ -117,18 +117,18 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             // Empty 
-            if (id == null) return Redirect("/Admin/System/Error404");
+            if (id == null) return Redirect("/System/Error404");
 
             // Check Role
             var role = await roleManager.FindByIdAsync(id);
-            if(role ==null) return Redirect("/Admin/System/Error404");
+            if(role ==null) return Redirect("/System/Error404");
 
             // Check Role To Users
             var roletoUser = await dbContext.UserRoles.FirstOrDefaultAsync(dr => dr.RoleId == role.Id);
-            if (roletoUser != null) return Redirect("/Admin/System/Error404");
+            if (roletoUser != null) return Redirect("/System/Error404");
             // Delete
             var resault = await roleManager.DeleteAsync(role);
-            if(!resault.Succeeded) return Redirect("/Admin/System/Error404");
+            if(!resault.Succeeded) return Redirect("/System/Error404");
             TempData["RoleAlert"] = role.Name + " .Role Deleted.";
             return Redirect("/Admin/Role/List");
         }
