@@ -1,8 +1,8 @@
-﻿@{
+﻿@model SignUpVM
+
+@{
     Layout = null;
 }
-
-@model SignInVM
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -34,7 +34,6 @@
 
 <body>
 
-
     <!-- preloader area start -->
     <div id="preloader">
         <div class="loader"></div>
@@ -46,19 +45,50 @@
             <div class="login-box ptb--100">
                 <form method="post">
                     <div class="login-form-head">
-                        <h4>Sign In</h4>
-                        <p>Hello there, Sign in and start managing your Admin Template</p>
+                        <h4>Sign up</h4>
+                        <p>Hello there, Sign up and Join with Us</p>
                     </div>
                     <div class="login-form-body">
                         @if (ViewBag.IsShowing)
                         {
                             <div class="text-danger mb-3" asp-validation-summary="All"></div>
                         }
+
+                        <div class="form-gp">
+                            <label asp-for="FirstName">First Name</label>
+                            <input type="text" asp-for="FirstName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="FirstName" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="LastName">Last Name</label>
+                            <input type="text" asp-for="LastName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="LastName" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="UserName">User Name</label>
+                            <input type="text" asp-for="UserName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="UserName" class="d-block text-danger"></span>
+                        </div>
                         <div class="form-gp">
                             <label asp-for="Email">Email address</label>
                             <input type="email" asp-for="Email">
                             <i class="ti-email"></i>
                             <span asp-validation-for="Email" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-group px-3 row">
+                            <label class="col-12">Gender</label>
+                            <span asp-validation-for="Gender" class="d-block text-danger"></span>
+                            <div class="custom-control col-6 custom-radio">
+                                <input type="radio" checked asp-for="Gender" id="Male" value="@bool.TrueString" class="custom-control-input">
+                                <label class="custom-control-label" for="Male">Male</label>
+                            </div>
+                            <div class="custom-control col-6 custom-radio">
+                                <input type="radio" asp-for="Gender" id="Famale" value="@bool.FalseString" class="custom-control-input">
+                                <label class="custom-control-label" for="Famale">Famale</label>
+                            </div>
                         </div>
                         <div class="form-gp">
                             <label asp-for="Password">Password</label>
@@ -66,22 +96,25 @@
                             <i class="ti-lock"></i>
                             <span asp-validation-for="Password" class="d-block text-danger"></span>
                         </div>
-                        <div class="row mb-4 rmber-area">
-                            <div class="col-6">
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" asp-for="RememberMe">
-                                    <label class="custom-control-label" asp-for="RememberMe">Remember Me</label>
-                                </div>
-                            </div>
-                            <div class="col-6 text-right">
-                                <a href="#">Forgot Password?</a>
-                            </div>
+                        <div class="form-gp">
+                            <label asp-for="ConfirmPassword">Confirm Password</label>
+                            <input type="password" asp-for="ConfirmPassword">
+                            <i class="ti-lock"></i>
+                            <span asp-validation-for="ConfirmPassword" class="d-block text-danger"></span>
                         </div>
                         <div class="submit-btn-area">
                             <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+                            <div class="login-other row mt-4">
+                                <div class="col-6">
+                                    <a class="fb-login" href="#">Sign up with <i class="fa fa-facebook"></i></a>
+                                </div>
+                                <div class="col-6">
+                                    <a class="google-login" href="#">Sign up with <i class="fa fa-google"></i></a>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="/Signin/Register">Sign up</a></p>
+                            <p class="text-muted">Don't have an account? <a href="/Signin/Login">Sign in</a></p>
                         </div>
                     </div>
                 </form>
@@ -106,3 +139,6 @@
 </body>
 
 </html>
+
+
+

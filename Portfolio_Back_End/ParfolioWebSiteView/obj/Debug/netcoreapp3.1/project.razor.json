@@ -14432,6 +14432,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\System\\Error500.cshtml",
+      "TargetPath": "Views\\System\\Error500.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\System\\Error404.cshtml",
+      "TargetPath": "Views\\System\\Error404.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -14439,6 +14449,11 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\_ViewStart.cshtml",
       "TargetPath": "Areas\\Admin\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Signin\\Login.cshtml",
+      "TargetPath": "Views\\Signin\\Login.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14454,11 +14469,6 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Role\\List.cshtml",
       "TargetPath": "Areas\\Admin\\Views\\Role\\List.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\System\\Error404.cshtml",
-      "TargetPath": "Areas\\Admin\\Views\\System\\Error404.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14499,6 +14509,11 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\System\\Error403.cshtml",
+      "TargetPath": "Views\\System\\Error403.cshtml",
       "FileKind": "mvc"
     }
   ],
