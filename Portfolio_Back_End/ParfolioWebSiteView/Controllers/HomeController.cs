@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using ParfolioWebSiteView.Models;
 using ParfolioWebSiteView.ViewModels;
 using System;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,50 +17,68 @@ namespace ParfolioWebSiteView.Controllers
     {
 
         private readonly PorfolioDbContext dbContext;
+        private readonly UserManager<User> userManager;
 
-        public HomeController(PorfolioDbContext _dbContext)
+        public HomeController(PorfolioDbContext _dbContext,UserManager<User> _userManager)
         {
             dbContext = _dbContext;
+            userManager = _userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string id)
         {
-            
-            IndexVM index = new IndexVM
+            string username = id;
+            User user = null;
+            if (string.IsNullOrEmpty(username))
             {
-                Home = await dbContext.Homes.FirstOrDefaultAsync(dr => dr.IsShow),
-                Achievements = await dbContext.Achievements.ToListAsync(),
-                About = await dbContext.Abouts.Include(x=>x.Skills).Include(x=>x.SkillCodes).FirstOrDefaultAsync(dr => dr.IsShow),
-                Blogs = await dbContext.Blogs.Include(x=>x.BlogCategory).ToListAsync(),
-                Portfolios = await dbContext.Portfolios.Include(x=>x.PortfolioCategory).ToListAsync(),
-                Contact = await dbContext.Contacts.Include(c=>c.ContactOnlines).FirstOrDefaultAsync(dr => dr.IsShow),
-                Services = await dbContext.Services.ToListAsync(),
-                Referances = await dbContext.Referances.ToListAsync()
-            };
+                user = await userManager.FindByNameAsync("DrMadWill");
+            }
+            else
+            {
+                user = await userManager.FindByNameAsync(username);
+                if (user == null) return NotFound();
+            }
 
+            var data = await dbContext.User
+                .Include(h => h.Home)
+                .Include(a => a.About).Include(sk => sk.About.Skills).Include(x => x.About.SkillCodes)
+                .Include(ac => ac.Achievements)
+                .Include(c=>c.Contact).Include(c => c.Contact.ContactOnlines)
+                .Include(s=>s.Services)
+                .Include(r=>r.Referances)
+                .FirstOrDefaultAsync(dr=>dr.Id== user.Id);
+
+            data.BlogsVM = await dbContext.Blogs
+                .Where(dr => dr.UserId == user.Id).Include(x => x.BlogCategory).ToListAsync();
+            data.PortfoliosVM = await dbContext.Portfolios
+                .Where(dr => dr.UserId == user.Id).Include(x => x.PortfolioCategory).ToListAsync();
+            return View(data);
+        }
+
+        public async Task<IActionResult> SinglePage(int? id)
+        {
+            if (id == null) return NotFound();
+            var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id == id);
             
 
-            ViewBag.ImageData = PartfolioImages.AllImage();
-            ViewBag.WorkImage = PartfolioImages.WorkImage();
-            ViewBag.Testimonials = PartfolioImages.Testimonials();
-            ViewBag.PartfolioServices = PartfolioImages.PartfolioServices();
-            return View(index);
-        }
 
-        public IActionResult SinglePage()
-        {
             return View();
         }
 
-        public IActionResult PortfolioSinglePage()
+        public async Task<IActionResult> PortfolioSinglePage(int? id)
         {
-            return View();
+            if (id == null) return NotFound();
+            var portfolio = await dbContext.Portfolios
+                .Include(x => x.PortfolioCategory)
+                .Include(s=>s.User)
+                .Include(x => x.PortfolioDetail)
+                .ThenInclude(x => x.DetailImages)
+                .FirstOrDefaultAsync(dr => dr.Id == id);
+            if (portfolio == null) NotFound();
+            return View(portfolio);
         }
 
-        public IActionResult PortfolioDetails()
-        {
-            return View();
-        }
+       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -21,7 +21,7 @@ namespace ParfolioWebSiteView.Models
         [Required]
         public string Icon { get; set; }
         public Contact Contact { get; set; }
-        public int ContactId { get; set; }
+        public string ContactId { get; set; }
 
     }
 }

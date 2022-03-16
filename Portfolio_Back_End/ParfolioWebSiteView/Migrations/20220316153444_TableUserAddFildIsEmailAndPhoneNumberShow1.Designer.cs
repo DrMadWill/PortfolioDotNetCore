@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220316153444_TableUserAddFildIsEmailAndPhoneNumberShow1")]
+    partial class TableUserAddFildIsEmailAndPhoneNumberShow1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,8 +219,7 @@ namespace ParfolioWebSiteView.Migrations
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(350)")
-                        .HasMaxLength(350);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -258,19 +259,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.ToTable("BlogCategories");
                 });
 
-            modelBuilder.Entity("ParfolioWebSiteView.Models.BlogDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("ntext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BlogDetails");
-                });
-
             modelBuilder.Entity("ParfolioWebSiteView.Models.BlogToTag", b =>
                 {
                     b.Property<int>("TagId")
@@ -284,34 +272,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasIndex("BlogId");
 
                     b.ToTable("BlogToTags");
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.Commet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BlogDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("ntext");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogDetailsId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Commets");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Contact", b =>
@@ -413,41 +373,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Homes");
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.MessengeUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("ntext");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MessengeUsers");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Portfolio", b =>
@@ -828,15 +753,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ParfolioWebSiteView.Models.BlogDetails", b =>
-                {
-                    b.HasOne("ParfolioWebSiteView.Models.Blog", "Blog")
-                        .WithOne("BlogDetails")
-                        .HasForeignKey("ParfolioWebSiteView.Models.BlogDetails", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ParfolioWebSiteView.Models.BlogToTag", b =>
                 {
                     b.HasOne("ParfolioWebSiteView.Models.Blog", "Blog")
@@ -850,19 +766,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.Commet", b =>
-                {
-                    b.HasOne("ParfolioWebSiteView.Models.BlogDetails", "BlogDetails")
-                        .WithMany("Commets")
-                        .HasForeignKey("BlogDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ParfolioWebSiteView.Models.User", "User")
-                        .WithMany("Commets")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Contact", b =>
@@ -897,13 +800,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasForeignKey("ParfolioWebSiteView.Models.Home", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ParfolioWebSiteView.Models.MessengeUser", b =>
-                {
-                    b.HasOne("ParfolioWebSiteView.Models.User", "User")
-                        .WithMany("MessengeUsers")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Portfolio", b =>

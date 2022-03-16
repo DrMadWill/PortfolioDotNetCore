@@ -19,5 +19,9 @@ namespace ParfolioWebSiteView.Models
         [Required]
         [MaxLength(150)]
         public string Image { get; set; }
+
+        public User User { get; set; }
+        public string UserId { get; set; }
+
     }
 }

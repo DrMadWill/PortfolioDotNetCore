@@ -9,13 +9,10 @@ namespace ParfolioWebSiteView.Models
 {
     public class About
     {
-        public int Id { get; set; }
+        [ForeignKey("User")]
+        public string Id { get; set; }
+        public User User { get; set; }
         
-
-        [MaxLength(200)]
-        public string Image { get; set; }
-        [MaxLength(75)]
-        public string Name { get; set; }
         [Column(TypeName ="ntext")]
         public string Descriptoion { get; set; }
         [MaxLength(150)]

@@ -15,7 +15,7 @@ namespace ParfolioWebSiteView.Models
         public string Name { get; set; }
 
         public About About { get; set; }
-        public int AboutId { get; set; }
+        public string AboutId { get; set; }
 
     }
 }

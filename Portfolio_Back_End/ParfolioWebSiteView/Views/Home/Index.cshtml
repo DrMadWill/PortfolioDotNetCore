@@ -1,4 +1,4 @@
-﻿@model IndexVM
+﻿@model User
 @using System.Text;
 
 @{
@@ -51,31 +51,53 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-md-5">
                                         <div class="about-img">
-                                            <img src="~/img/About/@Model.About.Image" class="img-fluid rounded b-shadow-a" alt="">
+                                            <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-7">
                                         <div class="about-info">
-                                            <p><span class="title-s">Name: </span> <span>@Model.About.Name</span></p>
+                                            <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
                                             <p>
                                                 <span class="title-s">Skill: </span>
                                                 <span class="mx-2"> @Model.About.MainSkill</span>
                                             </p>
-                                            <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
-                                            <p><span class="title-s">Phone: </span> <span>@Model.Contact.PhoneNumber</span></p>
+                                            @if (Model.IsEmailAndPhoneNumberShow)
+                                            {
+                                                <p><span class="title-s">Email: </span> <span>@Model.Email</span></p>
+                                                if (Model.PhoneNumber != null)
+                                                {
+                                                    <p><span class="title-s">Phone: </span> <span>@Model.PhoneNumber</span></p>
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (Model.Contact.Email != null)
+                                                {
+                                                    <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
+                                                }
+                                                if (Model.Contact.PhoneNumber != null)
+                                                {
+                                                    <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
+                                                }
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="skill-mf">
-                                    <p class="title-s">Code Skill</p>
-                                    @foreach (var item in Model.About.SkillCodes)
-                                    {
-                                        <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    }
-                                </div>
+                                @if (Model.About.SkillCodes.Count != 0)
+                                {
+                                    <div class="skill-mf">
+                                        <p class="title-s">Code Skill</p>
+                                        @foreach (var item in Model.About.SkillCodes)
+                                        {
+                                            <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                             <div class="col-md-6">
                                 <div class="about-me pt-4 pt-md-0">
@@ -94,216 +116,228 @@
         </div>
     </section><!-- End About Section -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services-mf pt-5 route">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="title-box text-center">
-                        <h3 class="title-a">
-                            Services
-                        </h3>
-                        <p class="subtitle-a">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                        </p>
-                        <div class="line-mf"></div>
+    @if (Model.Services.Count != 0)
+    {
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services-mf pt-5 route">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box text-center">
+                            <h3 class="title-a">
+                                Services
+                            </h3>
+                            <p class="subtitle-a">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            </p>
+                            <div class="line-mf"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.Services)
+                    {
+                        <div class="col-md-4">
+                            <div class="service-box">
+                                <div class="service-ico">
+                                    <span class="ico-circle"> @Html.Raw(item.Icon)</span>
+                                </div>
+                                <div class="service-content">
+                                    <h2 class="s-title">@item.Name</h2>
+                                    <p class="s-description text-center">
+                                        @item.Descriptoion
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section><!-- End Services Section -->
+    }
+
+    @if (Model.Achievements.Count != 0)
+    {
+        <!-- ======= Counter Section ======= -->
+        <div class="section-counter paralax-mf bg-image" style="background-image: url(/img/counters-bg.jpg) ">
+            <div class="overlay-mf"></div>
+            <div class="container position-relative">
+                <div class="row">
+
+                    @foreach (var item in Model.Achievements)
+                    {
+                        <div class="col-sm-3 col-lg-3">
+                            <div class="counter-box counter-box pt-4 pt-md-0">
+                                <div class="counter-ico">
+                                    <span class="ico-circle">@Html.Raw(item.Icon)</span>
+                                </div>
+                                <div class="counter-num">
+                                    <p data-purecounter-start="0" data-purecounter-end="@item.Count" data-purecounter-duration="1" class="counter purecounter"></p>
+                                    <span class="counter-text">@item.Name</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            </div>
+        </div><!-- End Counter Section -->
+    }
+
+    @if (Model.PortfoliosVM.Count != 0)
+    {
+        <!-- ======= Portfolio Section ======= -->
+        <section id="work" class="portfolio-mf sect-pt4 route">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box text-center">
+                            <h3 class="title-a">
+                                Portfolio
+                            </h3>
+                            <p class="subtitle-a">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            </p>
+                            <div class="line-mf"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    @foreach (var work in Model.PortfoliosVM)
+                    {
+
+                        <div class="col-md-4">
+                            <div class="work-box">
+                                <a href="~/img/Porfolio/@work.Image" data-gallery="portfolioGallery" class="portfolio-lightbox">
+                                    <div class="work-img">
+                                        <img src="~/img/Porfolio/@work.Image" alt="" class="img-fluid">
+                                    </div>
+                                </a>
+                                <div class="work-content">
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <h2 class="w-title">@work.Title</h2>
+                                            <div class="w-more">
+                                                <span class="w-ctegory">@work.PortfolioCategory.Name</span> / <span class="w-date">18 Sep. 2018</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="w-like">
+                                                <a href="/Home/PortfolioSinglePage/@work.Id"> <span class="bi bi-plus-circle"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </section><!-- End Portfolio Section -->
+    }
+
+    @if (Model.Referances.Count != 0)
+    {
+        <!-- ======= Testimonials Section ======= -->
+        <div class="testimonials paralax-mf bg-image" style="background-image: url(/img/overlay-bg.jpg)">
+            <div class="overlay-mf"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                            <div class="swiper-wrapper">
+                                @foreach (var item in Model.Referances)
+                                {
+
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-box">
+                                            <div class="author-test">
+                                                <img style="width:100px;height:auto;" src="~/img/@item.Image" alt="" class="rounded-circle b-shadow-a">
+                                                <span class="author">@item.Name</span>
+                                            </div>
+                                            <div class="content-test">
+                                                <p class="description lead">
+                                                    @item.Title
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div><!-- End testimonial item -->
+                                }
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+
+                        <!-- <div id="testimonial-mf" class="owl-carousel owl-theme">
+
+                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="row">
-                @foreach (var item in Model.Services)
-                {
-                    <div class="col-md-4">
-                        <div class="service-box">
-                            <div class="service-ico">
-                                <span class="ico-circle"> @Html.Raw(item.Icon)</span>
-                            </div>
-                            <div class="service-content">
-                                <h2 class="s-title">@item.Name</h2>
-                                <p class="s-description text-center">
-                                    @item.Descriptoion
-                                </p>
-                            </div>
+        </div><!-- End Testimonials Section -->
+    }
+
+    @if (Model.BlogsVM.Count != 0)
+    {
+        <!-- ======= Blog Section ======= -->
+        <section id="blog" class="blog-mf sect-pt4 route">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="title-box text-center">
+                            <h3 class="title-a">
+                                Blog
+                            </h3>
+                            <p class="subtitle-a">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            </p>
+                            <div class="line-mf"></div>
                         </div>
-                    </div>
-                }
-
-            </div>
-        </div>
-    </section><!-- End Services Section -->
-
-    <!-- ======= Counter Section ======= -->
-    <div class="section-counter paralax-mf bg-image" style="background-image: url(/img/counters-bg.jpg) ">
-        <div class="overlay-mf"></div>
-        <div class="container position-relative">
-            <div class="row">
-
-                @foreach (var item in Model.Achievements)
-                {
-                    <div class="col-sm-3 col-lg-3">
-                        <div class="counter-box counter-box pt-4 pt-md-0">
-                            <div class="counter-ico">
-                                <span class="ico-circle">@Html.Raw(item.Icon)</span>
-                            </div>
-                            <div class="counter-num">
-                                <p data-purecounter-start="0" data-purecounter-end="@item.Count" data-purecounter-duration="1" class="counter purecounter"></p>
-                                <span class="counter-text">@item.Name</span>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-
-
-            </div>
-        </div>
-    </div><!-- End Counter Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="work" class="portfolio-mf sect-pt4 route">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="title-box text-center">
-                        <h3 class="title-a">
-                            Portfolio
-                        </h3>
-                        <p class="subtitle-a">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                        </p>
-                        <div class="line-mf"></div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-
-
-                @foreach (var work in Model.Portfolios)
-                {
-
-                    <div class="col-md-4">
-                        <div class="work-box">
-                            <a href="~/img/Porfolio/@work.Image" data-gallery="portfolioGallery" class="portfolio-lightbox">
-                                <div class="work-img">
-                                    <img src="~/img/Porfolio/@work.Image" alt="" class="img-fluid">
+                <div class="row">
+                    @foreach (var item in Model.BlogsVM)
+                    {
+                        <div class="col-md-4">
+                            <div class="card card-blog">
+                                <div class="card-img">
+                                    <a asp-controller="Home" asp-action="SinglePage"><img src="~/img/Blog/@item.Image" alt="" class="img-fluid"></a>
                                 </div>
-                            </a>
-                            <div class="work-content">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <h2 class="w-title">@work.Title</h2>
-                                        <div class="w-more">
-                                            <span class="w-ctegory">@work.PortfolioCategory.Name</span> / <span class="w-date">18 Sep. 2018</span>
+                                <div class="card-body">
+                                    <div class="card-category-box">
+                                        <div class="card-category">
+                                            <h6 class="category">@item.BlogCategory.Name</h6>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="w-like">
-                                            <a href="/Home/PortfolioSinglePage"> <span class="bi bi-plus-circle"></span></a>
-                                        </div>
+                                    <h3 class="card-title"><a asp-controller="Home" asp-action="SinglePage">@item.Title</a></h3>
+                                    <p class="card-description">
+                                        @item.Description
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="post-author">
+                                        <a href="#about">
+                                            <img src="~/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
+                                            <span class="author">@Model.FullName</span>
+                                        </a>
+                                    </div>
+                                    <div class="post-date">
+                                        <span class="bi bi-clock"></span> @item.Date
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
 
-            </div>
-        </div>
-    </section><!-- End Portfolio Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <div class="testimonials paralax-mf bg-image" style="background-image: url(/img/overlay-bg.jpg)">
-        <div class="overlay-mf"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-                        <div class="swiper-wrapper">
-
-                            @foreach (var item in Model.Referances)
-                            {
-
-                                <div class="swiper-slide">
-                                    <div class="testimonial-box">
-                                        <div class="author-test">
-                                            <img src="~/img/@item.Image" alt="" class="rounded-circle b-shadow-a">
-                                            <span class="author">@item.Name</span>
-                                        </div>
-                                        <div class="content-test">
-                                            <p class="description lead">
-                                                @item.Title
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div><!-- End testimonial item -->
-                            }
-
-
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-
-                    <!-- <div id="testimonial-mf" class="owl-carousel owl-theme">
-
-                    </div> -->
                 </div>
             </div>
-        </div>
-    </div><!-- End Testimonials Section -->
-
-    <!-- ======= Blog Section ======= -->
-    <section id="blog" class="blog-mf sect-pt4 route">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="title-box text-center">
-                        <h3 class="title-a">
-                            Blog
-                        </h3>
-                        <p class="subtitle-a">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                        </p>
-                        <div class="line-mf"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach (var item in Model.Blogs)
-                {
-                    <div class="col-md-4">
-                        <div class="card card-blog">
-                            <div class="card-img">
-                                <a asp-controller="Home" asp-action="SinglePage"><img src="~/img/Blog/@item.Image" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-category-box">
-                                    <div class="card-category">
-                                        <h6 class="category">@item.BlogCategory.Name</h6>
-                                    </div>
-                                </div>
-                                <h3 class="card-title"><a asp-controller="Home" asp-action="SinglePage">@item.Title</a></h3>
-                                <p class="card-description">
-                                    @item.Description
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="post-author">
-                                    <a href="#about">
-                                        <img src="~/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                                        <span class="author">@Model.About.Name</span>
-                                    </a>
-                                </div>
-                                <div class="post-date">
-                                    <span class="bi bi-clock"></span> @item.Date
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-        </div>
-    </section><!-- End Blog Section -->
+        </section><!-- End Blog Section -->
+    }
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(/img/overlay-bg.jpg)">
@@ -361,30 +395,43 @@
                                             Get in Touch
                                         </h5>
                                     </div>
-                                    <div class="more-info">
-                                        <p class="lead">
-                                            @Model.Contact.Description
-                                        </p>
-                                        <ul class="list-ico">
-                                            <li><span class="bi bi-geo-alt"></span> @Model.Contact.Location</li>
-                                            <li><span class="bi bi-phone"></span> @Model.Contact.PhoneNumber</li>
-                                            <li><span class="bi bi-envelope"></span> @Model.Contact.Email</li>
-                                        </ul>
-                                    </div>
-                                    <div class="socials">
-                                        <ul>
-                                            @foreach (var item in Model.Contact.ContactOnlines)
-                                            {
-                                                <li>
-                                                    <a href="@item.Url">
-                                                        <span class="ico-circle d-flex justify-content-center align-items-center">
-                                                            @Html.Raw(item.Icon)
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
+                                    @if (Model.Contact == null)
+                                    {
+                                        <div class="more-info">
+                                            <p class="lead">
+                                                You Contact Me Herw
+                                            </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="more-info">
+                                            <p class="lead">
+                                                @Model.Contact.Description
+                                            </p>
+                                            <ul class="list-ico">
+                                                <li><span class="bi bi-geo-alt"></span> @Model.Contact.Location</li>
+                                                <li><span class="bi bi-phone"></span> @Model.Contact.PhoneNumber</li>
+                                                <li><span class="bi bi-envelope"></span> @Model.Contact.Email</li>
+                                            </ul>
+                                        </div>
+                                        <div class="socials">
+                                            <ul>
+                                                @foreach (var item in Model.Contact.ContactOnlines)
+                                                {
+                                                    <li>
+                                                        <a href="@item.Url">
+                                                            <span class="ico-circle d-flex justify-content-center align-items-center">
+                                                                @Html.Raw(item.Icon)
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+
+
                                 </div>
                             </div>
                         </div>

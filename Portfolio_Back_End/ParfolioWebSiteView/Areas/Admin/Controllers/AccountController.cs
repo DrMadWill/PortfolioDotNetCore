@@ -34,8 +34,6 @@ namespace ParfolioWebSiteView.Areas.Admin.Controllers
 
         public async Task<IActionResult> List(int? id)
         {
-            var users = await dbContext.UserRoles.ToListAsync();
-
             UserListVM userList = new UserListVM
             {
                 Users = (await userManager.Users.ToListAsync()).ToPagedList(id ?? 1, 10),

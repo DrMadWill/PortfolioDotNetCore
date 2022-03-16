@@ -29,6 +29,9 @@ namespace ParfolioWebSiteView.Models
         public DbSet<SkillCode> SkillCodes { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<BlogToTag> BlogToTags { get; set; }
+        public DbSet<BlogDetails> BlogDetails { get; set; }
+        public DbSet<Commet> Commets { get; set; }
+        public DbSet<MessengeUser> MessengeUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,7 +45,6 @@ namespace ParfolioWebSiteView.Models
             modelBuilder.Entity<Blog>()
                 .Property(b => b.Date)
                 .HasDefaultValueSql("getdate()");
-
 
             //Unique Key
             modelBuilder.Entity<BlogCategory>()
@@ -69,6 +71,7 @@ namespace ParfolioWebSiteView.Models
                 .HasIndex(u => u.Name)
                 .IsUnique();
 
+            // Many To Many
             modelBuilder.Entity<BlogToTag>()
                 .HasKey(x => new { x.TagId,x.BlogId});
 
@@ -76,6 +79,7 @@ namespace ParfolioWebSiteView.Models
                 .HasOne(x => x.Tag)
                 .WithMany(y => y.BlogToTags)
                 .HasForeignKey(fk => fk.TagId);
+
             modelBuilder.Entity<BlogToTag>()
                 .HasOne(x => x.Blog)
                 .WithMany(y => y.BlogToTags)

@@ -11,6 +11,8 @@ namespace ParfolioWebSiteView.Models
     
     public class Portfolio
     {
+
+
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
@@ -25,6 +27,9 @@ namespace ParfolioWebSiteView.Models
         public int PortfolioCategoryId { get; set; }
 
         public PortfolioDetail PortfolioDetail { get; set; }
+
+        public User User { get; set; }
+        public string UserId { get; set; }
 
     }
 }

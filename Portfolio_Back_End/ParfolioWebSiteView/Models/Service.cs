@@ -23,5 +23,9 @@ namespace ParfolioWebSiteView.Models
         [Column(TypeName = "ntext")]
         public string Descriptoion { get; set; }
 
+        public User User { get; set; }
+        public string UserId { get; set; }
+
+
     }
 }

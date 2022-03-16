@@ -24,9 +24,31 @@ namespace ParfolioWebSiteView.Models
         [MinLength(3, ErrorMessage = "So Small LastName")]
         [Required(ErrorMessage = "LastName Required")]
         public string LastName { get; set; }
+
+        [NotMapped]
+        public string FullName { get { return FirstName + " " + LastName; } }
+
         public bool Gender { get; set; }
 
-        
+        public About About { get; set; }
+        public Home Home { get; set; }
+        public Contact Contact { get; set; }
+
+        public bool IsEmailAndPhoneNumberShow { get; set; }
+
+        public IList<Blog> Blogs { get; set; }
+        public IList<Achievements> Achievements { get; set; }
+        public IList<Referance> Referances { get; set; }
+        public IList<Service> Services { get; set; }
+        public IList<Portfolio> Portfolios { get; set; }
+        [NotMapped]
+        public List<Blog> BlogsVM { get; set; }
+
+        [NotMapped]
+        public List<Portfolio> PortfoliosVM { get; set; }
+
+        public IList<Commet> Commets { get; set; }
+        public IList<MessengeUser> MessengeUsers { get; set; }
 
     }
 }
