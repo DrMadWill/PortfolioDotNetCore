@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<User> userManager;
+
+@{
+    User user = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        user = userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -50,13 +59,40 @@
                     <li><a class="nav-link scrollto " asp-fragment="blog" asp-controller="Home" asp-action="Index">Blog</a></li>
                     <li><a class="nav-link scrollto" asp-fragment="contact" asp-controller="Home" asp-action="Index">Contact</a></li>
                     <li class="dropdown">
-                        <a href="#"><i style="font-size:1.5rem;" class="bi bi-person"></i> <i class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
-                        </ul>
+
+                        @if (user == null)
+                        {
+
+                            <a href="/Signin/Login"><i style="font-size:1.5rem;" class="bi bi-person"></i> <i class="bi bi-chevron-down"></i></a>
+                            <ul style="left: -37px !important;" class=" text-center ">
+                                <li><a href="/Signin/Login" class="d-block">Login</a></li>
+
+
+                                <li><a href="/Signin/Register" class="d-block">Register</a></li>
+                            </ul>
+
+                        }
+                        else
+                        {
+                            <a href="#"><i style="font-size:1.5rem;" class="bi bi-person"></i> <i class="bi bi-chevron-down"></i></a>
+                            <ul style="left: -37px !important;" class=" text-center ">
+                                <li>
+                                    <div class="w-50" style="position: relative;
+                                                                left: 50%;
+                                                                transform:translate(-50%,0%);">
+                                        <div>
+                                            <img class="img-fluid rounded-circle" src="~/img/Profile/@user.Image" alt="">
+                                        </div>
+                                        <div>@user.FirstName</div>
+                                    </div>
+                                </li>
+                                <li><a href="#" class="d-block">@user.UserName</a></li>
+                                <li><a href="#" class="d-block">Profil</a></li>
+                                <li><a href="/Signin/LogOut" class="d-block">Log Out</a></li>
+                            </ul>
+                        }
+
+
                     </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

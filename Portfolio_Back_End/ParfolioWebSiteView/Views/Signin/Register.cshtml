@@ -78,17 +78,14 @@
                             <i class="ti-email"></i>
                             <span asp-validation-for="Email" class="d-block text-danger"></span>
                         </div>
-                        <div class="form-group px-3 row">
-                            <label class="col-12">Gender</label>
+
+                        <div class="form-group mb-4">
                             <span asp-validation-for="Gender" class="d-block text-danger"></span>
-                            <div class="custom-control col-6 custom-radio">
-                                <input type="radio" checked asp-for="Gender" id="Male" value="@bool.TrueString" class="custom-control-input">
-                                <label class="custom-control-label" for="Male">Male</label>
-                            </div>
-                            <div class="custom-control col-6 custom-radio">
-                                <input type="radio" asp-for="Gender" id="Famale" value="@bool.FalseString" class="custom-control-input">
-                                <label class="custom-control-label" for="Famale">Famale</label>
-                            </div>
+                            <label asp-for="Gender" class="col-form-label">Gender</label>
+                            <select asp-for="Gender" class="form-control">
+                                <option value="@bool.TrueString">Male</option>
+                                <option value="@bool.FalseString">Falmale</option>
+                            </select>
                         </div>
                         <div class="form-gp">
                             <label asp-for="Password">Password</label>
@@ -121,6 +118,15 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $(".form-gp input").each(function (x) {
+                if ($(this).val() != "") {
+                    $(this).focus()
+                }
+            })
+        })
+    </script>
     <!-- login area end -->
     <!-- jquery latest version -->
     <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>

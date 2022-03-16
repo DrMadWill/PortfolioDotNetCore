@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using ParfolioWebSiteView.Extensions;
 
 namespace ParfolioWebSiteView
 {
@@ -34,8 +35,10 @@ namespace ParfolioWebSiteView
             });
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<PorfolioDbContext>();
+                .AddEntityFrameworkStores<PorfolioDbContext>()
+                .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
 
+            services.AddScoped<IEmailService, EmailServices>();
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
