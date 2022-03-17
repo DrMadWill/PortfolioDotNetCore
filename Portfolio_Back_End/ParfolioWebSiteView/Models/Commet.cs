@@ -21,6 +21,9 @@ namespace ParfolioWebSiteView.Models
         public string UserId { get; set; }
         public BlogDetails BlogDetails { get; set; }
         public int BlogDetailsId { get; set; }
+        public DateTime Date { get; set; }
+
+        public bool IsBlocked { get; set; } = false;
 
     }
 }

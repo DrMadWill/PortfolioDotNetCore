@@ -30,5 +30,7 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = "Subject is required.")]
         [Column(TypeName = "ntext")]
         public string Description { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

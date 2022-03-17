@@ -1,10 +1,10 @@
 /**
-* Template Name: DevFolio - v4.7.1
-* Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-(function() {
+ * Template Name: DevFolio - v4.7.1
+ * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
+ * Author: BootstrapMade.com
+ * License: https://bootstrapmade.com/license/
+ */
+(function () {
   "use strict";
 
   /**
@@ -113,7 +113,7 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
+  on('click', '.mobile-nav-toggle', function (e) {
     select('#navbar').classList.toggle('navbar-mobile')
     this.classList.toggle('bi-list')
     this.classList.toggle('bi-x')
@@ -122,7 +122,7 @@
   /**
    * Mobile nav dropdowns activate
    */
-  on('click', '.navbar .dropdown > a', function(e) {
+  on('click', '.navbar .dropdown > a', function (e) {
     if (select('#navbar').classList.contains('navbar-mobile')) {
       e.preventDefault()
       this.nextElementSibling.classList.toggle('dropdown-active')
@@ -132,7 +132,7 @@
   /**
    * Scrool with ofset on links with a class name .scrollto
    */
-  on('click', '.scrollto', function(e) {
+  on('click', '.scrollto', function (e) {
     if (select(this.hash)) {
       e.preventDefault()
 
@@ -227,3 +227,82 @@
   }
 
 })()
+
+
+document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
+
+  e.addEventListener("mouseenter", function (x) {
+    let parent = document.getElementById(x.target.getAttribute("data-parent"))
+    parent.style.backgroundColor = "yellow"
+  })
+
+  e.addEventListener("mouseleave", function (x) {
+    let parent = document.getElementById(x.target.getAttribute("data-parent"))
+    parent.style.backgroundColor = "white"
+  })
+
+})
+
+
+document.querySelectorAll(".replay").forEach(function (e) {
+
+  e.addEventListener("click", function (x) {
+    x.preventDefault();
+
+    let parent = x.target.parentElement
+    const elemet = x.target
+    let isAdded = elemet.getAttribute("data-add")
+    console.log(isAdded)
+    if(isAdded=="0"){
+      elemet.setAttribute("data-add","1")
+      let userId = x.target.getAttribute("data-userid")
+      let commentId = x.target.getAttribute("data-commentid")
+      parent.appendChild(ComentCreate(userId, commentId))
+
+    // Remove Form
+    document.querySelectorAll(".canceled").forEach(function (e) {
+      e.addEventListener("click", function (x) {
+        let comment = x.target.parentElement.parentElement
+        RemoveForm(comment)
+        elemet.setAttribute("data-add","0")
+      })
+
+    })
+    }
+
+    
+
+
+  })
+})
+
+function ComentCreate(userId, comment) {
+  let form = document.createElement("form")
+  form.setAttribute("class", "d-block mt-3")
+  form.setAttribute("href", "/Location")
+
+  let html = `
+  <div class="mb-3">
+    <div class="form-group">
+      <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+      <input type="hidden" name="userId" value="%user">
+      <input type="hidden" name="commetId" value="%coment">
+    </div>
+  <div class="d-inline-block mt-2" >
+      <button type="submit" class="button button-a button-rouded">Send Message</button>
+  </div>
+  <div class="d-inline-block mt-2">
+      <button type="button" class="button canceled button-a button-rouded">Cancel</button>
+  </div>
+  `
+  html = html.replace("%user", userId)
+  html = html.replace("%coment", comment)
+  form.innerHTML = html
+  return form
+}
+
+function RemoveForm(comment) {
+  let parent = comment.parentElement
+  parent.removeChild(comment)
+
+}

@@ -1,4 +1,4 @@
-﻿
+﻿@model BlogVM
 
 
 @{
@@ -28,8 +28,6 @@
 </div>
 
 
-
-
 <main id="main">
 
     <!-- ======= Blog Single Section ======= -->
@@ -39,131 +37,65 @@
                 <div class="col-md-8">
                     <div class="post-box">
                         <div class="post-thumb">
-                            <img src="assets/img/post-1.jpg" class="img-fluid" alt="">
+                            <img src="~/img/Blog/@Model.Blog.Image" class="img-fluid" alt="">
                         </div>
                         <div class="post-meta">
-                            <h1 class="article-title">Lorem ipsum dolor sit amet consec tetur adipisicing</h1>
+                            <h1 class="article-title">@Model.Blog.Title</h1>
                             <ul>
                                 <li>
                                     <span class="bi bi-person"></span>
-                                    <a href="#">Jason London</a>
+                                    <a href="#">@Model.Blog.User.FullName</a>
                                 </li>
                                 <li>
                                     <span class="bi bi-tag"></span>
-                                    <a href="#">Web Design</a>
+                                    <a href="#">@Model.Blog.BlogCategory.Name</a>
                                 </li>
                                 <li>
                                     <span class="bi bi-chat-left-text"></span>
-                                    <a href="#">14</a>
+                                    <a href="#comment">@Model.Commets.Count</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="article-content">
-                            <p>
-                                Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                porta. Quisque velit
-                                nisi, pretium ut lacinia in, elementum id enim. Praesent sapien massa, convallis a pellentesque
-                                nec, egestas non nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                                cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                Nulla quis lorem ut libero malesuada feugiat.
-                            </p>
-                            <p>
-                                Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna dictum porta. Mauris blandit
-                                aliquet elit, eget tincidunt
-                                nibh pulvinar a. Cras ultricies ligula sed magna dictum porta. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Donec sollicitudin molestie malesuada.
-                            </p>
-                            <p>
-                                Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Praesent
-                                sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at
-                                sem. Donec rutrum congue leo eget malesuada.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat.
-                                Curabitur arcu erat,
-                                accumsan id imperdiet et, porttitor at sem. Vivamus suscipit tortor eget felis porttitor
-                                volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Quisque velit nisi, pretium
-                                ut lacinia in, elementum id enim.
-                            </p>
-                            <blockquote class="blockquote">
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                            </blockquote>
-                            <p>
-                                Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna dictum porta. Mauris blandit
-                                aliquet elit, eget tincidunt
-                                nibh pulvinar a. Cras ultricies ligula sed magna dictum porta. Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Donec sollicitudin molestie malesuada.
-                            </p>
+                            @Html.Raw(Model.Blog.BlogDetails.Description)
                         </div>
                     </div>
-                    <div class="box-comments">
+                    <div id="comment" class="box-comments">
                         <div class="title-box-2">
-                            <h4 class="title-comments title-left">Comments (34)</h4>
+                            <h4 class="title-comments title-left">Comments (@Model.Commets.Count)</h4>
                         </div>
                         <ul class="list-comments">
-                            <li>
-                                <div class="comment-avatar">
-                                    <img src="assets/img/testimonial-2.jpg" alt="">
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="comment-author">Oliver Colmenares</h4>
-                                    <span>18 Sep 2017</span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                        ipsam temporibus maiores
-                                        quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis.
-                                    </p>
-                                    <a href="3">Reply</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="comment-avatar">
-                                    <img src="assets/img/testimonial-4.jpg" alt="">
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="comment-author">Carmen Vegas</h4>
-                                    <span>18 Sep 2017</span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                        ipsam temporibus maiores
-                                        quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis,
-                                        veritatis deserunt.
-                                    </p>
-                                    <a href="3">Reply</a>
-                                </div>
-                            </li>
-                            <li class="comment-children">
-                                <div class="comment-avatar">
-                                    <img src="assets/img/testimonial-2.jpg" alt="">
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="comment-author">Oliver Colmenares</h4>
-                                    <span>18 Sep 2017</span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                        ipsam temporibus maiores
-                                        quae.
-                                    </p>
-                                    <a href="3">Reply</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="comment-avatar">
-                                    <img src="assets/img/testimonial-2.jpg" alt="">
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="comment-author">Oliver Colmenares</h4>
-                                    <span>18 Sep 2017</span>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                        ipsam temporibus maiores
-                                        quae natus libero optio.
-                                    </p>
-                                    <a href="3">Reply</a>
-                                </div>
-                            </li>
+
+                            @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
+                            {
+                                @Model.ChildCommentHtml.Clear()
+
+                                <li>
+                                    <div class="comment-avatar">
+                                        <img src="~/img/Profile/@item.User.Image" alt="">
+                                    </div>
+                                    <div class="comment-details">
+                                        <h4 class="comment-author parent-coment" data-parent="her156">@item.User.FullName</h4>
+                                        <span>@item.Date.ToShortDateString()</span>
+                                        <p>
+                                            @item.Comment
+                                        </p>
+                                        <a data-add="0" data-userid="1565" data-commentid="16" href="3">Reply</a>
+                                    </div>
+                                </li>
+
+                                if (Model.IsParentComment(item.Id))
+                                {
+                                    Model.WriteChildComments(Model.GetParentComments(item.Id));
+
+                                    @Html.Raw(Model.ChildCommentHtml.ToString())
+
+                                }
+
+                            }
+
+
+
                         </ul>
                     </div>
                     <div class="form-comments">
@@ -221,21 +153,13 @@
                         <h5 class="sidebar-title">Recent Post</h5>
                         <div class="sidebar-content">
                             <ul class="list-sidebar">
-                                <li>
-                                    <a href="#">Atque placeat maiores.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem ipsum dolor sit amet consectetur</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Atque placeat maiores nam quo autem</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
+
+                                @foreach (var item in Model.Blogs)
+                                {
+                                    <li>
+                                        <a href="/Home/SinglePage/@item.Id">@item.Title</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -265,24 +189,12 @@
                         <h5 class="sidebar-title">Tags</h5>
                         <div class="sidebar-content">
                             <ul>
-                                <li>
-                                    <a href="#">Web.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Design.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Travel.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Photoshop</a>
-                                </li>
-                                <li>
-                                    <a href="#">Corel Draw</a>
-                                </li>
-                                <li>
-                                    <a href="#">JavaScript</a>
-                                </li>
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <li>
+                                        <a href="#">@item.Name</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>

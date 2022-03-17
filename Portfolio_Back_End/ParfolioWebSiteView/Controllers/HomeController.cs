@@ -49,20 +49,52 @@ namespace ParfolioWebSiteView.Controllers
                 .FirstOrDefaultAsync(dr=>dr.Id== user.Id);
 
             data.BlogsVM = await dbContext.Blogs
-                .Where(dr => dr.UserId == user.Id).Include(x => x.BlogCategory).ToListAsync();
+                .Where(dr => dr.UserId == user.Id)
+                .Include(x => x.BlogCategory)
+                .Take(3)
+                .OrderByDescending(x=>x.Id)
+                .ToListAsync();
             data.PortfoliosVM = await dbContext.Portfolios
-                .Where(dr => dr.UserId == user.Id).Include(x => x.PortfolioCategory).ToListAsync();
+                .Where(dr => dr.UserId == user.Id)
+                .Include(x => x.PortfolioCategory)
+                .Take(3)
+                .OrderByDescending(x=>x.Id)
+                .ToListAsync();
             return View(data);
         }
 
         public async Task<IActionResult> SinglePage(int? id)
         {
             if (id == null) return NotFound();
-            var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id == id);
-            
 
+            var blog = await dbContext.Blogs
+                .Include(x => x.BlogDetails)
+                .Include(x => x.BlogCategory)
+                .Include(y => y.User)
+                .FirstOrDefaultAsync(dr => dr.Id == id);
 
-            return View();
+            BlogVM blogVM = new BlogVM
+            {
+                Blog = blog,
+
+                Commets = await dbContext.Commets
+                .Where(dr=>dr.BlogDetails.Id == blog.Id)
+                .Include(x=>x.User)
+                .ToListAsync(),
+
+                Tags= await dbContext.BlogToTags
+                .Where(dr=>dr.BlogId==blog.Id)
+                .Select(x=>x.Tag)
+                .ToListAsync(),
+
+                Blogs = await dbContext.Blogs
+                .Where(dr => dr.UserId == blog.UserId)
+                .OrderByDescending(x => x.Id)
+                .Take(5)
+                .ToListAsync()
+            };
+
+            return View(blogVM);
         }
 
         public async Task<IActionResult> PortfolioSinglePage(int? id)
@@ -78,7 +110,7 @@ namespace ParfolioWebSiteView.Controllers
             return View(portfolio);
         }
 
-       
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

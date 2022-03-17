@@ -223,7 +223,7 @@
                                         <div class="col-sm-8">
                                             <h2 class="w-title">@work.Title</h2>
                                             <div class="w-more">
-                                                <span class="w-ctegory">@work.PortfolioCategory.Name</span> / <span class="w-date">18 Sep. 2018</span>
+                                                <span class="w-ctegory">@work.PortfolioCategory.Name</span> / <span class="w-date">@work.Date.ToString("dddd, MMMM dd yyyy")</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -306,7 +306,7 @@
                         <div class="col-md-4">
                             <div class="card card-blog">
                                 <div class="card-img">
-                                    <a asp-controller="Home" asp-action="SinglePage"><img src="~/img/Blog/@item.Image" alt="" class="img-fluid"></a>
+                                    <a asp-controller="Home" asp-action="SinglePage" asp-route-id="@item.Id"><img src="~/img/Blog/@item.Image" alt="" class="img-fluid"></a>
                                 </div>
                                 <div class="card-body">
                                     <div class="card-category-box">
@@ -314,7 +314,7 @@
                                             <h6 class="category">@item.BlogCategory.Name</h6>
                                         </div>
                                     </div>
-                                    <h3 class="card-title"><a asp-controller="Home" asp-action="SinglePage">@item.Title</a></h3>
+                                    <h3 class="card-title"><a asp-controller="Home" asp-action="SinglePage" asp-route-id="@item.Id">@item.Title</a></h3>
                                     <p class="card-description">
                                         @item.Description
                                     </p>
@@ -327,7 +327,7 @@
                                         </a>
                                     </div>
                                     <div class="post-date">
-                                        <span class="bi bi-clock"></span> @item.Date
+                                        <span class="bi bi-clock"></span> @item.Date.ToString("g")
                                     </div>
                                 </div>
                             </div>

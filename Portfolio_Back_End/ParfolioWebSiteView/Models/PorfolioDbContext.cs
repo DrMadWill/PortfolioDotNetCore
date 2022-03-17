@@ -38,6 +38,7 @@ namespace ParfolioWebSiteView.Models
 
             base.OnModelCreating(modelBuilder);
 
+            // Default Date
             modelBuilder.Entity<Portfolio>()
                 .Property(b => b.Date)
                 .HasDefaultValueSql("getdate()");
@@ -45,6 +46,14 @@ namespace ParfolioWebSiteView.Models
             modelBuilder.Entity<Blog>()
                 .Property(b => b.Date)
                 .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<MessengeUser>()
+               .Property(b => b.Date)
+               .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Commet>()
+               .Property(b => b.Date)
+               .HasDefaultValueSql("getdate()");
 
             //Unique Key
             modelBuilder.Entity<BlogCategory>()
