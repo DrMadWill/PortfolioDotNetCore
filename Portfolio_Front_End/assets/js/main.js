@@ -228,20 +228,23 @@
 
 })()
 
+$(document).ready(function(){
+  document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
 
-document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
-
-  e.addEventListener("mouseenter", function (x) {
-    let parent = document.getElementById(x.target.getAttribute("data-parent"))
-    parent.style.backgroundColor = "yellow"
+    e.addEventListener("mouseenter", function (x) {
+      let parent = document.getElementById(x.target.getAttribute("data-parent"))
+      parent.style.backgroundColor = "yellow"
+    })
+  
+    e.addEventListener("mouseleave", function (x) {
+      let parent = document.getElementById(x.target.getAttribute("data-parent"))
+      parent.style.backgroundColor = "white"
+    })
+  
   })
-
-  e.addEventListener("mouseleave", function (x) {
-    let parent = document.getElementById(x.target.getAttribute("data-parent"))
-    parent.style.backgroundColor = "white"
-  })
-
 })
+
+
 
 
 document.querySelectorAll(".replay").forEach(function (e) {
@@ -252,26 +255,25 @@ document.querySelectorAll(".replay").forEach(function (e) {
     let parent = x.target.parentElement
     const elemet = x.target
     let isAdded = elemet.getAttribute("data-add")
-    console.log(isAdded)
-    if(isAdded=="0"){
-      elemet.setAttribute("data-add","1")
+    
+    if (isAdded == "0") {
+      elemet.setAttribute("data-add", "1")
       let userId = x.target.getAttribute("data-userid")
       let commentId = x.target.getAttribute("data-commentid")
       parent.appendChild(ComentCreate(userId, commentId))
 
-    // Remove Form
-    document.querySelectorAll(".canceled").forEach(function (e) {
-      e.addEventListener("click", function (x) {
-        let comment = x.target.parentElement.parentElement
-        RemoveForm(comment)
-        elemet.setAttribute("data-add","0")
+      CommentValidation(parent)
+
+      // Remove Form
+      document.querySelectorAll(".canceled").forEach(function (e) {
+        e.addEventListener("click", function (x) {
+          let comment = x.target.parentElement.parentElement
+          RemoveForm(comment)
+          elemet.setAttribute("data-add", "0")
+        })
+
       })
-
-    })
     }
-
-    
-
 
   })
 })
@@ -279,7 +281,7 @@ document.querySelectorAll(".replay").forEach(function (e) {
 function ComentCreate(userId, comment) {
   let form = document.createElement("form")
   form.setAttribute("class", "d-block mt-3")
-  form.setAttribute("href", "/Location")
+  form.setAttribute("action", "/Location")
 
   let html = `
   <div class="mb-3">
@@ -287,7 +289,9 @@ function ComentCreate(userId, comment) {
       <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
       <input type="hidden" name="userId" value="%user">
       <input type="hidden" name="commetId" value="%coment">
+      <span class="text-danger"></span>
     </div>
+  </div>
   <div class="d-inline-block mt-2" >
       <button type="submit" class="button button-a button-rouded">Send Message</button>
   </div>
@@ -303,6 +307,58 @@ function ComentCreate(userId, comment) {
 
 function RemoveForm(comment) {
   let parent = comment.parentElement
-  parent.removeChild(comment)
+  try {
+    parent.removeChild(comment)
+  } catch (e) {
+
+  }
+}
+
+
+
+function CommentValidation(parent) {
+
+  for (let i = 0; i < parent.children.length; i++) {
+    if (parent.children[i].tagName == "FORM") {
+      let form = parent.children[i]
+      Vaildation(form)
+    }
+  }
 
 }
+
+
+function Vaildation(form){
+  form.addEventListener("submit", function (x) {
+    const div = x.target.children[0].children[0]
+    let textarea = div.children[0].value.trim()
+    let user = div.children[1].value
+    if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
+      x.preventDefault()
+      div.children[3].innerText = "Please Comment Add"
+    }
+
+    if(user==0){
+      x.preventDefault()
+      div.children[3].innerText = "Please Sign In Or Sign Up"
+    }
+  })
+}
+
+
+document.querySelector(".comment-leave").addEventListener("submit",function(e){
+  const div = e.target.children[0].children[0].children[0]
+  let textarea = div.children[0].value.trim()
+  let user = div.children[1].value
+  let errorText = document.querySelector(".danger")
+  if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
+    e.preventDefault()
+    errorText.innerHTML = "Please Comment Add"
+  }
+
+  if(user==0){
+    e.preventDefault()
+    errorText.innerHTML = "Please Sign In Or Sign Up"
+  }
+  
+})

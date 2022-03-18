@@ -13,6 +13,11 @@ body {
   color: #4e4e4e;
 }
 
+.parent-coment:hover{
+  color: #0062d3;
+  
+}
+
 h1,
 h2,
 h3,

@@ -1,9 +1,27 @@
 ﻿@model BlogVM
-
+@inject Microsoft.AspNetCore.Identity.UserManager<User> userManager;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
+    User user = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        user = userManager.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+    }
 
     ViewData["Title"] = "Single Page";
+
+}
+
+
+@section header{
+
+    <style>
+        .parent-coment:hover {
+            color: #0062d3 !important;
+            transition: all 0.3s ease-in;
+        }
+    </style>
 
 }
 
@@ -12,15 +30,15 @@
     <div class="hero-content display-table">
         <div class="table-cell">
             <div class="container">
-                <h2 class="hero-title mb-4">Blog Details</h2>
+                <h2 class="hero-title mb-4">@Model.Blog.User.UserName Blog Details</h2>
                 <ol class="breadcrumb d-flex justify-content-center">
                     <li class="breadcrumb-item">
                         <a href="/">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#">Library</a>
+                        <a href="#">@Model.Blog.BlogCategory.Name</a>
                     </li>
-                    <li class="breadcrumb-item active">Data</li>
+                    <li class="breadcrumb-item active">@Model.Blog.Title</li>
                 </ol>
             </div>
         </div>
@@ -44,14 +62,14 @@
                             <ul>
                                 <li>
                                     <span class="bi bi-person"></span>
-                                    <a href="#">@Model.Blog.User.FullName</a>
+                                    <a href="/Home/Index/@Model.Blog.User.UserName">@Model.Blog.User.FullName</a>
                                 </li>
                                 <li>
                                     <span class="bi bi-tag"></span>
                                     <a href="#">@Model.Blog.BlogCategory.Name</a>
                                 </li>
                                 <li>
-                                    <span class="bi bi-chat-left-text"></span>
+                                    <span class="bi bi-chat-text"></span>
                                     <a href="#comment">@Model.Commets.Count</a>
                                 </li>
                             </ul>
@@ -65,34 +83,69 @@
                             <h4 class="title-comments title-left">Comments (@Model.Commets.Count)</h4>
                         </div>
                         <ul class="list-comments">
-
-                            @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
+                            @if (!User.Identity.IsAuthenticated)
                             {
-                                @Model.ChildCommentHtml.Clear()
-
-                                <li>
-                                    <div class="comment-avatar">
-                                        <img src="~/img/Profile/@item.User.Image" alt="">
-                                    </div>
-                                    <div class="comment-details">
-                                        <h4 class="comment-author parent-coment" data-parent="her156">@item.User.FullName</h4>
-                                        <span>@item.Date.ToShortDateString()</span>
-                                        <p>
-                                            @item.Comment
-                                        </p>
-                                        <a data-add="0" data-userid="1565" data-commentid="16" href="3">Reply</a>
-                                    </div>
-                                </li>
-
-                                if (Model.IsParentComment(item.Id))
+                                @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
                                 {
-                                    Model.WriteChildComments(Model.GetParentComments(item.Id));
+                                    @Model.ChildCommentHtml.Clear()
 
-                                    @Html.Raw(Model.ChildCommentHtml.ToString())
+                                    <li id="@item.HtmlId">
+                                        <div class="comment-avatar">
+                                            <img src="~/img/Profile/@item.User.Image" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4 class="comment-author">@item.User.FullName</h4>
+                                            <span>@item.Date.ToShortDateString()</span>
+                                            <p>
+                                                @item.Comment
+                                            </p>
+                                            <a class='replay' data-add='0' data-userid='0' data-commentid='@item.Id' href='#'>Reply</a>
+                                        </div>
+                                    </li>
+
+                                    if (Model.IsParentComment(item.Id))
+                                    {
+                                        Model.WriteChildComments(Model.GetParentComments(item.Id));
+
+                                        @Html.Raw(Model.ChildCommentHtml.ToString())
+
+                                    }
 
                                 }
 
                             }
+                            else
+                            {
+                                @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
+                                {
+                                    @Model.ChildCommentHtml.Clear()
+
+                                    <li id="@item.HtmlId">
+                                        <div class="comment-avatar">
+                                            <img src="~/img/Profile/@item.User.Image" alt="">
+                                        </div>
+                                        <div class="comment-details">
+                                            <h4 class="comment-author">@item.User.FullName</h4>
+                                            <span>@item.Date.ToShortDateString()</span>
+                                            <p>
+                                                @item.Comment
+                                            </p>
+                                            <a class='replay' data-add='0' data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
+                                        </div>
+                                    </li>
+
+                                    if (Model.IsParentComment(item.Id))
+                                    {
+                                        Model.WriteChildComments(Model.GetParentComments(item.Id), user);
+
+                                        @Html.Raw(Model.ChildCommentHtml.ToString())
+
+                                    }
+
+                                }
+
+                            }
+
 
 
 
@@ -104,44 +157,61 @@
                                 Leave a Reply
                             </h3>
                         </div>
-                        <form class="form-mf">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-mf" id="inputName" placeholder="Name *" required>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form class="form-mf comment-leave" action="/Assistant/Comment" method="post">
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                            <input type="hidden" name="userId" value="@user.Id">
+                                            <input type="hidden" name="blogId" value="@Model.Blog.Id">
+                                        </div>
+                                    </div>
+                                    <span class="text-danger mb-3 danger"></span>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control input-mf" id="inputEmail1" placeholder="Email *" required>
+                            </form>
+                        }
+                        else
+                        {
+                            <form class="form-mf comment-leave">
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                            <input type="hidden" name="userId" value="0">
+                                            <input type="hidden" name="commetId" value="0">
+                                        </div>
+                                    </div>
+                                    <span class="text-danger mb-3 danger"></span>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
-                                    <div class="form-group">
-                                        <input type="url" class="form-control input-mf" id="inputUrl" placeholder="Website">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <div class="form-group">
-                                        <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        }
+
+
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="widget-sidebar sidebar-search">
-                        <h5 class="sidebar-title">Search</h5>
+                        <h5 class="sidebar-title">Search in @Model.Blog.User.UserName</h5>
                         <div class="sidebar-content">
-                            <form>
+                            <form method="post" asp-action="Search" asp-controller="Assistant">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                                    <input type="text" class="form-control" name="info" placeholder="Search for..." aria-label="Search for...">
+                                    <input type="checkbox"
+                                           style="width:0;height:0;visibility:hidden;"
+                                           name="isAll"
+                                           value="@false.ToString()" />
+                                    <input type="hidden" name="userName" value="@Model.Blog.User.UserName" />
                                     <span class="input-group-btn">
-                                        <button class="btn btn-secondary btn-search" type="button">
+                                        <button class="btn btn-secondary btn-search" type="submit">
                                             <span class="bi bi-search"></span>
                                         </button>
                                     </span>
@@ -150,38 +220,69 @@
                         </div>
                     </div>
                     <div class="widget-sidebar">
-                        <h5 class="sidebar-title">Recent Post</h5>
+                        <h5 class="sidebar-title">Recent Post in @Model.Blog.User.UserName</h5>
                         <div class="sidebar-content">
                             <ul class="list-sidebar">
 
-                                @foreach (var item in Model.Blogs)
+                                @foreach (var item in Model.Blogs.Take(3))
                                 {
                                     <li>
-                                        <a href="/Home/SinglePage/@item.Id">@item.Title</a>
+                                        <a href="/Home/SinglePage/@item.Id">
+                                            @if (item.Title.Length > 50)
+                                            {
+                                                <span>
+                                                    @item.Title.Substring(0, 50) ...
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span>
+                                                    @item.Title
+                                                </span>
+                                            }
+
+                                        </a>
                                     </li>
                                 }
                             </ul>
                         </div>
                     </div>
                     <div class="widget-sidebar">
-                        <h5 class="sidebar-title">Archives</h5>
+                        <h5 class="sidebar-title">Archives in @Model.Blog.User.UserName</h5>
                         <div class="sidebar-content">
                             <ul class="list-sidebar">
-                                <li>
-                                    <a href="#">September, 2017.</a>
-                                </li>
-                                <li>
-                                    <a href="#">April, 2017.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Atque placeat maiores nam quo autem</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
+                                @if (Model.Blogs.Count > 3)
+                                {
+                                    for (int i = 2; i < Model.Blogs.Count; i++)
+                                    {
+                                        <li>
+                                            <a href="/Home/SinglePage/@Model.Blogs[i].Id">
+                                                @if (Model.Blogs[i].Title.Length > 50)
+                                                {
+                                                    <span>
+                                                        @Model.Blogs[i].Title.Substring(0, 50) ...
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        @Model.Blogs[i].Title
+                                                    </span>
+                                                }
+
+                                            </a>
+                                        </li>
+                                        <a class="btn mt-3 d-block btn-primary" href="/Assistant/SeeArchives/@Model.Blog.Id">See All</a>
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        Not yet Archived
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -192,7 +293,7 @@
                                 @foreach (var item in Model.Tags)
                                 {
                                     <li>
-                                        <a href="#">@item.Name</a>
+                                        <a href="/Assistant/TagBlogs/@item.Id">@item.Name</a>
                                     </li>
                                 }
                             </ul>
@@ -204,3 +305,147 @@
     </section><!-- End Blog Single Section -->
 
 </main><!-- End #main -->
+
+
+@section script{
+
+    <script>
+
+        $(document).ready(function () {
+            document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
+
+                e.addEventListener("mouseenter", function (x) {
+                    let parent = document.getElementById(x.target.getAttribute("data-parent"))
+                    parent.style.backgroundColor = "yellow"
+
+                    $(parent).css({ backgroundColor: "#E3E300", transition: "all 0.3s ease-in" })
+                })
+
+                e.addEventListener("mouseleave", function (x) {
+                    let parent = document.getElementById(x.target.getAttribute("data-parent"))
+                    parent.style.backgroundColor = "white"
+                })
+
+            })
+        })
+
+
+
+
+        document.querySelectorAll(".replay").forEach(function (e) {
+
+            e.addEventListener("click", function (x) {
+                x.preventDefault();
+
+                let parent = x.target.parentElement
+                const elemet = x.target
+                let isAdded = elemet.getAttribute("data-add")
+
+                if (isAdded == "0") {
+                    elemet.setAttribute("data-add", "1")
+                    let userId = x.target.getAttribute("data-userid")
+                    let commentId = x.target.getAttribute("data-commentid")
+                    parent.appendChild(ComentCreate(userId, commentId))
+
+                    CommentValidation(parent)
+
+                    // Remove Form
+                    document.querySelectorAll(".canceled").forEach(function (e) {
+                        e.addEventListener("click", function (x) {
+                            let comment = x.target.parentElement.parentElement
+                            RemoveForm(comment)
+                            elemet.setAttribute("data-add", "0")
+                        })
+
+                    })
+                }
+            })
+        })
+
+        function ComentCreate(userId, comment) {
+            let form = document.createElement("form")
+            form.setAttribute("class", "d-block mt-3")
+            form.setAttribute("method", "post")
+            form.setAttribute("action", "/Assistant/Comment")
+
+            let html = `
+                                              <div class="mb-3">
+                                                <div class="form-group">
+                                                  <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                                  <input type="hidden" name="userId" value="%user">
+                                                  <input type="hidden" name="commetId" value="%coment">
+                                                  <span class="text-danger"></span>
+                                                </div>
+                                              </div>
+                                              <div class="d-inline-block mt-2" >
+                                                  <button type="submit" class="button button-a button-rouded">Send Message</button>
+                                              </div>
+                                              <div class="d-inline-block mt-2">
+                                                  <button type="button" class="button canceled button-a button-rouded">Cancel</button>
+                                              </div>
+                                        `
+            html = html.replace("%user", userId)
+            html = html.replace("%coment", comment)
+            form.innerHTML = html
+            return form
+        }
+
+        function RemoveForm(comment) {
+            let parent = comment.parentElement
+            try {
+                parent.removeChild(comment)
+            } catch (e) {
+
+            }
+        }
+
+
+
+        function CommentValidation(parent) {
+
+            for (let i = 0; i < parent.children.length; i++) {
+                if (parent.children[i].tagName == "FORM") {
+                    let form = parent.children[i]
+                    form.addEventListener("submit", function (x) {
+
+                        const div = x.target.children[0].children[0]
+
+                        let textarea = div.children[0].value.trim()
+                        let user = div.children[1].value
+                        if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
+                            x.preventDefault()
+                            div.children[3].innerText = "Please Comment Add"
+                        }
+
+                        if (user == 0) {
+                            x.preventDefault()
+                            div.children[3].innerText = "Please Sign In Or Sign Up"
+                        }
+                    })
+                }
+            }
+
+        }
+    </script>
+
+    <script>
+        document.querySelector(".comment-leave").addEventListener("submit", function (e) {
+            const div = e.target.children[0].children[0].children[0]
+            let textarea = div.children[0].value.trim()
+            let user = div.children[1].value
+            let errorText = document.querySelector(".danger")
+            if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
+                e.preventDefault()
+                errorText.innerHTML = "Please Comment Add"
+            }
+
+            if (user == 0) {
+                e.preventDefault()
+                errorText.innerHTML = "Please Sign In Or Sign Up"
+            }
+
+        })
+    </script>
+
+
+}

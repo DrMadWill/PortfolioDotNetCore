@@ -210,3 +210,9 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Signin\ResetPassword.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Assistant\Search.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\_ViewImports.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\_ViewStart.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Shared\_UserAdminLayout.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Dashboard\Index.cshtml.g.cs

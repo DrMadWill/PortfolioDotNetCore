@@ -32,6 +32,8 @@
     <!-- Template Main CSS File -->
     <link href="~/css/style.css" rel="stylesheet">
 
+    @RenderSection("header",false)
+
     <!-- =======================================================
     * Template Name: DevFolio - v4.7.1
     * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
@@ -58,6 +60,8 @@
                     <li><a class="nav-link scrollto " asp-fragment="work" asp-controller="Home" asp-action="Index">Work</a></li>
                     <li><a class="nav-link scrollto " asp-fragment="blog" asp-controller="Home" asp-action="Index">Blog</a></li>
                     <li><a class="nav-link scrollto" asp-fragment="contact" asp-controller="Home" asp-action="Index">Contact</a></li>
+                    <li><a class="nav-link scrollto"  asp-controller="Assistant" asp-action="Search"><i style="font-size:1.2rem;" class="bi bi-search"></i></a></li>
+
                     <li class="dropdown">
 
                         @if (user == null)
@@ -86,7 +90,7 @@
                                 </li>
                                 <li><a href="#" class="d-block">@user.UserName</a></li>
                                 <li><a href="#" class="d-block">Profil</a></li>
-                                <li><a href="/Signin/LogOut" class="d-block">Log Out</a></li>
+                                <li><a href="/Signin/LogOut" class="d-block"><i style="font-size:larger;font-weight:700;" class="bi bi-power mx-1"></i>Log Out</a></li>
                             </ul>
                         }
 
@@ -136,8 +140,12 @@
     <script src="~/lib/typed.js/typed.min.js"></script>
     <script src="~/lib/php-email-form/validate.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <!-- Template Main JS File -->
     <script src="~/js/main.js"></script>
+
+    @RenderSection("script",false)
 
 </body>
 

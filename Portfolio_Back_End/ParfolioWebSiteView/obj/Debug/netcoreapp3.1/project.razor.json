@@ -14437,6 +14437,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Signin\\Register.cshtml",
+      "TargetPath": "Views\\Signin\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\System\\Error404.cshtml",
       "TargetPath": "Views\\System\\Error404.cshtml",
       "FileKind": "mvc"
@@ -14477,8 +14482,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Assistant\\Search.cshtml",
+      "TargetPath": "Views\\Assistant\\Search.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Signin\\ResetPassword.cshtml",
+      "TargetPath": "Views\\Signin\\ResetPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\_ViewImports.cshtml",
       "TargetPath": "Areas\\Admin\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Signin\\ForgetPassword.cshtml",
+      "TargetPath": "Views\\Signin\\ForgetPassword.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -30,9 +30,7 @@ namespace ParfolioWebSiteView.Controllers
             string username = id;
             User user = null;
             if (string.IsNullOrEmpty(username))
-            {
                 user = await userManager.FindByNameAsync("DrMadWill");
-            }
             else
             {
                 user = await userManager.FindByNameAsync(username);
@@ -63,6 +61,7 @@ namespace ParfolioWebSiteView.Controllers
             return View(data);
         }
 
+
         public async Task<IActionResult> SinglePage(int? id)
         {
             if (id == null) return NotFound();
@@ -78,20 +77,21 @@ namespace ParfolioWebSiteView.Controllers
                 Blog = blog,
 
                 Commets = await dbContext.Commets
-                .Where(dr=>dr.BlogDetails.Id == blog.Id)
-                .Include(x=>x.User)
+                .Where(dr => dr.BlogDetails.Id == blog.Id && dr.IsBlocked == false)
+                .Include(x => x.User)
                 .ToListAsync(),
 
-                Tags= await dbContext.BlogToTags
-                .Where(dr=>dr.BlogId==blog.Id)
-                .Select(x=>x.Tag)
+                Tags = await dbContext.BlogToTags
+                .Where(dr => dr.BlogId == blog.Id)
+                .Select(x => x.Tag)
                 .ToListAsync(),
 
                 Blogs = await dbContext.Blogs
                 .Where(dr => dr.UserId == blog.UserId)
                 .OrderByDescending(x => x.Id)
-                .Take(5)
-                .ToListAsync()
+                .Take(10)
+                .ToListAsync(),
+
             };
 
             return View(blogVM);

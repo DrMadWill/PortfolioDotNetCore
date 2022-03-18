@@ -22,8 +22,10 @@ namespace ParfolioWebSiteView.Models
         public BlogDetails BlogDetails { get; set; }
         public int BlogDetailsId { get; set; }
         public DateTime Date { get; set; }
-
         public bool IsBlocked { get; set; } = false;
+
+        [NotMapped]
+        public string HtmlId { get { return "comment" + Id; } }
 
     }
 }

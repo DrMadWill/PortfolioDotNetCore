@@ -34,6 +34,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\UserAdmin\Data\" />
+    <Folder Include="Areas\UserAdmin\Models\" />
     <Folder Include="wwwroot\Admin\" />
   </ItemGroup>
 

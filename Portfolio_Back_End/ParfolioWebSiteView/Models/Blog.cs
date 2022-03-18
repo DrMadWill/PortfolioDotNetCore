@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,6 +26,10 @@ namespace ParfolioWebSiteView.Models
         public string UserId { get; set; }
 
         public BlogDetails BlogDetails { get; set; }
+
+        [NotMapped]
+        public TimeSpan Time { get { return (DateTime.Now.Subtract(Date));} }
+
 
     }
 }

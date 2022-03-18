@@ -37,21 +37,42 @@ namespace ParfolioWebSiteView.ViewModels
         {
             foreach (var child in commets)
             {
-                ChildCommentHtml.Append($"<li class='comment-children'>" +
+                ChildCommentHtml.Append($"<li id='comment{child.Id}' class='comment-children'>" +
                                 $"<div class='comment-avatar'>" +
                                     $"<img src='/img/Profile/{child.User.Image}' >" +
                                 $"</div>" +
                                 $"<div class='comment-details'>" +
-                                    $"<h4 class='comment-author'>{child.User.FullName} => {GetUserFullName(child.ParentId)}</h4>" +
+                                    $"<h4 class='comment-author parent-coment' data-parent='comment{child.ParentId}'>{child.User.FullName} => {GetUserFullName(child.ParentId)}</h4>" +
                                     $"<span>{child.Date.ToShortDateString()}</span>" +
                                     $"<p>{child.Comment}</p>" +
-                                    $"<a href='3'>Reply</a>" +
+                                    $"<a class='replay' data-add='0' data-userid='0' data-commentid='{child.Id}' href='#'>Reply</a>"+
                                 $"</div>" +
                             $"</li>");
 
                 // Recursive Algoritim
                 if (IsParentComment(child.Id))
                     WriteChildComments(GetParentComments(child.Id));
+            }
+        }
+        public void WriteChildComments(List<Commet> commets,User user)
+        {
+            foreach (var child in commets)
+            {
+                ChildCommentHtml.Append($"<li id='comment{child.Id}' class='comment-children'>" +
+                                $"<div class='comment-avatar'>" +
+                                    $"<img src='/img/Profile/{child.User.Image}' >" +
+                                $"</div>" +
+                                $"<div class='comment-details'>" +
+                                    $"<h4 class='comment-author parent-coment' data-parent='comment{child.ParentId}'>{child.User.FullName} => {GetUserFullName(child.ParentId)}</h4>" +
+                                    $"<span>{child.Date.ToShortDateString()}</span>" +
+                                    $"<p>{child.Comment}</p>" +
+                                    $"<a class='replay' data-add='0' data-userid='{user.Id}' data-commentid='{child.Id}' href='#'>Reply</a>" +
+                                $"</div>" +
+                            $"</li>");
+
+                // Recursive Algoritim
+                if (IsParentComment(child.Id))
+                    WriteChildComments(GetParentComments(child.Id), user);
             }
         }
     }
