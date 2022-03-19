@@ -19,7 +19,5 @@ namespace ParfolioWebSiteView.Models
         public string MainSkill { get; set; }
         public List<Skill> Skills { get; set; }
         public List<SkillCode> SkillCodes { get; set; }
-        public bool IsShow { get; set; }
-
     }
 }

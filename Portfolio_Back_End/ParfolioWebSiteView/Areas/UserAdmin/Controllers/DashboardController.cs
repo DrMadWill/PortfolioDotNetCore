@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 {
+    [Area("UserAdmin")]
     public class DashboardController : Controller
     {
         public IActionResult Index()

@@ -82,7 +82,7 @@ namespace ParfolioWebSiteView
 
                 endpoints.MapControllerRoute(
                    name: "UserAdmin",
-                   pattern: "{area:exists}/{controller=Account}/{action=Index}/{id?}");
+                   pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
             });
         }
