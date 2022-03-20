@@ -13,14 +13,19 @@ namespace ParfolioWebSiteView.Models
         public string Id { get; set; }
         public User User { get; set; }
 
-        [MaxLength(75)]
+        [MaxLength(75,ErrorMessage ="Max Length 75 ")]
+        [Phone(ErrorMessage ="Plase Write Phone Number Format")]
         public string PhoneNumber { get; set; }
-        [MaxLength(150)]
+        [MaxLength(150,ErrorMessage = "Max Length 150 ")]
+        [EmailAddress]
         public string Email { get; set; }
-        [MaxLength(300)]
+        [MaxLength(300, ErrorMessage = "Max Length 150.")]
+        [Required(ErrorMessage = "Location Is Required.")]
         public string Location { get; set; }
+        [Required(ErrorMessage = "Description Is Required.")]
+        [Column(TypeName = "ntext")]
         public string Description { get; set; }
         public List<ContactOnline> ContactOnlines { get; set; }
-        public bool IsShow { get; set; }
+        
     }
 }

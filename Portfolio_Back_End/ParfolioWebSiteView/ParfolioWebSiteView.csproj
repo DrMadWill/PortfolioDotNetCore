@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20220316230024_CreateTableComment.Designer.cs" />
     <Compile Remove="Migrations\20220316232411_CreateTableMessengeUser.cs" />
     <Compile Remove="Migrations\20220316232411_CreateTableMessengeUser.Designer.cs" />
+    <Compile Remove="Migrations\20220319201331_EmailandPhoneDataType.cs" />
+    <Compile Remove="Migrations\20220319201331_EmailandPhoneDataType.Designer.cs" />
+    <Compile Remove="Migrations\20220319204106_EmailandPhoneDataType.cs" />
+    <Compile Remove="Migrations\20220319204106_EmailandPhoneDataType.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

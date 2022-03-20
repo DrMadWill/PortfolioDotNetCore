@@ -48,10 +48,39 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return View(acc);
         }
 
-        public async Task<JsonResult> ContactOnlineCreate (string connectId,string icon,string url,string name)
+        public async Task<JsonResult> ContactOnlineCreate (string icon,string url,string name)
         {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(icon) || string.IsNullOrEmpty(url))
+                return Json(new
+                {
+                    status=400
+                });
 
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var contactDb = await dbContext.Contacts.Include(x=>x.ContactOnlines).FirstOrDefaultAsync(dr => dr.Id == user.Id);
 
+            // Check Contact 
+            if (contactDb == null) return Json(new
+            {
+                status = 400
+            });
+
+            // Limit
+            if(contactDb.ContactOnlines.Count >= 11)return Json(new
+            {
+                status = 400
+            });
+
+            ContactOnline online = new ContactOnline
+            {
+                Icon = icon,
+                Url = url,
+                Name = name,
+                ContactId = user.Id
+            };
+
+            await dbContext.ContactOnlines.AddAsync(online);
+            await dbContext.SaveChangesAsync();
 
             return Json(new { 
                 status=200
@@ -59,5 +88,87 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         }
 
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> ContactCreate() 
+        {
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            // One To One => User To Contact
+            var contactDbTest = await dbContext.Contacts.FirstOrDefaultAsync(dr => dr.Id == user.Id);
+            //Check Contact
+            if(contactDbTest != null) return Redirect("/System/Error404");
+
+            // Create Model
+            ViewBag.IsCreate = true;
+            Contact contact = new Contact();
+            return View(contact);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ContactCreate(Contact contact)
+        {
+            // Create Model
+            ViewBag.IsCreate = true;
+
+            if (!ModelState.IsValid) return View(contact);
+            // Find User
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            
+            var contactDbTest = await dbContext.Contacts.FirstOrDefaultAsync(dr => dr.Id == user.Id);
+            //Check Contact
+            if (contactDbTest != null) return Redirect("/System/Error404");
+
+            // One To One
+            contact.Id = user.Id;
+            await dbContext.Contacts.AddAsync(contact);
+            await dbContext.SaveChangesAsync();
+
+            // Messange
+            TempData["AccountAlert"] = "Contact Created";
+
+            return Redirect("/UserAdmin/UserAccount/Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ContactUpdate()
+        {
+            // Update Model
+            ViewBag.IsCreate = false;
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            // One To One => User To Contact
+            var contactDbTest = await dbContext.Contacts.FirstOrDefaultAsync(dr => dr.Id == user.Id);
+            if(contactDbTest==null) return Redirect("/System/Error404");
+
+            return View("ContactCreate", contactDbTest);
+            
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ContactUpdate(Contact contact)
+        {
+            // Update Model
+            ViewBag.IsCreate = false;
+
+            if (!ModelState.IsValid) return View(contact);
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            // One To One => User To Contact
+            var contactDb = await dbContext.Contacts.FirstOrDefaultAsync(dr => dr.Id == user.Id);
+            if (contactDb == null) return Redirect("/System/Error404");
+
+            contactDb.Email = contact.Email;
+            contactDb.Description = contact.Description;
+            contactDb.Location = contact.Location;
+            contactDb.PhoneNumber = contact.PhoneNumber;
+
+            await dbContext.SaveChangesAsync();
+            // Messange
+            TempData["AccountAlert"] = "Contact Update";
+
+            return Redirect("/UserAdmin/UserAccount/Account");
+        }
     }
 }

@@ -74,7 +74,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="article-content">
+                        <div class="article-content lead-add">
                             @Html.Raw(Model.Blog.BlogDetails.Description)
                         </div>
                     </div>
@@ -108,9 +108,7 @@
                                         Model.WriteChildComments(Model.GetParentComments(item.Id));
 
                                         @Html.Raw(Model.ChildCommentHtml.ToString())
-
                                     }
-
                                 }
 
                             }
@@ -145,10 +143,6 @@
                                 }
 
                             }
-
-
-
-
                         </ul>
                     </div>
                     <div class="form-comments">
@@ -329,9 +323,6 @@
             })
         })
 
-
-
-
         document.querySelectorAll(".replay").forEach(function (e) {
 
             e.addEventListener("click", function (x) {
@@ -369,21 +360,21 @@
             form.setAttribute("action", "/Assistant/Comment")
 
             let html = `
-                                              <div class="mb-3">
-                                                <div class="form-group">
-                                                  <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                                                  <input type="hidden" name="userId" value="%user">
-                                                  <input type="hidden" name="commetId" value="%coment">
-                                                  <span class="text-danger"></span>
-                                                </div>
-                                              </div>
-                                              <div class="d-inline-block mt-2" >
-                                                  <button type="submit" class="button button-a button-rouded">Send Message</button>
-                                              </div>
-                                              <div class="d-inline-block mt-2">
-                                                  <button type="button" class="button canceled button-a button-rouded">Cancel</button>
-                                              </div>
-                                        `
+                                                  <div class="mb-3">
+                                                    <div class="form-group">
+                                                      <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                                      <input type="hidden" name="userId" value="%user">
+                                                      <input type="hidden" name="commetId" value="%coment">
+                                                      <span class="text-danger"></span>
+                                                    </div>
+                                                  </div>
+                                                  <div class="d-inline-block mt-2" >
+                                                      <button type="submit" class="button button-a button-rouded">Send Message</button>
+                                                  </div>
+                                                  <div class="d-inline-block mt-2">
+                                                      <button type="button" class="button canceled button-a button-rouded">Cancel</button>
+                                                  </div>
+                                            `
             html = html.replace("%user", userId)
             html = html.replace("%coment", comment)
             form.innerHTML = html
@@ -447,5 +438,11 @@
         })
     </script>
 
-
+    <script>
+        $(document).ready(function () {
+            $(".lead-add").each(function () {
+                $(this).children("p").addClass("lead")
+            })
+        })
+    </script>
 }

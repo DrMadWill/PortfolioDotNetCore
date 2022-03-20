@@ -20,6 +20,13 @@
         }
     }
 }
+
+@section header{
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+}
+
 <!-- ======= Hero Section ======= -->
 <div id="hero" class="hero route bg-image" style="background-image:url(/img/Home/@Model.Home.Image)">
     <div class="overlay-itro"></div>
@@ -37,81 +44,142 @@
 
 <main id="main">
 
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about-mf sect-pt4 route">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="box-shadow-full">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-5">
-                                        <div class="about-img">
-                                            <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-7">
-                                        <div class="about-info">
-                                            <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
-                                            <p>
-                                                <span class="title-s">Skill: </span>
-                                                <span class="mx-2"> @Model.About.MainSkill</span>
-                                            </p>
-                                            @if (Model.IsEmailAndPhoneNumberShow)
-                                            {
-                                                <p><span class="title-s">Email: </span> <span>@Model.Email</span></p>
-                                                if (Model.PhoneNumber != null)
-                                                {
-                                                    <p><span class="title-s">Phone: </span> <span>@Model.PhoneNumber</span></p>
+    @if (Model.About != null)
+    {
 
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (Model.Contact.Email != null)
-                                                {
-                                                    <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
-                                                }
-                                                if (Model.Contact.PhoneNumber != null)
-                                                {
-                                                    <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
-                                                }
-                                            }
-
-                                        </div>
-                                    </div>
-                                </div>
-                                @if (Model.About.SkillCodes.Count != 0)
-                                {
-                                    <div class="skill-mf">
-                                        <p class="title-s">Code Skill</p>
-                                        @foreach (var item in Model.About.SkillCodes)
-                                        {
-                                            <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about-mf sect-pt4 route">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box-shadow-full">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-5">
+                                            <div class="about-img">
+                                                <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
                                             </div>
-                                        }
+                                        </div>
+                                        <div class="col-sm-6 col-md-7">
+                                            <div class="about-info">
+                                                <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
+                                                <p>
+                                                    <span class="title-s">Skill: </span>
+                                                    <span class="mx-2"> @Model.About.MainSkill</span>
+                                                </p>
+
+                                                @if (Model.Contact != null)
+                                                {
+
+                                                    if (Model.Contact.Email != null)
+                                                    {
+                                                        <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
+                                                    }
+                                                    if (Model.Contact.PhoneNumber != null)
+                                                    {
+                                                        <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                }
-                            </div>
-                            <div class="col-md-6">
-                                <div class="about-me pt-4 pt-md-0">
-                                    <div class="title-box-2">
-                                        <h5 class="title-left">
-                                            About me
-                                        </h5>
+                                    @if (Model.About.SkillCodes.Count != 0)
+                                    {
+                                        <div class="skill-mf">
+                                            <p class="title-s">Code Skill</p>
+                                            @foreach (var item in Model.About.SkillCodes)
+                                            {
+                                                <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="about-me pt-4 pt-md-0">
+                                        <div class="title-box-2">
+                                            <h5 class="title-left">
+                                                About me
+                                            </h5>
+                                        </div>
+                                        <div class="lead-add">
+                                            @Html.Raw(Model.About.Descriptoion)
+                                        </div>
+
                                     </div>
-                                    @Html.Raw(Model.About.Descriptoion)
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section><!-- End About Section -->
+        </section><!-- End About Section -->
+    }
+    else
+    {
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="about-mf sect-pt4 route">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box-shadow-full">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-5">
+                                            <div class="about-img">
+                                                <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-7">
+                                            <div class="about-info">
+                                                <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
+
+
+                                                @if (Model.Contact != null)
+                                                {
+
+                                                    if (Model.Contact.Email != null)
+                                                    {
+                                                        <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
+                                                    }
+                                                    if (Model.Contact.PhoneNumber != null)
+                                                    {
+                                                        <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="about-me pt-4 pt-md-0">
+                                        <div class="title-box-2">
+                                            <h5 class="title-left">
+                                                About me
+                                            </h5>
+                                        </div>
+                                        <p class="lead">
+                                            Hi,My name is @Model.FullName .
+                                            <br />
+                                            I love to research.
+                                            <br />
+                                            Learning new things, self driven, hard working and friendly.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End About Section -->
+    }
 
     @if (Model.Services.Count != 0)
     {
@@ -410,9 +478,9 @@
                                     else
                                     {
                                         <div class="more-info">
-                                            <p class="lead">
-                                                @Model.Contact.Description
-                                            </p>
+                                            <div class="lead-add">
+                                                @Html.Raw(Model.Contact.Description)
+                                            </div>
                                             <ul class="list-ico">
                                                 <li><span class="bi bi-geo-alt"></span> @Model.Contact.Location</li>
                                                 <li><span class="bi bi-phone"></span> @Model.Contact.PhoneNumber</li>
@@ -446,3 +514,18 @@
     </section><!-- End Contact Section -->
 
 </main><!-- End #main -->
+
+@section script{
+
+    <script>
+
+      $(document).ready(function(){
+        $(".lead-add").each(function(){
+           $(this).children("p").addClass("lead")
+        })
+      })
+
+
+    </script>
+
+ }

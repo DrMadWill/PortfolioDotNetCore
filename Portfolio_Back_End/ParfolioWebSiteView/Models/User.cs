@@ -11,7 +11,6 @@ namespace ParfolioWebSiteView.Models
 {
     public class User: IdentityUser
     {
-
         [MaxLength(100,ErrorMessage ="So Large Image Name")]
         [MinLength(1, ErrorMessage = "So Small Image Name")]
         public string Image { get; set; }
@@ -27,14 +26,10 @@ namespace ParfolioWebSiteView.Models
 
         [NotMapped]
         public string FullName { get { return FirstName + " " + LastName; } }
-
         public bool Gender { get; set; }
-
         public About About { get; set; }
         public Home Home { get; set; }
         public Contact Contact { get; set; }
-
-        public bool IsEmailAndPhoneNumberShow { get; set; }
 
         public IList<Blog> Blogs { get; set; }
         public IList<Achievements> Achievements { get; set; }
