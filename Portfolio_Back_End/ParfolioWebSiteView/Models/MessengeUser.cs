@@ -36,6 +36,10 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = "Subject is required.")]
         public string Description { get; set; }
 
+        //public string SendUserName { get; set; }
+
+        public bool IsRead { get; set; } = false;
+
         public DateTime Date { get; set; } = DateTime.Now;
     }
 }

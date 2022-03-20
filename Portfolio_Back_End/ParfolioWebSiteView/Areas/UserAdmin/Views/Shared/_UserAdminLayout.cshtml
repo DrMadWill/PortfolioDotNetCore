@@ -2,7 +2,7 @@
 
 @{
     List<MessengeUser> messenge = dbContext.MessengeUsers.Where(dr => dr.User.UserName == User.Identity.Name).ToList();
- }
+}
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -70,8 +70,8 @@
                             </li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-cogs"></i>
-                                    <span>Role</span>
+                                    <i class="ti-email"></i>
+                                    <span>Messange Box</span>
                                 </a>
                                 <ul class="collapse">
                                     <li><a href="/Admin/Role/List">Role List</a></li>
@@ -96,17 +96,7 @@
                                     <li><a href="pricing.html">Pricing</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    <span>Error</span>
-                                </a>
-                                <ul class="collapse">
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="403.html">Error 403</a></li>
-                                    <li><a href="500.html">Error 500</a></li>
-                                </ul>
-                            </li>
+
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true">
                                     <i class="fa fa-align-left"></i>
@@ -219,80 +209,31 @@
                                 </div>
                             </li>
                             <li class="dropdown">
-                                <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>3</span></i>
+                                <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>@messenge.Where(dr => dr.IsRead == false).ToList().Count</span></i>
                                 <div class="dropdown-menu notify-box nt-enveloper-box">
-                                    <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                                    <span class="notify-title">
+                                        @if (messenge.Where(dr => dr.IsRead == false).ToList().Count != 0)
+                                        {
+                                            <span> You have @messenge.Where(dr => dr.IsRead == false).ToList().Count  new notifications</span>
+                                        }
+
+                                        <a href="/UserAdmin/Messange/List">view all</a>
+                                    </span>
                                     <div class="nofity-list">
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img1.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Hey I am waiting for you...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img2.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">When you can connect with me...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img3.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">I missed you so much...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img4.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Your product is completely Ready...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img2.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Hey I am waiting for you...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img1.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Hey I am waiting for you...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="notify-item">
-                                            <div class="notify-thumb">
-                                                <img src="~/Admin/assets/images/author/author-img3.jpg" alt="image">
-                                            </div>
-                                            <div class="notify-text">
-                                                <p>Aglae Mayer</p>
-                                                <span class="msg">Hey I am waiting for you...</span>
-                                                <span>3:15 PM</span>
-                                            </div>
-                                        </a>
+
+                                        @foreach (var item in messenge)
+                                        {
+                                            <a href="/UserAdmin/Messange/Show/@item.Id" class="notify-item">
+                                                <div class="notify-thumb">
+                                                    <img src="~/Admin/assets/images/author/author-img1.jpg" alt="image">
+                                                </div>
+                                                <div class="notify-text">
+                                                    <p>@item.FullName</p>
+                                                    <span class="msg">@item.Description.Substring(0, 19) ...</span>
+                                                    <span>@item.Date.ToShortTimeString()</span>
+                                                </div>
+                                            </a>
+                                        }
                                     </div>
                                 </div>
                             </li>
@@ -321,7 +262,7 @@
                             <img class="avatar user-thumb" src="~/Admin/assets/images/author/avatar.png" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Message</a>
+                                <a class="dropdown-item" href="/UserAdmin/Messange/List">Message</a>
                                 <a class="dropdown-item" href="#">Settings</a>
                                 <a class="dropdown-item" href="#">Log Out</a>
                             </div>
