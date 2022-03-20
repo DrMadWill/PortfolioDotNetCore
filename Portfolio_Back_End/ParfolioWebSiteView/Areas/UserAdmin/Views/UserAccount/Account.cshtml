@@ -16,224 +16,224 @@
                 </div>
             </div>
         }
-        <div class="col-12 mt-5">
+    <div class="col-12 mt-5">
 
 
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <h2 class="header-title ">Home Table</h2>
-                        @if (Model.Home == null)
-                        {
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h2 class="header-title ">Home Table</h2>
+                    @if (Model.Home == null)
+                    {
+                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
+                    }
+                    else
+                    {
+                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-primary d-inline-block  ml-auto mb-3"><i style="font-size:1.3rem;font-weight:700;" class="fa fa-edit"></i></a>
 
-
-                            <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
-                        }
-                        else
-                        {
-                            <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-primary d-inline-block  ml-auto mb-3"><i style="font-size:1.3rem;font-weight:700;" class="fa fa-edit"></i></a>
-
-                        }
-                    </div>
-                    <div class="single-table">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered progress-table text-center">
-                                <thead class="text-uppercase">
+                    }
+                </div>
+                <div class="single-table">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered progress-table text-center">
+                            <thead class="text-uppercase">
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Skills</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Home != null)
+                                {
                                     <tr>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Image</th>
+                                        <td>@Model.Home.HomeSlogan</td>
+                                        <td>
+                                            <img style="max-width : 150px; height: auto;" src="~/img/Home/@Model.Home.Image" />
+                                        </td>
+                                        <td>@Model.Home.Skills</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.Home != null)
-                                    {
-                                        <tr>
-                                            <td>@Model.Home.HomeSlogan</td>
-                                            <td>
-                                                <img style="max-width : 150px; height: auto;" src="~/img/Home/@Model.Home.Image" />
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <h2 class="header-title ">About Table</h2>
-                        @if (Model.About == null)
-                        {
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h2 class="header-title ">About Table</h2>
+                    @if (Model.About == null)
+                    {
+                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
+                    }
+                    else
+                    {
+                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-primary d-inline-block  ml-auto mb-3"><i style="font-size:1.3rem;font-weight:700;" class="fa fa-edit"></i></a>
+                    }
+                </div>
+                <div class="single-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover progress-table text-center">
+                            <tbody>
+                                @if (Model.About != null)
+                                {
+                                    <tr>
+                                        <th>Main Skill</th>
+                                        <td>@Model.About.MainSkill</td>
+                                    </tr>
 
+                                    <tr>
+                                        <th>Description</th>
+                                        <td class="lead-add">@Html.Raw(Model.About.Descriptoion)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
 
-                            <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
-                        }
-                        else
-                        {
-                            <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-primary d-inline-block  ml-auto mb-3"><i style="font-size:1.3rem;font-weight:700;" class="fa fa-edit"></i></a>
-
-                        }
                     </div>
-                    <div class="single-table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover progress-table text-center">
-                                <thead class="text-uppercase">
-                                    <tr>
-                                        <th scope="col">Main Skill</th>
-                                        <th scope="col">Skills</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.About != null)
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-6 col-sm-12">
+            <div class="card-body">
+                <div class="d-flex">
+                    @if (Model.About != null)
+                    {
+                        <a href="/Admin/Account/Create" class="btn btn-flat  btn-outline-success d-inline-block ml-auto mb-3"><i class="ti-plus"></i></a>
+                    }
+                </div>
+                <div class="single-table">
+                    <div class="table-responsive">
+                        <table class="table my-2  table-bordered table-hover progress-table text-center">
+                            <thead class="text-uppercase">
+                                <tr>
+                                    <th scope="col">Code Skils Name</th>
+                                    <th scope="col">Code Skils Percent</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.About != null)
+                                {
+                                    foreach (var item in Model.About.SkillCodes)
                                     {
                                         <tr>
-                                            <td>@Model.About.MainSkill</td>
+                                            <td><span> @item.Name</span></td>
+                                            <td><span> @item.Percent</span></td>
                                             <td>
-                                                @foreach (var item in Model.About.Skills)
-                                                {
-                                                    <span class="mx-3">
-                                                        @item.Name
-                                                    </span>
-                                                }
-                                            </td>
-
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <table class="table table-bordered my-3 table-hover progress-table text-center">
-                                <thead class="text-uppercase">
-                                    <tr>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Code Skill</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.About != null)
-                                    {
-                                        <tr>
-                                            <td class="w-50">@Html.Raw(Model.About.Descriptoion)</td>
-                                            <td class="w-50">
-                                                <ul class="list-group">
-                                                    @foreach (var item in Model.About.SkillCodes)
-                                                    {
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            @item.Name
-                                                            <span class="badge badge-primary badge-pill">@item.Percent</span>
-                                                        </li>
-                                                    }
+                                                <ul class="d-flex justify-content-center">
+                                                    <li class="mr-3"><button href="/Admin/Account/Update/@item.Id" class="bg-transparent border-0 text-secondary"><i class="fa fa-edit"></i></button></li>
+                                                    <li><a onclick="return confirm('Silmək istədiyinizdən əminsiz?')" href="/Admin/Account/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
                                                 </ul>
                                             </td>
                                         </tr>
                                     }
-                                </tbody>
-                            </table>
-                        </div>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h2 class="header-title ">Contact Table</h2>
+                    @if (Model.Contact == null)
+                    {
+                        <a href="/UserAdmin/UserAccount/ContactCreate" class="btn btn-flat btn-outline-success d-inline-block ml-auto mb-3"><i class="ti-plus"></i></a>
+                    }
+                    else
+                    {
+                        <div class="d-inline-block ml-auto">
+                            <a href="/UserAdmin/UserAccount/ContactUpdate" class="btn btn-flat btn-outline-primary d-inline-block mb-3"><i style="font-size:1rem;font-weight:700;" class="fa fa-edit"></i></a>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <h2 class="header-title ">Contact Table</h2>
-                        @if (Model.Contact == null)
-                        {
-                            <a href="/UserAdmin/UserAccount/ContactCreate" class="btn btn-flat btn-outline-success d-inline-block ml-auto mb-3"><i class="ti-plus"></i></a>
-                        }
-                        else
-                        {
-                            <div class="d-inline-block ml-auto">
-                                <a href="/UserAdmin/UserAccount/ContactUpdate" class="btn btn-flat btn-outline-primary d-inline-block mb-3"><i style="font-size:1rem;font-weight:700;" class="fa fa-edit"></i></a>
-
-                                <button type="button" class="btn mx-2 btn-flat btn-outline-success d-inline-block mb-3" data-toggle="modal" data-target="#exampleModalCenter">
-                                    Contact Link Add
-                                </button>
-                            </div>
-                        }
+                            <button type="button" class="btn mx-2 btn-flat btn-outline-success d-inline-block mb-3" data-toggle="modal" data-target="#exampleModalCenter">
+                                Contact Link Add
+                            </button>
+                        </div>
+                    }
 
 
-                    </div>
-                    <div class="single-table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover progress-table text-center">
+                </div>
+                <div class="single-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover progress-table text-center">
+                            <tbody>
+                                @if (Model.Contact != null)
+                                {
+                                    <tr>
+                                        <th scope="row"> Email</th>
+                                        <td>
+                                            @Model.Contact.Email
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Phone Number</th>
+                                        <td>
+                                            @Model.Contact.PhoneNumber
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row"> Loaction</th>
+                                        <td>
+                                            @Model.Contact.Location
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="row w-100 px-2 justify-content-between">
+                            <table class="table table-bordered  my-3 col-lg-7 col-sm-12 table-hover progress-table text-center">
                                 <tbody>
                                     @if (Model.Contact != null)
                                     {
                                         <tr>
-                                            <th scope="row"> Email</th>
-                                            <td>
-                                                @Model.Contact.Email
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"> Phone Number</th>
-                                            <td>
-                                                @Model.Contact.PhoneNumber
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"> Loaction</th>
-                                            <td>
-                                                @Model.Contact.Location
-                                            </td>
+                                            <th scope="row">
+                                                Description
+                                            </th>
+                                            <td class="lead-add">@Html.Raw(Model.Contact.Description)</td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-
-                            <div class="row w-100 px-2 justify-content-between">
-                                <table class="table table-bordered  my-3 col-lg-7 col-sm-12 table-hover progress-table text-center">
-                                    <tbody>
-                                        @if (Model.Contact != null)
+                            <table class="table my-3  col-lg-4  col-sm-12 table-bordered table-hover progress-table text-center">
+                                <thead class="text-uppercase">
+                                    <tr>
+                                        <th scope="col">Contact Onlies</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Contact != null)
+                                    {
+                                        foreach (var item in Model.Contact.ContactOnlines)
                                         {
                                             <tr>
-                                                <th scope="row">
-                                                    Description
-                                                </th>
-                                                <td >@Html.Raw(Model.Contact.Description)</td>
+                                                <td><a href="@item.Url" class="btn m-1 contact-onlie btn-outline-info">@Html.Raw(item.Icon) @item.Name</a></td>
+                                                <td>
+                                                    <ul class="d-flex justify-content-center">
+                                                        <li class="mr-3"><button class="bg-transparent contact-onlie-edit-button border-0 text-secondary" data-id="@item.Id" data-toggle="modal" data-target="#contactUpdateModalCenter" data-icon="@item.Icon" data-name="@item.Name" data-link="@item.Url"><i class="fa fa-edit"></i></button></li>
+                                                        <li><a onclick="return confirm('Are You Sure Delete ?')" href="/UserAdmin/UserAccount/ContactDelete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                    </ul>
+                                                </td>
                                             </tr>
                                         }
-                                    </tbody>
-                                </table>
-                                <table class="table my-3  col-lg-4  col-sm-12 table-bordered table-hover progress-table text-center">
-                                    <thead class="text-uppercase">
-                                        <tr>
-                                            <th scope="col">Contact Onlies</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.Contact != null)
-                                        {
-                                            foreach (var item in Model.Contact.ContactOnlines)
-                                            {
-                                                <tr>
-                                                    <td><a href="@item.Url" class="btn m-1 btn-outline-info">@Html.Raw(item.Icon) @item.Name</a></td>
-                                                    <td>
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li class="mr-3"><a href="/Admin/Account/Update/@item.Id" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                            <li><a onclick="return confirm('Silmək istədiyinizdən əminsiz?')" href="/Admin/Account/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            }
+                                    }
+                                </tbody>
+                            </table>
 
-
-                                        }
-                                    </tbody>
-                                </table>
-
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 
@@ -283,13 +283,56 @@
     </div>
 </div>
 
+<div class="modal fade" id="contactUpdateModalCenter" tabindex="-1" role="dialog" aria-labelledby="contactUpdateModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="card my-3 ">
+                    <div class="card-header login-form-head">
+                        <h4>Connection Link Edit</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <form method="post" id="formedit">
+                            <input type="hidden" id="connectonlieId">
+                            <div class="form-gp">
+                                <label for="iconedit">Icon</label>
+                                <input id="iconedit" type="text">
+                                <i class="fa fa-info-circle"></i>
+                                <div class="text-danger"></div>
+                            </div>
+
+                            <div class="form-gp">
+                                <label for="urledit">Url</label>
+                                <input type="url" id="urledit">
+                                <i class="ti-link"></i>
+                                <div class="text-danger"></div>
+                            </div>
+                            <div class="form-gp">
+                                <label for="name">Name</label>
+                                <input type="text" id="nameedit">
+                                <i class="ti-world"></i>
+                                <div class="text-danger"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button form="formedit" type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section footer_link{
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
     <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
     <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
-
 
     <script>
         $(document).ready(function () {
@@ -299,6 +342,19 @@
                 }
             })
         })
+    </script>
+
+    <script>
+        $(document).on("submit", "#formedit", (e) => {
+            $.ajax({
+                url: "/UserAdmin/UserAccount/ContactOnlineUpdate",
+                type: "POST",
+                data: { id: $("#connectonlieId").val(), icon: $("#iconedit").val(), url: $("#urledit").val(), name: $("#nameedit").val() },
+                success: (resp) => {
+                    location.href = "/UserAdmin"
+                }
+            })
+        });
     </script>
 
     <script>
@@ -315,4 +371,30 @@
             });
         })
     </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $(".lead-add").each(function () {
+                $(this).children("p").addClass("lead")
+            })
+        })
+    </script>
+
+    <script>
+        //console.log( $("contact-onlie").children("a"))
+
+        $(".contact-onlie-edit-button").each(function () {
+
+            $(this).click(function () {
+                $("#connectonlieId").attr("value", $(this).attr("data-id"))
+                $("#iconedit").attr("value", $(this).attr("data-icon"))
+                $("#urledit").attr("value", $(this).attr("data-link"))
+                $("#nameedit").attr("value", $(this).attr("data-name"))
+
+            })
+        })
+
+    </script>
+
 }

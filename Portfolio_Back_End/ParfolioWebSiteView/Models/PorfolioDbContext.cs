@@ -25,7 +25,6 @@ namespace ParfolioWebSiteView.Models
         public DbSet<PortfolioDetail> PortfolioDetails { get; set; }
         public DbSet<Referance> Referances { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<Skill> Skills { get; set; }
         public DbSet<SkillCode> SkillCodes { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<BlogToTag> BlogToTags { get; set; }
@@ -64,9 +63,6 @@ namespace ParfolioWebSiteView.Models
                 .HasIndex(u => u.Name)
                 .IsUnique();
 
-            modelBuilder.Entity<Skill>()
-                .HasIndex(u => u.Name)
-                .IsUnique();
 
             modelBuilder.Entity<SkillCode>()
                 .HasIndex(u => u.Name)

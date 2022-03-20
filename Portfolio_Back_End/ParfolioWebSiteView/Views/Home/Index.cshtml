@@ -1,41 +1,22 @@
-﻿@model User
+﻿@model IndexVM
 @using System.Text;
-
 @{
     ViewData["Title"] = "Home Page";
-
-    StringBuilder skils = new StringBuilder();
-
-
-    for (int i = 0; i < Model.About.Skills.Count; i++)
-    {
-        if (i == 0)
-        {
-            skils.Append(Model.About.Skills[i].Name);
-        }
-        else
-        {
-            skils.Append(",");
-            skils.Append(Model.About.Skills[i].Name);
-        }
-    }
 }
 
 @section header{
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 }
 
 <!-- ======= Hero Section ======= -->
-<div id="hero" class="hero route bg-image" style="background-image:url(/img/Home/@Model.Home.Image)">
+<div id="hero" class="hero route bg-image" style="background-image:url(/img/Home/@Model.User.Home.Image)">
     <div class="overlay-itro"></div>
     <div class="hero-content display-table">
         <div class="table-cell">
             <div class="container">
                 <!--<p class="display-6 color-d">Hello, world!</p>-->
-                <h1 class="hero-title mb-4">@Model.Home.HomeSlogan</h1>
-                <p class="hero-subtitle"><span class="typed" data-typed-items="@skils.ToString()"></span></p>
+                <h1 class="hero-title mb-4">@Model.User.Home.HomeSlogan</h1>
+                <p class="hero-subtitle"><span class="typed" data-typed-items="@Model.User.Home.Skills"></span></p>
                 <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
             </div>
         </div>
@@ -44,144 +25,78 @@
 
 <main id="main">
 
-    @if (Model.About != null)
-    {
-
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about-mf sect-pt4 route">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="box-shadow-full">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-5">
-                                            <div class="about-img">
-                                                <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-7">
-                                            <div class="about-info">
-                                                <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
-                                                <p>
-                                                    <span class="title-s">Skill: </span>
-                                                    <span class="mx-2"> @Model.About.MainSkill</span>
-                                                </p>
-
-                                                @if (Model.Contact != null)
-                                                {
-
-                                                    if (Model.Contact.Email != null)
-                                                    {
-                                                        <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
-                                                    }
-                                                    if (Model.Contact.PhoneNumber != null)
-                                                    {
-                                                        <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
-                                                    }
-                                                }
-                                            </div>
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about-mf sect-pt4 route">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="box-shadow-full">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-5">
+                                        <div class="about-img">
+                                            <img src="~/img/Profile/@Model.User.Image" class="img-fluid rounded b-shadow-a" alt="">
                                         </div>
                                     </div>
-                                    @if (Model.About.SkillCodes.Count != 0)
-                                    {
-                                        <div class="skill-mf">
-                                            <p class="title-s">Code Skill</p>
-                                            @foreach (var item in Model.About.SkillCodes)
+                                    <div class="col-sm-6 col-md-7">
+                                        <div class="about-info">
+                                            <p><span class="title-s">Name: </span> <span>@Model.User.FullName</span></p>
+                                            <p>
+                                                <span class="title-s">Skill: </span>
+                                                <span class="mx-2"> @Model.User.About.MainSkill</span>
+                                            </p>
+
+                                            @if (Model.User.Contact != null)
                                             {
-                                                <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
+
+                                                if (Model.User.Contact.Email != null)
+                                                {
+                                                    <p><span class="title-s">Email: </span> <span>@Model.User.Contact.Email</span></p>
+                                                }
+                                                if (Model.User.Contact.PhoneNumber != null)
+                                                {
+                                                    <p><span class="title-s">Phone Number: </span> <span>@Model.User.Contact.PhoneNumber</span></p>
+                                                }
                                             }
                                         </div>
-                                    }
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="about-me pt-4 pt-md-0">
-                                        <div class="title-box-2">
-                                            <h5 class="title-left">
-                                                About me
-                                            </h5>
-                                        </div>
-                                        <div class="lead-add">
-                                            @Html.Raw(Model.About.Descriptoion)
-                                        </div>
-
                                     </div>
+                                </div>
+                                @if (Model.User.About.SkillCodes.Count != 0)
+                                {
+                                    <div class="skill-mf">
+                                        <p class="title-s">Code Skill</p>
+                                        @foreach (var item in Model.User.About.SkillCodes)
+                                        {
+                                            <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <div class="about-me pt-4 pt-md-0">
+                                    <div class="title-box-2">
+                                        <h5 class="title-left">
+                                            About me
+                                        </h5>
+                                    </div>
+                                    <div class="lead-add">
+                                        @Html.Raw(Model.User.About.Descriptoion)
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section><!-- End About Section -->
-    }
-    else
-    {
+        </div>
+    </section><!-- End About Section -->
 
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about-mf sect-pt4 route">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="box-shadow-full">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-5">
-                                            <div class="about-img">
-                                                <img src="~/img/Profile/@Model.Image" class="img-fluid rounded b-shadow-a" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-7">
-                                            <div class="about-info">
-                                                <p><span class="title-s">Name: </span> <span>@Model.FullName</span></p>
-
-
-                                                @if (Model.Contact != null)
-                                                {
-
-                                                    if (Model.Contact.Email != null)
-                                                    {
-                                                        <p><span class="title-s">Email: </span> <span>@Model.Contact.Email</span></p>
-                                                    }
-                                                    if (Model.Contact.PhoneNumber != null)
-                                                    {
-                                                        <p><span class="title-s">Phone Number: </span> <span>@Model.Contact.PhoneNumber</span></p>
-                                                    }
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="about-me pt-4 pt-md-0">
-                                        <div class="title-box-2">
-                                            <h5 class="title-left">
-                                                About me
-                                            </h5>
-                                        </div>
-                                        <p class="lead">
-                                            Hi,My name is @Model.FullName .
-                                            <br />
-                                            I love to research.
-                                            <br />
-                                            Learning new things, self driven, hard working and friendly.
-                                        </p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!-- End About Section -->
-    }
-
-    @if (Model.Services.Count != 0)
+    @if (Model.User.Services.Count != 0)
     {
         <!-- ======= Services Section ======= -->
         <section id="services" class="services-mf pt-5 route">
@@ -200,7 +115,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach (var item in Model.Services)
+                    @foreach (var item in Model.User.Services)
                     {
                         <div class="col-md-4">
                             <div class="service-box">
@@ -222,14 +137,14 @@
         </section><!-- End Services Section -->
     }
 
-    @if (Model.Achievements.Count != 0)
+    @if (Model.User.Achievements.Count != 0)
     {
         <!-- ======= Counter Section ======= -->
         <div class="section-counter paralax-mf bg-image" style="background-image: url(/img/counters-bg.jpg) ">
             <div class="overlay-mf"></div>
             <div class="container position-relative">
                 <div class="row justify-content-center">
-                    @foreach (var item in Model.Achievements)
+                    @foreach (var item in Model.User.Achievements)
                     {
                         <div class="col-sm-3 my-2 col-lg-3">
                             <div class="counter-box counter-box pt-4  pt-md-0">
@@ -248,7 +163,7 @@
         </div><!-- End Counter Section -->
     }
 
-    @if (Model.PortfoliosVM.Count != 0)
+    @if (Model.Portfolios.Count != 0)
     {
         <!-- ======= Portfolio Section ======= -->
         <section id="work" class="portfolio-mf sect-pt4 route">
@@ -269,7 +184,7 @@
                 <div class="row">
 
 
-                    @foreach (var work in Model.PortfoliosVM)
+                    @foreach (var work in Model.Portfolios)
                     {
 
                         <div class="col-md-4">
@@ -303,7 +218,7 @@
         </section><!-- End Portfolio Section -->
     }
 
-    @if (Model.Referances.Count != 0)
+    @if (Model.User.Referances.Count != 0)
     {
         <!-- ======= Testimonials Section ======= -->
         <div class="testimonials paralax-mf bg-image" style="background-image: url(/img/overlay-bg.jpg)">
@@ -313,7 +228,7 @@
                     <div class="col-md-12">
                         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                             <div class="swiper-wrapper">
-                                @foreach (var item in Model.Referances)
+                                @foreach (var item in Model.User.Referances)
                                 {
 
                                     <div class="swiper-slide">
@@ -343,7 +258,7 @@
         </div><!-- End Testimonials Section -->
     }
 
-    @if (Model.BlogsVM.Count != 0)
+    @if (Model.Blogs.Count != 0)
     {
         <!-- ======= Blog Section ======= -->
         <section id="blog" class="blog-mf sect-pt4 route">
@@ -362,7 +277,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach (var item in Model.BlogsVM)
+                    @foreach (var item in Model.Blogs)
                     {
                         <div class="col-md-4">
                             <div class="card card-blog">
@@ -383,8 +298,8 @@
                                 <div class="card-footer">
                                     <div class="post-author">
                                         <a href="#about">
-                                            <img src="~/img/Profile/@Model.Image" alt="" class="avatar rounded-circle">
-                                            <span class="author">@Model.FullName</span>
+                                            <img src="~/img/Profile/@Model.User.Image" alt="" class="avatar rounded-circle">
+                                            <span class="author">@Model.User.FullName</span>
                                         </a>
                                     </div>
                                     <div class="post-date">
@@ -427,32 +342,37 @@
                                         </h5>
                                     </div>
                                     <div>
-                                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                        <form asp-action="Index" asp-controller="Home" method="post" role="form">
                                             <div class="row">
+                                                <input type="hidden" asp-for="MessengeUser.UserId" value="@Model.User.Id" />
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                        <input type="text" asp-for="MessengeUser.FullName" class="form-control" placeholder="Your FullName" required>
+                                                        <span asp-validation-for="MessengeUser.FullName" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                                        <input type="email" class="form-control" asp-for="MessengeUser.Email" placeholder="Your Email" required>
+                                                        <span asp-validation-for="MessengeUser.Email" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                                        <input type="text" class="form-control" asp-for="MessengeUser.Subject" placeholder="Subject" required>
+                                                        <span asp-validation-for="MessengeUser.Subject" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                                        <textarea class="form-control" asp-for="MessengeUser.Description" rows="5" placeholder="Message" required></textarea>
+                                                        <span asp-validation-for="MessengeUser.Description" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 text-center my-3">
-                                                    <div class="loading">Loading</div>
-                                                    <div class="error-message"></div>
-                                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                                                    <div class="loading d-block">Loading</div>
+                                                    <span asp-validation-for="Error" class="error-message d-block text-danger"></span>
+                                                    <span asp-validation-for="MessangeSuccess" class="sent-message d-block text-success"></span>
                                                 </div>
                                                 <div class="col-md-12 text-center">
                                                     <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
@@ -467,7 +387,7 @@
                                             Get in Touch
                                         </h5>
                                     </div>
-                                    @if (Model.Contact == null)
+                                    @if (Model.User.Contact == null)
                                     {
                                         <div class="more-info">
                                             <p class="lead">
@@ -479,17 +399,17 @@
                                     {
                                         <div class="more-info">
                                             <div class="lead-add">
-                                                @Html.Raw(Model.Contact.Description)
+                                                @Html.Raw(Model.User.Contact.Description)
                                             </div>
                                             <ul class="list-ico">
-                                                <li><span class="bi bi-geo-alt"></span> @Model.Contact.Location</li>
-                                                <li><span class="bi bi-phone"></span> @Model.Contact.PhoneNumber</li>
-                                                <li><span class="bi bi-envelope"></span> @Model.Contact.Email</li>
+                                                <li><span class="bi bi-geo-alt"></span> @Model.User.Contact.Location</li>
+                                                <li><span class="bi bi-phone"></span> @Model.User.Contact.PhoneNumber</li>
+                                                <li><span class="bi bi-envelope"></span> @Model.User.Contact.Email</li>
                                             </ul>
                                         </div>
                                         <div class="socials">
                                             <ul>
-                                                @foreach (var item in Model.Contact.ContactOnlines)
+                                                @foreach (var item in Model.User.Contact.ContactOnlines)
                                                 {
                                                     <li>
                                                         <a href="@item.Url">
@@ -499,11 +419,15 @@
                                                         </a>
                                                     </li>
                                                 }
+
+
+
                                             </ul>
+                                            <button id="messangesuccess" type="button" style="width:0;height:0;visibility:hidden;" data-toggle="modal" data-target="#exampleModalCenter"></button>
+
+                                            <a id="contactClick" style="width:0;height:0;visibility:hidden;" href="#contact"></a>
                                         </div>
                                     }
-
-
                                 </div>
                             </div>
                         </div>
@@ -515,17 +439,44 @@
 
 </main><!-- End #main -->
 
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="alert alert-success">Your message has been sent. Thank you!</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section script{
+    <partial name="_ValidationScriptsPartial" />
 
+    @if (Model.IsError)
+    {
+        <script>
+            document.querySelector("#contactClick").click()
+        </script>
+
+    }
+    <script src="~/Admin/assets/js/popper.min.js"></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+    @if (Model.IsSuccessMessange)
+    {
+        <script>
+            document.querySelector("#messangesuccess").click()
+        </script>
+    }
     <script>
-
-      $(document).ready(function(){
-        $(".lead-add").each(function(){
-           $(this).children("p").addClass("lead")
+        $(document).ready(function () {
+            $(".lead-add").each(function () {
+                $(this).children("p").addClass("lead")
+            })
         })
-      })
-
-
     </script>
 
- }
+}

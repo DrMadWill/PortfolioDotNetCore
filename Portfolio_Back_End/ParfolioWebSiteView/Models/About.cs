@@ -17,7 +17,6 @@ namespace ParfolioWebSiteView.Models
         public string Descriptoion { get; set; }
         [MaxLength(150)]
         public string MainSkill { get; set; }
-        public List<Skill> Skills { get; set; }
         public List<SkillCode> SkillCodes { get; set; }
     }
 }

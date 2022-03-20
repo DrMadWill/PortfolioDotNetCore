@@ -8,14 +8,15 @@ namespace ParfolioWebSiteView.ViewModels
 {
     public class IndexVM
     {
-        public Home Home { get; set; }
-        public List<Achievements> Achievements { get; set; }
-        public About About { get; set; }
-        public List<Service> Services { get; set; }
-        public List<Referance> Referances { get; set; }
-        public Contact Contact { get; set; }
+        public User User { get; set; }
         public List<Portfolio> Portfolios { get; set; }
         public List<Blog> Blogs { get; set; }
+        public MessengeUser MessengeUser { get; set; }
+
+        public string Error { get; set; }
+        public string MessangeSuccess { get; set; }
+        public bool IsError { get; set; } = false;
+        public bool IsSuccessMessange { get; set; } = false;
 
     }
 }

@@ -17,6 +17,9 @@ namespace ParfolioWebSiteView.Models
         [Required]
         public string HomeSlogan { get; set; }
 
+        [MaxLength(3000)]
+        public string Skills { get; set; }
+
         [MaxLength(150)]
         [Required]
         public string Image { get; set; }

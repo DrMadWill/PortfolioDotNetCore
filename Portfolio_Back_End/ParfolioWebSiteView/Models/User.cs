@@ -36,12 +36,6 @@ namespace ParfolioWebSiteView.Models
         public IList<Referance> Referances { get; set; }
         public IList<Service> Services { get; set; }
         public IList<Portfolio> Portfolios { get; set; }
-        [NotMapped]
-        public List<Blog> BlogsVM { get; set; }
-
-        [NotMapped]
-        public List<Portfolio> PortfoliosVM { get; set; }
-
         public IList<Commet> Commets { get; set; }
         public IList<MessengeUser> MessengeUsers { get; set; }
 
