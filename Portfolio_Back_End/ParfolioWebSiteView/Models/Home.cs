@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,16 +14,19 @@ namespace ParfolioWebSiteView.Models
         public string Id { get; set; }
         public User User { get; set; }
 
-        [MaxLength(250)]
-        [Required]
+        [MaxLength(350,ErrorMessage ="Maximum Length is 350")]
+        [MinLength(3,ErrorMessage = "Maximum Length is 350")]
+        [Required(ErrorMessage = "Slogan is Required")]
         public string HomeSlogan { get; set; }
 
-        [MaxLength(3000)]
+        [MaxLength(3000, ErrorMessage = "Maximum Length is 3000")]
+        [MinLength(3, ErrorMessage = "Maximum Length is 350")]
         public string Skills { get; set; }
 
         [MaxLength(150)]
-        [Required]
         public string Image { get; set; }
+        [NotMapped]
+        public IFormFile Potho { get; set; }
 
     }
 }

@@ -26,7 +26,7 @@ namespace ParfolioWebSiteView.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Comment(string message, string userId, int? commetId, int? blogId)
         {
             if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(userId)) return NotFound();

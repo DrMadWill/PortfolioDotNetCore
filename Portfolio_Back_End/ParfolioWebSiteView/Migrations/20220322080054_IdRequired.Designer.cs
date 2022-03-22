@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220322080054_IdRequired")]
+    partial class IdRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -410,6 +412,7 @@ namespace ParfolioWebSiteView.Migrations
                         .HasMaxLength(250);
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 

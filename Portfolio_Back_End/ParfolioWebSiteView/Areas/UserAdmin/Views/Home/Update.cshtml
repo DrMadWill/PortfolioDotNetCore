@@ -1,5 +1,6 @@
-﻿
-@model Contact
+﻿@model Home
+@{
+}
 
 @section header_link {
 
@@ -20,55 +21,43 @@
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 }
 
+
 <div class="main-content-inner">
     <div class="row">
-        <!-- Textual inputs start -->
         <div class="col-12 mt-5">
             <div class="card">
-                <form class="card-body row" method="post">
-                    <h4 class="header-title col-12">
-                        Contact
-                        @if (ViewBag.IsCreate)
-                        {
-                            <span>
-                                Create
-                            </span>
-                        }
-                        else
-                        {
-                            <span>
-                                Edit
-                            </span>
-                        }
-
+                <form class="card-body" method="post" enctype="multipart/form-data">
+                    <h4 class="header-title">
+                        Home Update
                     </h4>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                        <label asp-for="Email" class="col-form-label">Email</label>
-                        <input class="form-control" type="email" asp-for="Email">
-                        <span asp-validation-for="Email" class="text-danger my-1"></span>
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <div class="form-group">
+                        <label asp-for="HomeSlogan" class="col-form-label">Slogan</label>
+                        <input class="form-control" type="text" asp-for="HomeSlogan">
+                        <span asp-validation-for="HomeSlogan" class="text-danger my-1"></span>
                     </div>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                        <label asp-for="PhoneNumber" class="col-form-label">Telephone</label>
-                        <input class="form-control" type="tel" asp-for="PhoneNumber">
-                        <span asp-validation-for="PhoneNumber" class="text-danger my-1"></span>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <label class="d-block mx-2" asp-for="Potho"> Choose Image</label>
+                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Potho">
+                        </div>
                     </div>
-                    <div class="form-group col-12">
-                        <label asp-for="Location" class="col-form-label">Location</label>
-                        <input class="form-control" type="text" asp-for="Location">
-                        <span asp-validation-for="Location" class="text-danger my-1"></span>
+                    <div>
+                        <label class="col-form-label d-block">Current Image</label>
+                        <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
                     </div>
-                    <div class="form-group col-12">
-                        <label asp-for="Description">Description</label>
-                        <textarea class="form-control" asp-for="Description" id="Description" rows="3"></textarea>
-                        <span asp-validation-for="Description" class="text-danger my-1"></span>
+                    <div class="form-group">
+                        <label asp-for="Skills" class="col-form-label">Skills</label>
+                        <input class="form-control" placeholder="Developer,Photographer,ect..." type="text" asp-for="Skills">
+                        <span asp-validation-for="Skills" class="text-danger my-1"></span>
                     </div>
-
                     <div class="form-group col-12">
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
+        <!-- Textual inputs end -->
     </div>
 </div>
 
@@ -83,20 +72,8 @@
     <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
     <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#Description'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-
-
-
-
     <partial name="_ValidationScriptsPartial" />
     <!-- others plugins -->
     <script src="~/Admin/assets/js/plugins.js"></script>
     <script src="~/Admin/assets/js/scripts.js"></script>
 }
-

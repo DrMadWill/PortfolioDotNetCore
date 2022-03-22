@@ -40,17 +40,22 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         public async Task<IActionResult> Show(int? id)
         {
             if (id == null) return Redirect("/System/Error404");
-            var messange = await dbContext.MessengeUsers.FirstOrDefaultAsync(dr => dr.Id == id);
+            var messange = await dbContext.MessengeUsers.FirstOrDefaultAsync(dr => dr.Id == id && dr.User.UserName==User.Identity.Name);
             if(messange ==null) return Redirect("/System/Error404");
-            messange.IsRead = true;
-            await dbContext.SaveChangesAsync();
+            if(messange.IsRead == false){
+                messange.IsRead = true;
+                await dbContext.SaveChangesAsync();
+            }
             return View(messange);
         }
-
 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return Redirect("/System/Error404");
+
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null) return Redirect("/System/Error404");
+
             var messange = await dbContext.MessengeUsers.FirstOrDefaultAsync(dr => dr.Id == id);
             if (messange == null) return Redirect("/System/Error404");
 

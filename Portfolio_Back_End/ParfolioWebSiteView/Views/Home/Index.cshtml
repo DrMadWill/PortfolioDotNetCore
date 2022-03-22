@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-md-5">
                                         <div class="about-img">
-                                            <img src="~/img/Profile/@Model.User.Image" class="img-fluid rounded b-shadow-a" alt="">
+                                            <img style="max-width:160px; height:auto;" src="~/img/Profile/@Model.User.Image" class="img-fluid rounded b-shadow-a" alt="">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-7">
@@ -68,7 +68,10 @@
                                         <p class="title-s">Code Skill</p>
                                         @foreach (var item in Model.User.About.SkillCodes)
                                         {
-                                            <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
+                                            <div class="d-flex justify-content-between">
+                                                <span>@item.Name</span> <span class="pull-right">@item.Percent%</span>
+
+                                            </div>
                                             <div class="progress">
                                                 <div class="progress-bar" role="progressbar" style="width: @item.Percent%;" aria-valuenow="@item.Percent" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
@@ -369,12 +372,7 @@
                                                         <span asp-validation-for="MessengeUser.Description" class="text-danger"></span>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 text-center my-3">
-                                                    <div class="loading d-block">Loading</div>
-                                                    <span asp-validation-for="Error" class="error-message d-block text-danger"></span>
-                                                    <span asp-validation-for="MessangeSuccess" class="sent-message d-block text-success"></span>
-                                                </div>
-                                                <div class="col-md-12 text-center">
+                                                <div class="col-md-12 mt-2 text-center">
                                                     <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
                                                 </div>
                                             </div>

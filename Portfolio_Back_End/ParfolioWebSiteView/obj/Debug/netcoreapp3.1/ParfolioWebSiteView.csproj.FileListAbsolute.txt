@@ -220,3 +220,6 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\UserAccount\ContactCreate.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Messange\List.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Messange\Show.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\CodeSkill\Create.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\About\Update.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Home\Update.cshtml.g.cs
