@@ -31,6 +31,9 @@ namespace ParfolioWebSiteView.Models
         public Home Home { get; set; }
         public Contact Contact { get; set; }
 
+        [NotMapped]
+        public IFormFile Photo { get; set; }
+
         public IList<Blog> Blogs { get; set; }
         public IList<Achievements> Achievements { get; set; }
         public IList<Referance> Referances { get; set; }
