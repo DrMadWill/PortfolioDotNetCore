@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20220319204106_EmailandPhoneDataType.Designer.cs" />
     <Compile Remove="Migrations\20220323105222_ServicesChangeDescType.cs" />
     <Compile Remove="Migrations\20220323105222_ServicesChangeDescType.Designer.cs" />
+    <Compile Remove="Migrations\20220323130851_AcivementIdMaxLengt.cs" />
+    <Compile Remove="Migrations\20220323130851_AcivementIdMaxLengt.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
