@@ -48,14 +48,22 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             ViewBag.IsCreate = true;
             var about = await dbContext.Abouts.Include(x => x.SkillCodes).FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
             if (about == null) return Redirect("/System/Error404");
+            // Limit Skill
             TempData["AccountAlert"] = "Your Limit Skill Code 10";
             if (about.SkillCodes.Count == 10) return Redirect("/UserAdmin/UserAccount/Account");
             skill.AboutId = about.Id;
-
             
+            // Already Added Skill
+            var AddedSkill = about.SkillCodes.Find(dr => dr.Name == skill.Name);
+            if (AddedSkill != null)
+            {
+                ModelState.AddModelError("Name", "Already Added This Name");
+                return View(skill);
+            }
+
             if (!ModelState.IsValid) return View(skill);
 
-            if (skill.Percent > 100)
+            if (skill.Percent >= 100)
             {
                 ModelState.AddModelError("Percent", "Maximum Length");
                 return View(skill);
@@ -100,16 +108,30 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             
             if (!ModelState.IsValid) return View("Create", skill);
             
-            if (skill.Percent > 100)
+            if (skill.Percent >= 100)
             {
                 ModelState.AddModelError("Percent", "Maximum Length");
                 return View(skill);
             }
 
+
+            // Already Added Skill
+            var about = await dbContext.Abouts
+                .Include(x => x.SkillCodes)
+                .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
+            var AddedSkill = about.SkillCodes.Find(dr => dr.Name == skill.Name && dr.Id!=skill.Id);
+            if (AddedSkill != null)
+            {
+                ModelState.AddModelError("Name", "Already Added This Name");
+                return View("Create",skill);
+            }
+
+            // Find Skill
             var skillDB = await dbContext.SkillCodes
-                .FirstOrDefaultAsync(dr => dr.About.User.UserName == User.Identity.Name &&
-                dr.Id == skill.Id);
+                .FirstOrDefaultAsync(dr =>dr.Id == skill.Id);
             if(skillDB==null) return Redirect("/System/Error404");
+
+            
 
             skillDB.Name = skill.Name;
             skillDB.Percent = skill.Percent;

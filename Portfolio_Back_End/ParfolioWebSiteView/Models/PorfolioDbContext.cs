@@ -63,15 +63,6 @@ namespace ParfolioWebSiteView.Models
                 .HasIndex(u => u.Name)
                 .IsUnique();
 
-
-            modelBuilder.Entity<SkillCode>()
-                .HasIndex(u => u.Name)
-                .IsUnique();
-
-            modelBuilder.Entity<Service>()
-                .HasIndex(u => u.Name)
-                .IsUnique();
-
             modelBuilder.Entity<Tag>()
                 .HasIndex(u => u.Name)
                 .IsUnique();

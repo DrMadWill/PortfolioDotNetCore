@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220323085116_UniqNameDelete")]
+    partial class UniqNameDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -581,9 +583,7 @@ namespace ParfolioWebSiteView.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descriptoion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(700)")
-                        .HasMaxLength(700);
+                        .HasColumnType("ntext");
 
                     b.Property<string>("Icon")
                         .IsRequired()
@@ -596,7 +596,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -925,9 +924,7 @@ namespace ParfolioWebSiteView.Migrations
                 {
                     b.HasOne("ParfolioWebSiteView.Models.User", "User")
                         .WithMany("Services")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.SkillCode", b =>

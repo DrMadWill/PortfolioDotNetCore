@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20220319201331_EmailandPhoneDataType.Designer.cs" />
     <Compile Remove="Migrations\20220319204106_EmailandPhoneDataType.cs" />
     <Compile Remove="Migrations\20220319204106_EmailandPhoneDataType.Designer.cs" />
+    <Compile Remove="Migrations\20220323105222_ServicesChangeDescType.cs" />
+    <Compile Remove="Migrations\20220323105222_ServicesChangeDescType.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

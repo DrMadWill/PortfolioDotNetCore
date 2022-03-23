@@ -127,9 +127,9 @@
                                 </div>
                                 <div class="service-content">
                                     <h2 class="s-title">@item.Name</h2>
-                                    <p class="s-description text-center">
-                                        @item.Descriptoion
-                                    </p>
+                                    <div class="s-dec-add">
+                                        @Html.Raw(item.Descriptoion)
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -473,6 +473,15 @@
         $(document).ready(function () {
             $(".lead-add").each(function () {
                 $(this).children("p").addClass("lead")
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".s-dec-add").each(function () {
+                $(this).children("p").addClass("s-description")
+                $(this).children("p").addClass("text-center")
             })
         })
     </script>
