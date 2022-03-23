@@ -61,7 +61,7 @@ namespace ParfolioWebSiteView.Controllers
             // Check Pass 
             var resault = await signInManager.PasswordSignInAsync(user, signIn.Password, signIn.RememberMe, false);
             if (resault.Succeeded)
-                return Redirect("/Admin/Account/List");
+                return Redirect("/UserAdmin");
 
             ViewBag.IsShowing = true;
             ModelState.AddModelError("Password", "Password Wrong!");
@@ -92,7 +92,7 @@ namespace ParfolioWebSiteView.Controllers
             if (userTest != null)
             {
                 ViewBag.IsShowing = true;
-                ModelState.AddModelError("User", "User Name Already Used.");
+                ModelState.AddModelError(string.Empty, "User Name Already Used.");
                 return View(sign);
             }
 
@@ -104,7 +104,7 @@ namespace ParfolioWebSiteView.Controllers
             {
                 ViewBag.IsShowing = true;
                 foreach (var item in result.Errors)
-                    ModelState.AddModelError("User", item.Description);
+                    ModelState.AddModelError(string.Empty, item.Description);
                 return View(sign);
             }
 
@@ -126,8 +126,32 @@ namespace ParfolioWebSiteView.Controllers
                 {
                     await userManager.AddToRoleAsync(user,role:"User");
                     await dbContext.SaveChangesAsync();
+                    
+                    // Default Home Create
+                    Home home = new Home
+                    {
+                        HomeSlogan = "I am " + user.FullName,
+                        Skills= "Developer",
+                        Image= "image.jpg",
+                        User = user
+                    };
+
+                    await dbContext.Homes.AddAsync(home);
+                    await dbContext.SaveChangesAsync();
+
+                    // Default About Create
+                    About about = new About
+                    {
+                        Descriptoion = "<p>I am frendly and love Code </p>",
+                        MainSkill = "Developer",
+                        User = user
+                    };
+
+                    await dbContext.Abouts.AddAsync(about);
+                    await dbContext.SaveChangesAsync();
+
                     await signInManager.SignInAsync(user, true);
-                    return Redirect("/Admin/Account/List");
+                    return Redirect("/UserAdmin");
                 }
             }
             else
