@@ -229,3 +229,6 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Services\Create.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Achievements\List.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Achievements\Create.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\List.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\Create.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\Show.cshtml.g.cs

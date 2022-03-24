@@ -1,0 +1,110 @@
+﻿@model IList<Portfolio>
+
+@section header_link{
+    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+    <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/metisMenu.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <!-- others css -->
+    <link rel="stylesheet" href="~/Admin/assets/css/typography.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/default-css.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
+    <!-- modernizr css -->
+    <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+}
+
+
+<div class="main-content-inner">
+    <div class="row">
+        <!-- Primary table start -->
+        <div class="col-12  mt-5">
+            @if (TempData["PortfolioAlert"] != null)
+            {
+                <div class="col-12 mt-2 alert-dismiss">
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        @TempData["PortfolioAlert"].ToString()
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
+                </div>
+            }
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex my-3 justify-content-between">
+                        <h4 class="header-title">Services List</h4>
+                        <a href="/UserAdmin/Portfolio/Create" class="btn btn-success"><i class="ti-plus"></i></a>
+                    </div>
+                    <div class="data-tables datatable-primary">
+                        <table id="dataTable2" class=" w-100 text-center">
+                            <thead class="text-capitalize">
+                                <tr>
+                                    <th>Title </th>
+                                    <th>Category</th>
+                                    <th>Client</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Title</td>
+                                        <td>@item.PortfolioCategory.Name </td>
+                                        <td>
+                                            @item.PortfolioDetail.Client 
+                                        </td>
+                                        <td>@item.Date</td>
+                                        <td>
+                                            <a href="/UserAdmin/Portfolio/Show/@item.Id" class="text-primary"><span class="ti-eye"></span></a>
+                                            <a href="/UserAdmin/Portfolio/Update/@item.Id" class="text-warning mx-2"><span class="fa fa-edit"></span></a>
+                                            <a onclick="return confirm('Are You Sure Delete?')" href="/UserAdmin/Portfolio/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Primary table end -->
+
+    </div>
+</div>
+
+
+@section footer_link{
+
+    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="~/Admin/assets/js/popper.min.js"></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Admin/assets/js/metisMenu.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Start datatable js -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
+    <script src="~/Admin/assets/js/plugins.js"></script>
+    <script src="~/Admin/assets/js/scripts.js"></script>
+
+}

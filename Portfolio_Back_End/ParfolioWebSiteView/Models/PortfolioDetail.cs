@@ -15,6 +15,7 @@ namespace ParfolioWebSiteView.Models
         public int Id { get; set; }
         public Portfolio Portfolio { get; set; }
         [MaxLength(150)]
+        [Required]
         public string Client { get; set; }
         [Column(TypeName = "ntext")]
         public string Descriptoion { get; set; }

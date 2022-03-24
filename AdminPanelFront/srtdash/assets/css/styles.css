@@ -2835,3 +2835,19 @@ table.dataTable thead td {
 }
 
 /*-------------------- END Offset Sidebar ------------------- */
+
+.image-box{
+    position: relative;
+    width: 300px;
+    height:auto;
+
+}
+
+
+.box-item{
+    position: absolute;
+    bottom: 10px;
+    left:50%;
+    transform: translate(-50%,0);    
+    
+}

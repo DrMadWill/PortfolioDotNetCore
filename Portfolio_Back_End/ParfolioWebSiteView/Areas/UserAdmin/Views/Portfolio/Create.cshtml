@@ -1,0 +1,206 @@
+﻿@model Portfolio
+@{
+}
+
+@section header_link {
+
+    <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/metisMenu.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="~/Admin/assets/css/typography.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/default-css.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
+    <!-- modernizr css -->
+    <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+}
+
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <form class="card-body" method="post" enctype="multipart/form-data">
+                    <h4 class="header-title">
+                        Portfolio
+                        @if (ViewBag.IsCreate)
+                        {
+                            <span>
+                                Create
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Update
+                            </span>
+                        }
+
+                    </h4>
+                    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                    <div class="row">
+                        <div class="form-group col-9">
+                            <label asp-for="PortfolioCategoryId">Category</label>
+                            <select class="form-control" style="height:50px;" asp-for="PortfolioCategoryId">
+                                @foreach (var item in Model.PortfolioCategoriesVM)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn mt-4 btn-md btn-outline-primary" data-toggle="modal" data-target="#contactUpdateModalCenter">Add Category</button>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Title" class="col-form-label">Title</label>
+                        <input class="form-control" type="text" asp-for="Title">
+                        <span asp-validation-for="Title" class="text-danger my-1"></span>
+                    </div>
+                    <p class="p-1">Image</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload Image</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="Photo">
+                            <label class="custom-file-label" asp-for="Photo">Choose Image</label>
+                        </div>
+                    </div>
+
+                    @if (!ViewBag.IsCreate)
+                    {
+                        <div>
+                            <label class="col-form-label d-block">Current Image</label>
+                            <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
+                        </div>
+                    }
+
+                    <div class="form-group">
+                        <label asp-for="PortfolioDetail.Client" class="col-form-label">Client</label>
+                        <input class="form-control" type="text" asp-for="PortfolioDetail.Client">
+                        <span asp-validation-for="PortfolioDetail.Client" class="text-danger my-1"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PortfolioDetail.LocatoionURL" class="col-form-label">Project Url</label>
+                        <input class="form-control" type="url" asp-for="PortfolioDetail.LocatoionURL">
+                        <span asp-validation-for="PortfolioDetail.LocatoionURL" class="text-danger my-1"></span>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label asp-for="PortfolioDetail.Descriptoion">Description</label>
+                        <textarea class="form-control" asp-for="PortfolioDetail.Descriptoion" id="Descriptoion" rows="3"></textarea>
+                        <span asp-validation-for="PortfolioDetail.Descriptoion" class="text-danger my-1"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Textual inputs end -->
+    </div>
+</div>
+
+<div class="modal fade" id="contactUpdateModalCenter" tabindex="-1" role="dialog" aria-labelledby="contactUpdateModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Add Category
+                </h4>
+            </div>
+            <div class="modal-body text-center">
+                <form method="post" id="form">
+                    <input type="hidden" id="connectonlieId">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Name" required id="name">
+                        <div id="error" class="text-danger"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnForm" form="form" type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section footer_link{
+    <!-- jquery latest version -->
+    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="~/Admin/assets/js/popper.min.js"></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Admin/assets/js/metisMenu.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Descriptoion'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+
+        $(document).ready(() => {
+
+            $(document).on('submit', '#form', (e) => {
+                e.preventDefault();
+                const id = $("#name").val()
+                $.ajax({
+                    url: `/UserAdmin/PortfolioCategory/IsAdded/${id}`,
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            $("#error").text("Name Is Required")
+                        } else {
+                            // If Not Add
+                            if (!response) {
+                                $.ajax({
+                                    url: '/UserAdmin/PortfolioCategory/Create',
+                                    headers: {
+                                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                                    },
+                                    type: 'POST',
+                                    data: { name: id },
+                                    success: (response) => {
+                                        if (response.hasOwnProperty('status') && response.status === 201) {
+                                            location.href = '/UserAdmin/Portfolio/Create';
+                                        } else if (response.status == 400) {
+                                            alert("Tapilmadi");
+                                        }
+                                    }
+                                })
+                            } else {
+                                $("#error").text("This Name Already Added.")
+                            }
+                        }
+                    }
+                })
+            })
+
+        })
+
+    </script>
+
+
+    <partial name="_ValidationScriptsPartial" />
+    <!-- others plugins -->
+    <script src="~/Admin/assets/js/plugins.js"></script>
+    <script src="~/Admin/assets/js/scripts.js"></script>
+}
