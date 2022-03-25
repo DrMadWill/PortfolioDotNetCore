@@ -81,7 +81,7 @@
                     {
                         <div>
                             <label class="col-form-label d-block">Current Image</label>
-                            <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
+                            <img style="width:300px;height:auto;" src="~/img/Porfolio/@Model.Image" />
                         </div>
                     }
 
@@ -103,13 +103,16 @@
                         <span asp-validation-for="PortfolioDetail.Descriptoion" class="text-danger my-1"></span>
                     </div>
                     <p class="p-1">Detail Images</p>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Warning!</strong> Your Image Limit 5
+                    </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload Image</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" multiple  asp-for="PortfolioDetail.Photos">
-                            <label class="custom-file-label"  asp-for="PortfolioDetail.Photos">Choose Image</label>
+                            <input type="file" class="custom-file-input" multiple asp-for="PortfolioDetail.Photos">
+                            <label class="custom-file-label" asp-for="PortfolioDetail.Photos">Choose Image</label>
                             <span asp-validation-for="PortfolioDetail.Photos" class="text-danger my-1"></span>
                         </div>
                     </div>
