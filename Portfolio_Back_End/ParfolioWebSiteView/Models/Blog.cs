@@ -30,6 +30,7 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public TimeSpan Time { get { return (DateTime.Now.Subtract(Date));} }
 
+       
 
     }
 }
