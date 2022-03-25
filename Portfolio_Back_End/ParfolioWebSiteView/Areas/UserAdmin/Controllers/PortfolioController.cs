@@ -34,11 +34,13 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var portfolio = await dbContext.Portfolios.Include(x=>x.PortfolioCategory).Include(x=>x.PortfolioDetail)
+            var portfolio = await dbContext.Portfolios.Include(x => x.PortfolioCategory).Include(x => x.PortfolioDetail)
                 .Where(dr => dr.User.UserName == User.Identity.Name).ToListAsync();
             return View(portfolio);
         }
 
+
+        // Create GET
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -52,6 +54,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return View(portfolio);
         }
 
+        // Create POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Portfolio portfolio)
@@ -65,6 +68,17 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             portfolio.UserId = user.Id;
+            // Detail Images Check
+            foreach (var item in portfolio.PortfolioDetail.Photos)
+            {
+                if (!item.IsImage())
+                {
+                    portfolio.PortfolioCategoriesVM = await dbContext.PortfolioCategories.ToListAsync();
+                    ModelState.AddModelError("PortfolioDetail.Photos", "Img forma not valid ");
+                    return View(portfolio);
+                }
+            }
+
             if (portfolio.Photo != null)
             {
                 string folder = @"img\Porfolio";
@@ -82,28 +96,46 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 ModelState.AddModelError("Photo", "Img is Required");
                 return View(portfolio);
             }
+
+
+
             await dbContext.Portfolios.AddAsync(portfolio);
             await dbContext.SaveChangesAsync();
-            
+
+            foreach (var item in portfolio.PortfolioDetail.Photos)
+            {
+                await dbContext.DetailImages.AddAsync(
+                        new DetailImage { PortfolioDetail=portfolio.PortfolioDetail,Image= await item.PhotoSaveAsync(env.WebRootPath, @"img\PorfolioDetails") }
+                    );
+            }
+            await dbContext.SaveChangesAsync();
+            TempData["PortfolioAlert"] = "Portfolio Created";
+
             return Redirect("/UserAdmin/Portfolio/List");
 
         }
 
+
+
+        // Show GET
         [HttpGet]
         public async Task<IActionResult> Show(int? id)
         {
             var portfolio = await dbContext.Portfolios
-                .Include(x=>x.PortfolioCategory)
-                .Include(x=>x.PortfolioDetail).ThenInclude(x=>x.DetailImages)
+                .Include(x => x.PortfolioCategory)
+                .Include(x => x.PortfolioDetail).ThenInclude(x => x.DetailImages)
                 .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name
             && dr.Id == id);
-            if(portfolio ==null) return Redirect("/System/Error404");
+            if (portfolio == null) return Redirect("/System/Error404");
             return View(portfolio);
         }
 
+
+
+        
         public async Task<IActionResult> Delete(int? id)
         {
-            var portfolio = await dbContext.Portfolios.Include(x=>x.PortfolioDetail)
+            var portfolio = await dbContext.Portfolios.Include(x => x.PortfolioDetail)
                 .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name && dr.Id == id);
             if (portfolio == null) return Redirect("/System/Error404");
             string folder = @"img\Porfolio";
@@ -113,6 +145,8 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             await dbContext.SaveChangesAsync();
             return Redirect("/UserAdmin/Portfolio/List");
         }
+
+
 
     }
 }

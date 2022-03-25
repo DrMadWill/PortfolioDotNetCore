@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +22,10 @@ namespace ParfolioWebSiteView.Models
         public string Descriptoion { get; set; }
         [MaxLength(200)]
         public string LocatoionURL { get; set; }
+
+        [NotMapped]
+        public List<IFormFile> Photos { get; set; }
+
         public List<DetailImage> DetailImages { get; set; }
     }
 }
