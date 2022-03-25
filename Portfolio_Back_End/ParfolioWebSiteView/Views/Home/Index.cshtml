@@ -237,13 +237,13 @@
                                     <div class="swiper-slide">
                                         <div class="testimonial-box">
                                             <div class="author-test">
-                                                <img style="width:100px;height:auto;" src="~/img/@item.Image" alt="" class="rounded-circle b-shadow-a">
+                                                <img style="width:100px;height:auto;" src="~/img/Refreance/@item.Image" alt="" class=" b-shadow-a">
                                                 <span class="author">@item.Name</span>
                                             </div>
                                             <div class="content-test">
-                                                <p class="description lead">
-                                                    @item.Title
-                                                </p>
+                                                <div class="descript-add">
+                                                    @Html.Raw(item.Title)
+                                                </div>
                                             </div>
                                         </div>
                                     </div><!-- End testimonial item -->
@@ -485,5 +485,14 @@
             })
         })
     </script>
+    <script>
+        $(document).ready(function () {
+            $(".descript-add").each(function () {
+                $(this).children("p").addClass("description")
+                $(this).children("p").addClass("lead")
+            })
+        })
+    </script>
+
 
 }

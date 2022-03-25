@@ -1,4 +1,4 @@
-﻿@model SkillCode
+﻿@model Referance
 @{
 }
 
@@ -21,36 +21,55 @@
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 }
 
+
 <div class="main-content-inner">
     <div class="row">
         <div class="col-12 mt-5">
-            <div asp-validation-summary="All"></div>
             <div class="card">
-                <form class="card-body" method="post">
-
+                <form class="card-body" method="post" enctype="multipart/form-data">
                     <h4 class="header-title">
-                        Skill Code 
-
+                        Referance
                         @if (ViewBag.IsCreate)
                         {
-                            <span>Create</span>
+                            <span>
+                                Create
+                            </span>
                         }
                         else
                         {
-                            <span>Update</span>
+                            <span>
+                                Update
+                            </span>
                         }
-
                     </h4>
-                    <input type="hidden" asp-for="AboutId" value="@Model.AboutId"/>
+                    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
                     <div class="form-group">
-                        <label asp-for="Name" class="col-form-label">Skill</label>
+                        <label asp-for="Name" class="col-form-label">Name</label>
                         <input class="form-control" type="text" asp-for="Name">
                         <span asp-validation-for="Name" class="text-danger my-1"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Percent">Percent</label>
-                        <input class="form-control" type="number" asp-for="Percent">
-                        <span asp-validation-for="Percent" class="text-danger my-1"></span>
+                    <p>Image</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Photo">
+                            <label class="custom-file-label" asp-for="Photo">Choose Image</label>
+                        </div>
+                    </div>
+                    
+                    @if (!ViewBag.IsCreate)
+                    {
+                        <div>
+                            <label class="col-form-label d-block">Current Image</label>
+                            <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
+                        </div>
+                    }
+                    <div class="form-group col-12">
+                        <label asp-for="Title">Title</label>
+                        <textarea class="form-control" asp-for="Title" id="Title" rows="3"></textarea>
+                        <span asp-validation-for="Title" class="text-danger my-1"></span>
                     </div>
                     <div class="form-group col-12">
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
@@ -72,7 +91,14 @@
     <script src="~/Admin/assets/js/metisMenu.min.js"></script>
     <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
     <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Title'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     <partial name="_ValidationScriptsPartial" />
     <!-- others plugins -->
     <script src="~/Admin/assets/js/plugins.js"></script>

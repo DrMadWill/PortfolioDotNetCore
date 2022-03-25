@@ -63,7 +63,6 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\ParfolioWebSiteView.TagHelpers.output.cache
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\ParfolioWebSiteView.RazorCoreGenerate.cache
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Home\ProtfolioDetails.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Home\SinglePage.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -232,3 +231,5 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\List.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\Create.cshtml.g.cs
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Portfolio\Show.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Referance\List.cshtml.g.cs
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Debug\netcoreapp3.1\Razor\Areas\UserAdmin\Views\Referance\Create.cshtml.g.cs

@@ -97,9 +97,6 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 ModelState.AddModelError("Photo", "Img is Required");
                 return View(portfolio);
             }
-
-
-
             await dbContext.Portfolios.AddAsync(portfolio);
             await dbContext.SaveChangesAsync();
             // Detail Image Save
@@ -111,9 +108,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             }
             await dbContext.SaveChangesAsync();
             TempData["PortfolioAlert"] = portfolio.Title + " Portfolio Created";
-
             return Redirect("/UserAdmin/Portfolio/List");
-
         }
 
         // Update GET
