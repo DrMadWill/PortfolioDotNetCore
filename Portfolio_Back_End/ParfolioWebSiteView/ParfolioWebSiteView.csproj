@@ -44,6 +44,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\UserAdmin\Data\" />
     <Folder Include="Areas\UserAdmin\Models\" />
+    <Folder Include="wwwroot\img\Blog\" />
   </ItemGroup>
 
 </Project>

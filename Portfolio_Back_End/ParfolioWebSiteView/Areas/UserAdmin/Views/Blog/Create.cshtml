@@ -67,7 +67,7 @@
                             <div class="alert alert-warning" role="alert">
                                 <strong>Warning!</strong> Your Selected Tag Limit 10 !
                             </div>
-                            <select class="form-control" multiple asp-for="TagIds">
+                            <select class="form-control" required multiple asp-for="TagIds">
                                 @foreach (var item in Model.Tags)
                                 {
                                     <option value="@item.Id">@item.Name</option>
@@ -85,6 +85,7 @@
                         <span asp-validation-for="Blog.Title" class="text-danger my-1"></span>
                     </div>
                     <p class="p-1">Image</p>
+                    <span asp-validation-for="Photo" class="text-danger my-1"></span>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload Image</span>
@@ -92,7 +93,6 @@
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" asp-for="Photo">
                             <label class="custom-file-label" asp-for="Photo">Choose Image</label>
-                            <span asp-validation-for="Photo" class="text-danger my-1"></span>
                         </div>
                     </div>
 

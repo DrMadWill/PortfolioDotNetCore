@@ -11,12 +11,15 @@ namespace ParfolioWebSiteView.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [MaxLength(200, ErrorMessage = "Maxum Limit 200")]
+        [Required(ErrorMessage = "Title is Required")]
         public string Title { get; set; }
+        [MaxLength(200)]
         public string Image { get; set; }
         [MaxLength(350)]
+        [Required(ErrorMessage = "Front Description is Required")]
         public string Description { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public BlogCategory BlogCategory { get; set; }
         public int BlogCategoryId { get; set; }
 

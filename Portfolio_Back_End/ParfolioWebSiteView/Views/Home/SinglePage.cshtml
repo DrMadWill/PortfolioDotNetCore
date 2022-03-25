@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="post-box">
-                        <div class="post-thumb">
+                        <div class="post-thumb d-flex justify-content-center">
                             <img src="~/img/Blog/@Model.Blog.Image" class="img-fluid" alt="">
                         </div>
                         <div class="post-meta">
@@ -244,10 +244,11 @@
                     <div class="widget-sidebar">
                         <h5 class="sidebar-title">Archives in @Model.Blog.User.UserName</h5>
                         <div class="sidebar-content">
-                            <ul class="list-sidebar">
-                                @if (Model.Blogs.Count > 3)
-                                {
-                                    for (int i = 2; i < Model.Blogs.Count; i++)
+
+                            @if (Model.Blogs.Count > 3)
+                            {
+                                <ul class="list-sidebar">
+                                    @for (int i = 3; i < Model.Blogs.Count; i++)
                                     {
                                         <li>
                                             <a href="/Home/SinglePage/@Model.Blogs[i].Id">
@@ -266,18 +267,19 @@
 
                                             </a>
                                         </li>
-                                        <a class="btn mt-3 d-block btn-primary" href="/Assistant/SeeArchives/@Model.Blog.Id">See All</a>
                                     }
-
-
-                                }
-                                else
-                                {
+                                </ul>
+                                <a class="btn mt-3 d-block btn-primary" href="/Assistant/SeeArchives/@Model.Blog.Id">See All</a>
+                            }
+                            else
+                            {
+                                <ul class="list-sidebar">
                                     <li>
                                         Not yet Archived
                                     </li>
-                                }
-                            </ul>
+                                </ul>
+                            }
+
                         </div>
                     </div>
                     <div class="widget-sidebar widget-tags">
@@ -360,21 +362,21 @@
             form.setAttribute("action", "/Assistant/Comment")
 
             let html = `
-                                                  <div class="mb-3">
-                                                    <div class="form-group">
-                                                      <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                                                      <input type="hidden" name="userId" value="%user">
-                                                      <input type="hidden" name="commetId" value="%coment">
-                                                      <span class="text-danger"></span>
-                                                    </div>
-                                                  </div>
-                                                  <div class="d-inline-block mt-2" >
-                                                      <button type="submit" class="button button-a button-rouded">Send Message</button>
-                                                  </div>
-                                                  <div class="d-inline-block mt-2">
-                                                      <button type="button" class="button canceled button-a button-rouded">Cancel</button>
-                                                  </div>
-                                            `
+                                                              <div class="mb-3">
+                                                                <div class="form-group">
+                                                                  <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                                                                  <input type="hidden" name="userId" value="%user">
+                                                                  <input type="hidden" name="commetId" value="%coment">
+                                                                  <span class="text-danger"></span>
+                                                                </div>
+                                                              </div>
+                                                              <div class="d-inline-block mt-2" >
+                                                                  <button type="submit" class="button button-a button-rouded">Send Message</button>
+                                                              </div>
+                                                              <div class="d-inline-block mt-2">
+                                                                  <button type="button" class="button canceled button-a button-rouded">Cancel</button>
+                                                              </div>
+                                                        `
             html = html.replace("%user", userId)
             html = html.replace("%coment", comment)
             form.innerHTML = html

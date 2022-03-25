@@ -14,6 +14,7 @@ namespace ParfolioWebSiteView.Models
         public Blog Blog { get; set; }
 
         [Column(TypeName = "ntext")]
+        [Required(ErrorMessage = "Description is Required")]
         public string Description { get; set; }
         public IList<Commet> Commets { get; set; }
 
