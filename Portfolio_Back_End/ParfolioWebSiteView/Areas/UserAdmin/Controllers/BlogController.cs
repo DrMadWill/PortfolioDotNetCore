@@ -58,6 +58,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogVM blogVM)
         {
             ViewBag.IsCreate = true;
@@ -117,7 +118,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
-            ViewBag.IsCreate = true;
+            ViewBag.IsCreate = false;
             var blogd= await dbContext.Blogs
                  .Include(x => x.BlogDetails)
                  .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name &&
@@ -125,6 +126,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             if(blogd == null) return Redirect("/System/Error404");
             BlogVM blogVM = new BlogVM
             {
+                Id =blogd.Id,
                 Blog = blogd,
                 CategoriesVM = await dbContext.BlogCategories.ToListAsync(),
                 Tags = await dbContext.Tags.ToListAsync(),
@@ -134,10 +136,70 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return View("Create", blogVM);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(BlogVM blogVM)
+        {
+            ViewBag.IsCreate = false;
+            if (!ModelState.IsValid)
+            {
+                blogVM.CategoriesVM = await dbContext.BlogCategories.ToListAsync();
+                blogVM.Tags = await dbContext.Tags.ToListAsync();
+                return View("Create", blogVM);
+            }
+
+            var blogDb = await dbContext.Blogs
+                .Include(x=>x.BlogDetails)
+                .Include(x=>x.BlogToTags)
+                .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name
+                && dr.Id == blogVM.Id);
+            if(blogDb==null) return Redirect("/System/Error404");
+
+            // Image Save
+            if (blogVM.Photo != null)
+            {
+                string folder = @"img\Blog";
+                if (!blogVM.Photo.IsImage())
+                {
+                    blogVM.CategoriesVM = await dbContext.BlogCategories.ToListAsync();
+                    blogVM.Tags = await dbContext.Tags.ToListAsync();
+                    ModelState.AddModelError("Photo", "Img forma not valid ");
+                    return View(blogVM);
+                }
+                FileExtension.Delete(env.WebRootPath, folder, blogDb.Image);
+                blogDb.Image = await blogVM.Photo.PhotoSaveAsync(env.WebRootPath, folder);
+            }
+
+            blogDb.Title = blogVM.Blog.Title;
+            blogDb.Description = blogVM.Blog.Description;
+            blogDb.BlogDetails.Description = blogVM.Blog.BlogDetails.Description;
+            blogDb.BlogCategoryId = blogVM.Blog.BlogCategoryId;
+
+            await dbContext.SaveChangesAsync();
+            // Delete Older Tags
+            dbContext.BlogToTags.RemoveRange(blogDb.BlogToTags);
+            await dbContext.SaveChangesAsync();
+
+            foreach (var item in blogVM.TagIds)
+            {
+                await dbContext.BlogToTags.AddAsync(
+                        new BlogToTag
+                        {
+                            BlogId = blogDb.Id,
+                            TagId = item
+                        }
+                    );
+            }
+
+            await dbContext.SaveChangesAsync();
+            TempData["BlogAlert"] = blogVM.Blog.Title + " Blog Changed";
+            return Redirect("/UserAdmin/Blog/List");
+        }
+
         public async Task<IActionResult> Delete(int? id)
         {
             var blog = await dbContext.Blogs
-                .Include(x => x.BlogDetails)
+                .Include(x => x.BlogDetails).ThenInclude(x=>x.Commets)
                 .Include(x => x.BlogToTags)
                 .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name
                 && dr.Id == id);

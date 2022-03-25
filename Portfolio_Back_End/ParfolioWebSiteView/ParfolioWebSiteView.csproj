@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20220323105222_ServicesChangeDescType.Designer.cs" />
     <Compile Remove="Migrations\20220323130851_AcivementIdMaxLengt.cs" />
     <Compile Remove="Migrations\20220323130851_AcivementIdMaxLengt.Designer.cs" />
+    <Compile Remove="Migrations\20220325200950_BlogImageRequared1.cs" />
+    <Compile Remove="Migrations\20220325200950_BlogImageRequared1.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

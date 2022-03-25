@@ -15,5 +15,6 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModels
         public Blog Blog { get; set; }
         public List<int> TagIds { get; set; }
         public IFormFile Photo { get; set; }
+        public List<Blog> Blogs { get; set; }
     }
 }
