@@ -39,7 +39,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return View(refreance);
         }
 
-
+        // Create GET
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -51,7 +51,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return View(referance);
         }
 
-
+        // Create POST
         [HttpPost]
         public async Task<IActionResult> Create(Referance referance)
         {
@@ -91,6 +91,57 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             await dbContext.SaveChangesAsync();
 
             TempData["ReferanceAlert"] = referance.Name + " Referance Created";
+            return Redirect("/UserAdmin/Referance/List");
+        }
+
+
+        // Update GET
+        [HttpGet]
+        public async Task<IActionResult> Update(int? id)
+        {
+            ViewBag.IsCreate = false;
+
+            var referance = await dbContext.Referances
+                .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name &&
+                dr.Id == id);
+            if (referance == null) return Redirect("/System/Error404");
+            
+
+            return View("Create", referance);
+        }
+
+
+        // Update POST
+        [HttpPost]
+        public async Task<IActionResult> Update(Referance referance)
+        {
+            ViewBag.IsCreate = false;
+            if(!ModelState.IsValid) return View("Create", referance);
+
+            var referanceDb = await dbContext.Referances
+                .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name &&
+                dr.Id == referance.Id);
+            if (referance == null) return Redirect("/System/Error404");
+
+            if (referance.Photo != null)
+            {
+                string folder = @"img\Refreance";
+                if (!referance.Photo.IsImage())
+                {
+                    ModelState.AddModelError("Photo", "Img forma bot valid ");
+                    return View(referance);
+                }
+                string newImageName = await referance.Photo.PhotoSaveAsync(env.WebRootPath, folder);
+                // Old Image Delete
+                FileExtension.Delete(env.WebRootPath, folder, referanceDb.Image);
+                referanceDb.Image = newImageName;
+            }
+            referanceDb.Name = referance.Name;
+            referanceDb.Title = referance.Title;
+
+            await dbContext.SaveChangesAsync();
+
+            TempData["ReferanceAlert"] = referanceDb.Name + " Referance Changed";
             return Redirect("/UserAdmin/Referance/List");
         }
 
