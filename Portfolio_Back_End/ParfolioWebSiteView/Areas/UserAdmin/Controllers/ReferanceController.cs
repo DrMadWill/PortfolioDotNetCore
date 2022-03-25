@@ -145,5 +145,22 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             return Redirect("/UserAdmin/Referance/List");
         }
 
+
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var referance = await dbContext.Referances
+                .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
+            if(referance ==null) return Redirect("/System/Error404");
+
+            FileExtension.Delete(env.WebRootPath, @"img\Refreance", referance.Image);
+
+            dbContext.Referances.Remove(referance);
+            await dbContext.SaveChangesAsync();
+
+            TempData["ReferanceAlert"] = referance.Name + " Referance Deleted";
+            return Redirect("/UserAdmin/Referance/List");
+        }
+
     }
 }
