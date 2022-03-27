@@ -12,11 +12,5 @@ namespace ParfolioWebSiteView.ViewModels
         public List<Portfolio> Portfolios { get; set; }
         public List<Blog> Blogs { get; set; }
         public MessengeUser MessengeUser { get; set; }
-
-        public string Error { get; set; }
-        public string MessangeSuccess { get; set; }
-        public bool IsError { get; set; } = false;
-        public bool IsSuccessMessange { get; set; } = false;
-
     }
 }

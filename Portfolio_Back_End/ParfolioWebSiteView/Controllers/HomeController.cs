@@ -24,7 +24,6 @@ namespace ParfolioWebSiteView.Controllers
             dbContext = _dbContext;
             userManager = _userManager;
         }
-        [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
             string username = id;
@@ -59,88 +58,10 @@ namespace ParfolioWebSiteView.Controllers
                 .Take(3)
                 .OrderByDescending(x => x.Id)
                 .ToListAsync()
-
             };
             
             return View(index);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IndexVM index)
-        {
-
-            if (string.IsNullOrEmpty(index.MessengeUser.UserId))
-                return NotFound();
-            else
-            {
-                index.MessengeUser.User = await userManager.FindByIdAsync(index.MessengeUser.UserId);
-                if (index.MessengeUser.User == null) return NotFound();
-            }
-
-
-            if (!ModelState.IsValid)
-            {
-                index.User = await dbContext.User
-                .Include(h => h.Home)
-                .Include(a => a.About).Include(x => x.About.SkillCodes)
-                .Include(ac => ac.Achievements)
-                .Include(c => c.Contact).Include(c => c.Contact.ContactOnlines)
-                .Include(s => s.Services)
-                .Include(r => r.Referances)
-                .FirstOrDefaultAsync(dr => dr.Id == index.MessengeUser.UserId);
-
-                index.Blogs = await dbContext.Blogs
-                .Where(dr => dr.UserId == index.MessengeUser.UserId)
-                .Include(x => x.BlogCategory)
-                .Take(3)
-                .OrderByDescending(x => x.Id)
-                .ToListAsync();
-
-                index.Portfolios = await dbContext.Portfolios
-                .Where(dr => dr.UserId == index.MessengeUser.UserId)
-                .Include(x => x.PortfolioCategory)
-                .Take(3)
-                .OrderByDescending(x => x.Id)
-                .ToListAsync();
-
-                index.IsError = true;
-
-                return View(index);
-            }
-
-            await dbContext.MessengeUsers.AddAsync(index.MessengeUser);
-            await dbContext.SaveChangesAsync();
-
-            ModelState.Clear();
-
-            IndexVM indexM = new IndexVM
-            {
-                User = await dbContext.User
-                .Include(h => h.Home)
-                .Include(a => a.About).Include(x => x.About.SkillCodes)
-                .Include(ac => ac.Achievements)
-                .Include(c => c.Contact).Include(c => c.Contact.ContactOnlines)
-                .Include(s => s.Services)
-                .Include(r => r.Referances)
-                .FirstOrDefaultAsync(dr => dr.Id == index.MessengeUser.UserId),
-                Blogs = await dbContext.Blogs
-                .Where(dr => dr.UserId == index.MessengeUser.UserId)
-                .Include(x => x.BlogCategory)
-                .Take(3)
-                .OrderByDescending(x => x.Id)
-                .ToListAsync(),
-                Portfolios = await dbContext.Portfolios
-                .Where(dr => dr.UserId == index.MessengeUser.UserId)
-                .Include(x => x.PortfolioCategory)
-                .Take(3)
-                .OrderByDescending(x => x.Id)
-                .ToListAsync(),
-                IsSuccessMessange = true
-            };
-            return View("Index", indexM);
-        }
-
 
 
         public async Task<IActionResult> SinglePage(int? id)

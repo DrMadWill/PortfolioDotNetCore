@@ -2,7 +2,10 @@
 @{
     string namesss = "@sweetalert2";
 }
-
+@{
+    ViewData["Location"] = "Portfolio";
+    ViewData["Title"] = "Portfolio Show";
+}
 @section header_link {
 
     <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
@@ -228,7 +231,7 @@
                                     '',
                                     'success'
                                 )
-                                
+
                                 element.outerHTML = '';
                             }
                             else if (response.status == 400) {

@@ -31,8 +31,8 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = "Subject is required.")]
         public string Subject { get; set; }
 
-        [MinLength(20, ErrorMessage = "Minmum Length 20 Character")]
-        [MaxLength(150, ErrorMessage = "Maxmum Length 3000 Character")]
+        [MinLength(10, ErrorMessage = "Minmum Length 10 Character")]
+        [MaxLength(1000, ErrorMessage = "Maxmum Length 1000 Character")]
         [Required(ErrorMessage = "Subject is required.")]
         public string Description { get; set; }
 

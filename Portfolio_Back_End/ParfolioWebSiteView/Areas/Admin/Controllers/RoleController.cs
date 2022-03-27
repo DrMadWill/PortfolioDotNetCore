@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using PagedList;
 using PagedList.Mvc;
 using ParfolioWebSiteView.Areas.Admin.ViewModes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ParfolioWebSiteView.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class RoleController : Controller
     {
         private readonly PorfolioDbContext dbContext;

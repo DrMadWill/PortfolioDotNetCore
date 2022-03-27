@@ -1,5 +1,7 @@
 ﻿@model Referance
 @{
+    ViewData["Location"] = "Referans";
+    ViewData["Title"] = "Referans";
 }
 
 @section header_link {
@@ -59,7 +61,7 @@
                             <span asp-validation-for="Photo" class="text-danger my-1"></span>
                         </div>
                     </div>
-                    
+
                     @if (!ViewBag.IsCreate)
                     {
                         <div>

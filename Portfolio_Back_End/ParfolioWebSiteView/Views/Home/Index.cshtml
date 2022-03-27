@@ -2,10 +2,12 @@
 @using System.Text;
 @{
     ViewData["Title"] = "Home Page";
+    string namesss = "@sweetalert2";
 }
 
 @section header{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
 }
 
 <!-- ======= Hero Section ======= -->
@@ -14,10 +16,8 @@
     <div class="hero-content display-table">
         <div class="table-cell">
             <div class="container">
-                <!--<p class="display-6 color-d">Hello, world!</p>-->
                 <h1 class="hero-title mb-4">@Model.User.Home.HomeSlogan</h1>
                 <p class="hero-subtitle"><span class="typed" data-typed-items="@Model.User.Home.Skills"></span></p>
-                <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
             </div>
         </div>
     </div>
@@ -111,13 +111,13 @@
                                 Services
                             </h3>
                             <p class="subtitle-a">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                You can contact me for these services.
                             </p>
                             <div class="line-mf"></div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     @foreach (var item in Model.User.Services)
                     {
                         <div class="col-md-4">
@@ -178,15 +178,13 @@
                                 Portfolio
                             </h3>
                             <p class="subtitle-a">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                From the work I successfully completed.
                             </p>
                             <div class="line-mf"></div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-
-
                     @foreach (var work in Model.Portfolios)
                     {
 
@@ -273,7 +271,7 @@
                                 Blog
                             </h3>
                             <p class="subtitle-a">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                Part of my research
                             </p>
                             <div class="line-mf"></div>
                         </div>
@@ -341,35 +339,35 @@
                                 <div class="col-md-6">
                                     <div class="title-box-2">
                                         <h5 class="title-left">
-                                            Send Message Us
+                                            Send Message Me
                                         </h5>
                                     </div>
                                     <div>
-                                        <form asp-action="Index" asp-controller="Home" method="post" role="form">
+                                        <form id="form" method="post" role="form">
                                             <div class="row">
-                                                <input type="hidden" asp-for="MessengeUser.UserId" value="@Model.User.Id" />
+                                                <input type="hidden" id="UserId" value="@Model.User.Id" />
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="text" asp-for="MessengeUser.FullName" class="form-control" placeholder="Your FullName" required>
-                                                        <span asp-validation-for="MessengeUser.FullName" class="text-danger"></span>
+                                                        <input type="text" id="FullName" class="form-control" placeholder="Your FullName" required>
+                                                        <span class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="email" class="form-control" asp-for="MessengeUser.Email" placeholder="Your Email" required>
-                                                        <span asp-validation-for="MessengeUser.Email" class="text-danger"></span>
+                                                        <input type="email" id="Email" class="form-control" placeholder="Your Email" required>
+                                                        <span class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" asp-for="MessengeUser.Subject" placeholder="Subject" required>
-                                                        <span asp-validation-for="MessengeUser.Subject" class="text-danger"></span>
+                                                        <input type="text" class="form-control" id="Subject" placeholder="Subject" required>
+                                                        <span class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" asp-for="MessengeUser.Description" rows="5" placeholder="Message" required></textarea>
-                                                        <span asp-validation-for="MessengeUser.Description" class="text-danger"></span>
+                                                        <textarea class="form-control" id="Description" rows="5" placeholder="Message" required></textarea>
+                                                        <span class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mt-2 text-center">
@@ -401,8 +399,16 @@
                                             </div>
                                             <ul class="list-ico">
                                                 <li><span class="bi bi-geo-alt"></span> @Model.User.Contact.Location</li>
-                                                <li><span class="bi bi-phone"></span> @Model.User.Contact.PhoneNumber</li>
-                                                <li><span class="bi bi-envelope"></span> @Model.User.Contact.Email</li>
+                                                @if (Model.User.Contact.PhoneNumber != null)
+                                                {
+                                                    <li><span class="bi bi-phone"></span> @Model.User.Contact.PhoneNumber</li>
+
+                                                }
+                                                @if (Model.User.Contact.Email != null)
+                                                {
+                                                    <li><span class="bi bi-envelope"></span> @Model.User.Contact.Email</li>
+                                                }
+
                                             </ul>
                                         </div>
                                         <div class="socials">
@@ -421,9 +427,6 @@
 
 
                                             </ul>
-                                            <button id="messangesuccess" type="button" style="width:0;height:0;visibility:hidden;" data-toggle="modal" data-target="#exampleModalCenter"></button>
-
-                                            <a id="contactClick" style="width:0;height:0;visibility:hidden;" href="#contact"></a>
                                         </div>
                                     }
                                 </div>
@@ -438,42 +441,81 @@
 </main><!-- End #main -->
 
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="alert alert-success">Your message has been sent. Thank you!</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section script{
     <partial name="_ValidationScriptsPartial" />
 
-    @if (Model.IsError)
-    {
-        <script>
-            document.querySelector("#contactClick").click()
-        </script>
-
-    }
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
-    @if (Model.IsSuccessMessange)
-    {
-        <script>
-            document.querySelector("#messangesuccess").click()
-        </script>
-    }
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/js/messange_validation.js"></script>
+
     <script>
         $(document).ready(function () {
             $(".lead-add").each(function () {
                 $(this).children("p").addClass("lead")
             })
+
+            $(document).on('submit', '#form', (e) => {
+                e.preventDefault();
+                const UserId = $("#UserId").val()
+                const FullName = $("#FullName").val()
+                const Email = $("#Email").val()
+                const Subject = $("#Subject").val()
+                const Description = $("#Description").val()
+
+                if (!MessangeValidation(UserId, FullName, Email, Subject, Description)) {
+                    console.log("Not validated")
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
+
+                $.ajax({
+                    url: '/Assistant/MessangeSend',
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    type: 'POST',
+                    data: { UserId: UserId, FullName: FullName, Email: Email, Subject: Subject, Description: Description },
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 201) {
+                            // Messange Success
+                            Swal.fire(
+                                'Messange Send',
+                                '',
+                                'success'
+                            )
+                            // Clean Input
+                            $("#FullName").val("")
+                            $("#Email").val("")
+                            $("#Subject").val("")
+                            $("#Description").val("")
+
+                        } else if (response.status == 400) {
+                            Swal.fire(
+                                'This Tags Already Added',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            Swal.fire(
+                                'Not Added',
+                                '',
+                                'error'
+                            )
+                        }
+                    }
+                })
+            })
+
         })
     </script>
 

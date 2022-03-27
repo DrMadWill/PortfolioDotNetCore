@@ -81,6 +81,73 @@ namespace ParfolioWebSiteView.Controllers
             return Redirect("/");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> Comment(Commet commentu)
+        {
+            if (!ModelState.IsValid) return Json(new
+            {
+                status = 404
+            });
+
+            var user = await userManager.FindByIdAsync(commentu.UserId);
+            if (user == null) return Json(new
+            {
+                status = 404
+            });
+
+            // Leave Comment
+            if (commentu.ParentId == null)
+            {
+                var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id.Equals(commentu.BlogDetailsId));
+                if (blog == null) return Json(new
+                {
+                    status = 404
+                });
+                commentu.BlogDetailsId = blog.Id;
+                commentu.Date = DateTime.Now;
+                commentu.IsBlocked = false;
+                commentu.UserId = user.Id;
+
+                await dbContext.Commets.AddAsync(commentu);
+                await dbContext.SaveChangesAsync();
+                return Json(new
+                {
+                    status = 201
+                });
+            }
+
+            // Replay
+            if (commentu.ParentId == null)
+            {
+                var commentData = await dbContext.Commets
+                    .Select(x => new { x.Id, x.BlogDetailsId })
+                    .FirstOrDefaultAsync(dr => dr.Id == commentu.BlogDetailsId);
+                if (commentData == null) return Json(new
+                {
+                    status = 404
+                });
+
+
+                commentu.BlogDetailsId = commentData.BlogDetailsId;
+                commentu.Date = DateTime.Now;
+                commentu.IsBlocked = false;
+                commentu.UserId = user.Id;
+                commentu.ParentId = commentData.Id;
+
+
+                await dbContext.Commets.AddAsync(commentu);
+                await dbContext.SaveChangesAsync();
+                return Json(new
+                {
+                    status = 201
+                });
+            }
+            return Json(new
+            {
+                status = 404
+            });
+        }
 
         //==================== Search ========================
         [HttpGet]
@@ -120,7 +187,7 @@ namespace ParfolioWebSiteView.Controllers
                     .Where(dr => dr.Title.ToUpper().Contains(info.ToUpper()))
                     .Include(x => x.BlogCategory)
                     .ToListAsync();
-                searchInfo.Users = await dbContext.User.Where(dr => dr.NormalizedUserName.Contains(info.ToUpper()))
+                searchInfo.Users = await dbContext.User.Include(x => x.Blogs).Where(dr => dr.NormalizedUserName.Contains(info.ToUpper()))
                     .ToListAsync();
                 searchInfo.Type = info;
             }
@@ -144,8 +211,8 @@ namespace ParfolioWebSiteView.Controllers
         // ============================ SeeArchives ==========================
         public async Task<IActionResult> SeeArchives(int? id)
         {
-            if (id == null ) return RedirectToAction("Search");
-            var blog = (await dbContext.Blogs.Include(x=>x.User).FirstOrDefaultAsync(dr=>dr.Id==id));
+            if (id == null) return RedirectToAction("Search");
+            var blog = (await dbContext.Blogs.Include(x => x.User).FirstOrDefaultAsync(dr => dr.Id == id));
             if (blog == null) return RedirectToAction("Search");
 
             SearchVM searchInfo = new SearchVM
@@ -155,7 +222,7 @@ namespace ParfolioWebSiteView.Controllers
                 .OrderByDescending(dr => dr.Id)
                 .Take(5).ToListAsync(),
                 User = blog.User,
-                Blogs= await dbContext.Blogs
+                Blogs = await dbContext.Blogs
                     .Include(x => x.BlogCategory)
                     .Where(dr => dr.UserId == blog.UserId)
                     .ToListAsync(),
@@ -186,11 +253,38 @@ namespace ParfolioWebSiteView.Controllers
                 .Select(x => x.Blog)
                 .ToListAsync(),
                 Type = "Tags / " + tag.Name
-                
+
             };
 
             return View("Search", searchInfo);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> MessangeSend(MessengeUser messenge)
+        {
+            if (!ModelState.IsValid) return Json(new
+            {
+                status = 404
+            });
+
+            var user = await userManager.FindByIdAsync(messenge.UserId);
+            if (user == null) return Json(new
+            {
+                status = 404
+            });
+            messenge.Date = DateTime.Now;
+            messenge.IsRead = false;
+            await dbContext.MessengeUsers.AddAsync(messenge);
+            await dbContext.SaveChangesAsync();
+
+            return Json(new
+            {
+                status = 201
+            });
+        }
+
+
 
     }
 }

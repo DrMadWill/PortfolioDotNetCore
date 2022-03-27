@@ -21,7 +21,7 @@ namespace ParfolioWebSiteView.Extensions
         {
             //create messenge
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("[YourEmail]"));
+            email.From.Add(MailboxAddress.Parse("templatemail24@gmail.com"));
             email.To.Add(MailboxAddress.Parse(to));
             email.Subject = subject;
             email.Body = new TextPart(TextFormat.Html) { Text=html};
@@ -29,7 +29,7 @@ namespace ParfolioWebSiteView.Extensions
             //Send Email
             var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com",587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("[YourEmail]", "[YourPassword]");
+            smtp.Authenticate("templatemail24@gmail.com", "*******");
             smtp.Send(email);
             smtp.Disconnect(true);
         }

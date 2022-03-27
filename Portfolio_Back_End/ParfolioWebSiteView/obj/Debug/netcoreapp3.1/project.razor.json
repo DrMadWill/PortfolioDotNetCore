@@ -14417,6 +14417,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\UserAccount\\ContactCreate.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\UserAccount\\ContactCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Home\\PortfolioSinglePage.cshtml",
       "TargetPath": "Views\\Home\\PortfolioSinglePage.cshtml",
       "FileKind": "mvc"
@@ -14429,6 +14434,11 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Role\\Update.cshtml",
       "TargetPath": "Areas\\Admin\\Views\\Role\\Update.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Portfolio\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Portfolio\\List.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14447,6 +14457,16 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Portfolio\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Portfolio\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Achievements\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Achievements\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -14462,8 +14482,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Home\\ProtfolioDetails.cshtml",
-      "TargetPath": "Views\\Home\\ProtfolioDetails.cshtml",
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Achievements\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Achievements\\Create.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14472,8 +14497,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Role\\List.cshtml",
       "TargetPath": "Areas\\Admin\\Views\\Role\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Blog\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Blog\\List.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14482,8 +14517,38 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Messange\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Messange\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Referance\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Referance\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Settings\\Index.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Settings\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Portfolio\\Show.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Portfolio\\Show.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\Assistant\\Search.cshtml",
       "TargetPath": "Views\\Assistant\\Search.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\About\\Update.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\About\\Update.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14492,8 +14557,33 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\UserAccount\\Account.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\UserAccount\\Account.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Services\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Services\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\CodeSkill\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\CodeSkill\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\_ViewImports.cshtml",
       "TargetPath": "Areas\\Admin\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Services\\List.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Services\\List.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Dashboard\\Index.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Dashboard\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14504,6 +14594,26 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
       "TargetPath": "Areas\\Admin\\Views\\Shared\\_AdminLayout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Settings\\ChangePassword.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Settings\\ChangePassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Home\\Update.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Home\\Update.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Messange\\Show.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Messange\\Show.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Shared\\_UserAdminLayout.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Shared\\_UserAdminLayout.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14534,6 +14644,16 @@
     {
       "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Views\\System\\Error403.cshtml",
       "TargetPath": "Views\\System\\Error403.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Blog\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Blog\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\Areas\\UserAdmin\\Views\\Referance\\Create.cshtml",
+      "TargetPath": "Areas\\UserAdmin\\Views\\Referance\\Create.cshtml",
       "FileKind": "mvc"
     }
   ],
