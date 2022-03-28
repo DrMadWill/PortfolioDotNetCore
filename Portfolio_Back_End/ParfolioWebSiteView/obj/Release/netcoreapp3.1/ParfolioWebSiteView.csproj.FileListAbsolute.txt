@@ -123,7 +123,6 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.csproj.AssemblyReference.cache
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.AssemblyInfoInputs.cache
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.AssemblyInfo.cs
@@ -195,3 +194,4 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.dll
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.pdb
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.genruntimeconfig.cache
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\ParfolioWebSiteView.csproj.AssemblyReference.cache

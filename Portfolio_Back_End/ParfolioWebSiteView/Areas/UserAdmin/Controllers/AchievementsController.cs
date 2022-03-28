@@ -58,6 +58,16 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null) return Redirect("/Singin/Login");
             achievements.UserId = user.Id;
+
+            var acivmentCount = (await dbContext.Achievements
+                .Where(dr => dr.UserId == user.Id).ToListAsync()).Count;
+
+            if(acivmentCount > 6)
+            {
+                TempData["AchievementsAlert"] = "Not Added Achievement. Your Achievement Limit 9";
+                return Redirect("/UserAdmin/Achievements/List");
+            }
+
             await dbContext.Achievements.AddAsync(achievements);
             await dbContext.SaveChangesAsync();
             TempData["AchievementsAlert"] = achievements.Name + " Achievement Created";

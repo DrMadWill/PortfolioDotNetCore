@@ -48,15 +48,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         }
 
 
-
-
-
         // ========================= Contact Section ================= 
-
-       
-
-        
-
 
         [HttpGet]
         public async Task<IActionResult> ContactCreate() 

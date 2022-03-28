@@ -60,6 +60,15 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 return View(service);
             }
 
+            var servicesCount = (await dbContext.Services
+                .Where(dr => dr.User.UserName == User.Identity.Name).ToListAsync()).Count;
+
+            if(servicesCount > 12)
+            {
+                TempData["ServicesAlert"] = "Not Added Service. Becouse Your Service Limit 12";
+                return Redirect("/UserAdmin/Services/List");
+            }
+
             await dbContext.Services.AddAsync(service);
             await dbContext.SaveChangesAsync();
             TempData["ServicesAlert"] = service.Name + " Service Created";

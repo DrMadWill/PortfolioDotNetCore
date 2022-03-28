@@ -66,7 +66,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             var referanceCount = (await dbContext.Referances.Where(dr => dr.User.UserName == user.UserName).ToListAsync()).Count;
             if (referanceCount > 10)
             {
-                TempData["ReferanceAlert"] = "Your Limit Referance 10";
+                TempData["ReferanceAlert"] = "Not Create Referance. Your Limit Referance 10!";
                 return Redirect("/UserAdmin/Portfolio/List");
             } 
 

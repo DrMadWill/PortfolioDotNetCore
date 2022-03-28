@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+        #file-ip-1-preview {
+            display: none;
+        }
+    </style>
 }
 
 
@@ -38,12 +43,21 @@
                         <input class="form-control" type="text" asp-for="HomeSlogan">
                         <span asp-validation-for="HomeSlogan" class="text-danger my-1"></span>
                     </div>
+                    <p class="p-1">Image</p>
+                    <span asp-validation-for="Potho" class="text-danger my-1"></span>
                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload Image</span>
+                        </div>
                         <div class="custom-file">
-                            <label class="d-block mx-2" asp-for="Potho"> Choose Image</label>
-                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Potho">
+                            <input type="file" class="custom-file-input" asp-for="Potho" required onchange="showPreview(event);">
+                            <label class="custom-file-label" asp-for="Potho">Choose Image</label>
+                        </div>
+                        <div class="w-100 d-flex mt-3 justify-content-center">
+                            <img id="file-ip-1-preview" class="img-fluid" src="0" alt="your image" />
                         </div>
                     </div>
+
                     <div>
                         <label class="col-form-label d-block">Current Image</label>
                         <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
@@ -75,6 +89,16 @@
     <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
     <!-- others plugins -->
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
     <script src="~/Admin/assets/js/plugins.js"></script>
     <script src="~/Admin/assets/js/scripts.js"></script>
 }

@@ -68,8 +68,15 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 blogVM.Tags = await dbContext.Tags.ToListAsync();
                 return View(blogVM);
             }
-
-           
+            // Limit Check 
+            var blogCount = (await dbContext.Blogs
+                .Where(dr => dr.User.UserName == User.Identity.Name)
+                .ToListAsync()).Count;
+            if(blogCount > 20)
+            {
+                TempData["BlogAlert"] = "Not Create Blog. Your Blog Limit 20! ";
+                return Redirect("/UserAdmin/Blog/List");
+            }
 
             // Image Save
             if (blogVM.Photo != null)

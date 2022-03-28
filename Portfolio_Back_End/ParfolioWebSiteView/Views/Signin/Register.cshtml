@@ -10,9 +10,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Sign In</title>
+    <title>Sign Up</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
+
     <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Admin/assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
@@ -29,7 +30,7 @@
     <!-- modernizr css -->
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
-
+    <link href="~/img/uversalfilo.png" rel="icon">
 </head>
 
 <body>
@@ -84,7 +85,7 @@
                             <label asp-for="Gender" class="col-form-label">Gender</label>
                             <select asp-for="Gender" class="form-control">
                                 <option value="@bool.TrueString">Male</option>
-                                <option value="@bool.FalseString">Falmale</option>
+                                <option value="@bool.FalseString">Female</option>
                             </select>
                         </div>
                         <div class="form-gp">

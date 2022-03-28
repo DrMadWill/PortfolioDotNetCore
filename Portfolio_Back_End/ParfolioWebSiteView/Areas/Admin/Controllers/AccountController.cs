@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ParfolioWebSiteView.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class AccountController : Controller
     {
         private readonly PorfolioDbContext dbContext;

@@ -68,6 +68,15 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             portfolio.UserId = user.Id;
+
+            var protfolioCount = (await dbContext.Portfolios
+                .Where(dr => dr.UserId == user.Id).ToListAsync()).Count;
+            if (protfolioCount > 15)
+            {
+                TempData["PortfolioAlert"] = " Not Create Portfolio. Your Portfolio Limit 15!";
+                return Redirect("/UserAdmin/Portfolio/List");
+            }
+
             // Detail Images Check
             foreach (var item in portfolio.PortfolioDetail.Photos.Take(5))
             {
@@ -97,8 +106,10 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 ModelState.AddModelError("Photo", "Img is Required");
                 return View(portfolio);
             }
+            
             await dbContext.Portfolios.AddAsync(portfolio);
             await dbContext.SaveChangesAsync();
+            
             // Detail Image Save
             foreach (var item in portfolio.PortfolioDetail.Photos.Take(5))
             {
@@ -128,6 +139,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         // Update POST
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(Portfolio portfolio)
         {
             ViewBag.IsCreate = false;
@@ -161,7 +173,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 portfolioDb.Image = newImageName;
             }
 
-            if(portfolioDb.PortfolioDetail.DetailImages.Count < 5)
+            if(portfolioDb.PortfolioDetail.DetailImages.Count < 5 && portfolio.PortfolioDetail.Photos !=null)
             {
                 int imageCount = 5- portfolioDb.PortfolioDetail.DetailImages.Count;
                 // Detail Images Format Check

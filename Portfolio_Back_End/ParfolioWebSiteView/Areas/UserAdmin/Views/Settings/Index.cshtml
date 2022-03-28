@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <style>
+        #file-ip-1-preview {
+            display: none;
+        }
+    </style>
+
 }
 
 
@@ -49,8 +56,13 @@
                         <label class="col-form-label d-block">Current Image</label>
                         <img class="img-fluid" src="~/img/Profile/@Model.Image" />
                         <div class="custom-file">
-                            <label class="d-block mx-2" asp-for="Photo"> Change Profile Image</label>
-                            <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Photo">
+                            <div class="custom-file">
+                                <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Photo" required onchange="showPreview(event);" class="custom-file-input">
+                                <label class="custom-file-label" for="file-ip-1">Choose Image</label>
+                            </div>
+                            <div class="w-100 d-flex mt-3 justify-content-center">
+                                <img id="file-ip-1-preview" class="img-fluid" src="0" alt="your image" />
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-8 col-sm-12">
@@ -119,4 +131,15 @@
     <!-- others plugins -->
     <script src="~/Admin/assets/js/plugins.js"></script>
     <script src="~/Admin/assets/js/scripts.js"></script>
+
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
 }

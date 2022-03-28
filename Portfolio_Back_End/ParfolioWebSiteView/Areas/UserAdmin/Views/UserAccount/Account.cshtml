@@ -107,7 +107,16 @@
             </div>
             <div class="card col-12">
                 <div class="card-body pt-1">
-                    <div class="d-flex">
+                    <div class="col-12 mt-2 alert-dismiss">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Your Skill Degree Limit 10 !
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div><h4 class="header-title h4">Skill Degree</h4></div>
                         @if (Model.About != null)
                         {
                             <a href="/UserAdmin/CodeSkill/Create" class="btn btn-flat  btn-outline-success d-inline-block ml-auto mb-3"><i class="ti-plus"></i></a>
@@ -164,10 +173,6 @@
                         {
                             <div class="d-inline-block ml-auto">
                                 <a href="/UserAdmin/UserAccount/ContactUpdate" class="btn btn-flat btn-outline-primary d-inline-block mb-3"><i style="font-size:1rem;font-weight:700;" class="fa fa-edit"></i></a>
-
-                                <button type="button" class="btn mx-2 btn-flat btn-outline-success d-inline-block mb-3" data-toggle="modal" data-target="#exampleModalCenter">
-                                    Contact Link Add
-                                </button>
                             </div>
                         }
 
@@ -197,52 +202,62 @@
                                                 @Model.Contact.Location
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                Description
+                                                <input type="hidden" id="ContactId" value="@Model.Contact.Id" />
+                                            </th>
+                                            <td class="lead-add">@Html.Raw(Model.Contact.Description)</td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
-
-                            <div class="row w-100 px-2 justify-content-between">
-                                <table class="table table-bordered  my-3 col-lg-7 col-sm-12 table-hover progress-table text-center">
-                                    <tbody>
-                                        @if (Model.Contact != null)
+                        </div>
+                    </div>
+                    <div class="single-table my-4">
+                        <div class="col-12 mt-2 alert-dismiss">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                Your Contact Link Limit 10!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span class="fa fa-times"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h4 class="header-title h4">Contact  Link</h4>
+                            @if (Model.Contact != null)
+                            {
+                                <button type="button" class="btn mx-2 btn-flat btn-outline-success d-inline-block mb-3" data-toggle="modal" data-target="#exampleModalCenter">
+                                    <i class="ti-plus"></i>
+                                </button>
+                            }
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table my-2  table-bordered table-hover progress-table text-center">
+                                <thead class="text-uppercase">
+                                    <tr>
+                                        <th scope="col">Contact Onlies</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Contact != null)
+                                    {
+                                        foreach (var item in Model.Contact.ContactOnlines)
                                         {
                                             <tr>
-                                                <th scope="row">
-                                                    Description
-                                                    <input type="hidden" id="ContactId" value="@Model.Contact.Id" />
-                                                </th>
-                                                <td class="lead-add">@Html.Raw(Model.Contact.Description)</td>
+                                                <td><a href="@item.Url" class="btn m-1 contact-onlie btn-outline-info">@Html.Raw(item.Icon) @item.Name</a></td>
+                                                <td>
+                                                    <ul class="d-flex justify-content-center">
+                                                        <li class="mr-3"><button class="bg-transparent contact-onlie-edit-button border-0 text-secondary" data-id="@item.Id" data-toggle="modal" data-target="#contactUpdateModalCenter"><i class="fa fa-edit"></i></button></li>
+                                                        <li><a href="/UserAdmin/ConactOnline/Delete/@item.Id" class="text-danger delete-btn"><i class="ti-trash"></i></a></li>
+                                                    </ul>
+                                                </td>
                                             </tr>
                                         }
-                                    </tbody>
-                                </table>
-                                <table class="table my-3  col-lg-4  col-sm-12 table-bordered table-hover progress-table text-center">
-                                    <thead class="text-uppercase">
-                                        <tr>
-                                            <th scope="col">Contact Onlies</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model.Contact != null)
-                                        {
-                                            foreach (var item in Model.Contact.ContactOnlines)
-                                            {
-                                                <tr>
-                                                    <td><a href="@item.Url" class="btn m-1 contact-onlie btn-outline-info">@Html.Raw(item.Icon) @item.Name</a></td>
-                                                    <td>
-                                                        <ul class="d-flex justify-content-center">
-                                                            <li class="mr-3"><button class="bg-transparent contact-onlie-edit-button border-0 text-secondary" data-id="@item.Id" data-toggle="modal" data-target="#contactUpdateModalCenter"><i class="fa fa-edit"></i></button></li>
-                                                            <li><a href="/UserAdmin/ConactOnline/Delete/@item.Id" class="text-danger delete-btn"><i class="ti-trash"></i></a></li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-
-                            </div>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -504,7 +519,7 @@
                                     'success'
                                 )
 
-                                element.outerHTML = '';
+                                element.parentElement.parentElement.outerHTML = '';
                             }
                             else if (response.status == 400) {
                                 Swal.fire(

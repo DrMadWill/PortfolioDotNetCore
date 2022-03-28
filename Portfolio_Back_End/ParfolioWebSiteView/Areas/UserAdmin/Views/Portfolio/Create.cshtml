@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="~/Admin/assets/css/default-css.css">
     <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
     <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
+    <style>
+        #file-ip-1-preview {
+            display: none;
+        }
+    </style>
     <!-- modernizr css -->
     <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 }
@@ -73,9 +78,12 @@
                             <span class="input-group-text">Upload Image</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" asp-for="Photo">
+                            <input type="file" class="custom-file-input" asp-for="Photo" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" required onchange="showPreview(event);">
                             <label class="custom-file-label" asp-for="Photo">Choose Image</label>
                             <span asp-validation-for="Photo" class="text-danger my-1"></span>
+                        </div>
+                        <div class="w-100 d-flex mt-3 justify-content-center">
+                            <img id="file-ip-1-preview" class="img-fluid" src="0" alt="your image" />
                         </div>
                     </div>
 
@@ -214,7 +222,16 @@
         })
 
     </script>
-
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
 
     <partial name="_ValidationScriptsPartial" />
     <!-- others plugins -->

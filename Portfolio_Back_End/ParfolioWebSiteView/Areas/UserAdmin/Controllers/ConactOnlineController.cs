@@ -110,7 +110,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
                 status = 201
             });
         }
-
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> Delete(int? id)
         {
             if (id == null) return Json(new

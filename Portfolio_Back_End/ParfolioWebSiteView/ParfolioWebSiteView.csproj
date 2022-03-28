@@ -46,11 +46,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\UserAdmin\Data\" />
     <Folder Include="Areas\UserAdmin\Models\" />
-    <Folder Include="wwwroot\img\About\" />
-    <Folder Include="wwwroot\img\Blog\" />
-    <Folder Include="wwwroot\img\PorfolioDetails\" />
-    <Folder Include="wwwroot\img\Porfolio\" />
-    <Folder Include="wwwroot\img\Refreance\" />
   </ItemGroup>
 
 </Project>
