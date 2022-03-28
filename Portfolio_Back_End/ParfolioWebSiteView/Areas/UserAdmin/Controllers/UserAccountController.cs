@@ -53,98 +53,9 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         // ========================= Contact Section ================= 
 
-        [HttpPost]
-        public async Task<JsonResult> ContactOnlineCreate (string icon,string url,string name)
-        {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(icon) || string.IsNullOrEmpty(url))
-                return Json(new
-                {
-                    status=400
-                });
+       
 
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            var contactDb = await dbContext.Contacts.Include(x=>x.ContactOnlines).FirstOrDefaultAsync(dr => dr.Id == user.Id);
-
-            // Check Contact 
-            if (contactDb == null) return Json(new
-            {
-                status = 400
-            });
-
-            // Limit
-            if(contactDb.ContactOnlines.Count >= 11)return Json(new
-            {
-                status = 400
-            });
-
-            ContactOnline online = new ContactOnline
-            {
-                Icon = icon,
-                Url = url,
-                Name = name,
-                ContactId = user.Id
-            };
-
-            await dbContext.ContactOnlines.AddAsync(online);
-            await dbContext.SaveChangesAsync();
-
-            return Json(new { 
-                status=200
-            });
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> ContactOnlineUpdate(string id,string icon, string url, string name)
-        {
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(icon) || string.IsNullOrEmpty(url))
-                return Json(new
-                {
-                    status = 400
-                });
-
-            int cId =0 ;
-
-            try
-            {
-                cId = int.Parse(id);
-            }
-            catch 
-            {
-                return Json(new
-                {
-                    status = 400
-                });
-
-            }
-
-            var contactonlineDb = await dbContext.ContactOnlines.FirstOrDefaultAsync(dr => dr.Id == cId);
-            if(contactonlineDb == null) return Json(new
-            {
-                status = 400
-            });
-
-            contactonlineDb.Name = name;
-            contactonlineDb.Icon = icon;
-            contactonlineDb.Url = url;
-
-            await dbContext.SaveChangesAsync();
-            return Json(new
-            {
-                status = 200
-            });
-        }
-
-        public async Task<IActionResult> ContactDelete(int? id)
-        {
-            if(id ==null) return Redirect("/System/Error404");
-            var contact = await dbContext.ContactOnlines.FirstOrDefaultAsync(dr => dr.Id == id);
-            if(contact ==null) return Redirect("/System/Error404");
-
-            dbContext.ContactOnlines.Remove(contact);
-            await dbContext.SaveChangesAsync();
-
-            return Redirect("/UserAdmin/UserAccount/Account");
-        }
+        
 
 
         [HttpGet]
@@ -164,6 +75,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactCreate(Contact contact)
         {
             // Create Model
@@ -205,6 +117,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactUpdate(Contact contact)
         {
             // Update Model
