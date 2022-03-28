@@ -15,13 +15,15 @@ namespace ParfolioWebSiteView.Models
         public int? ParentId { get; set; }
 
         [Column(TypeName = "ntext")]
+        [Required]
+        [MinLength(2)]
         public string Comment { get; set; }
-
         public User User { get; set; }
+        [Required]
         public string UserId { get; set; }
         public BlogDetails BlogDetails { get; set; }
         public int BlogDetailsId { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public bool IsBlocked { get; set; } = false;
 
         [NotMapped]

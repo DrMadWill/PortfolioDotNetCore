@@ -10,7 +10,7 @@
     }
 
     ViewData["Title"] = "Single Page";
-
+    string namesss = "@sweetalert2";
 }
 
 
@@ -22,7 +22,7 @@
             transition: all 0.3s ease-in;
         }
     </style>
-
+    <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
 }
 
 <div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
@@ -99,7 +99,7 @@
                                             <p>
                                                 @item.Comment
                                             </p>
-                                            <a class='replay' data-add='0' data-userid='0' data-commentid='@item.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
 
@@ -122,13 +122,13 @@
                                         <div class="comment-avatar">
                                             <img src="~/img/Profile/@item.User.Image" alt="">
                                         </div>
-                                        <div class="comment-details">
+                                        <div class="comment-details w-100">
                                             <h4 class="comment-author">@item.User.FullName</h4>
                                             <span>@item.Date.ToShortDateString()</span>
                                             <p>
                                                 @item.Comment
                                             </p>
-                                            <a class='replay' data-add='0' data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-blog="@item.BlogDetailsId" data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
 
@@ -154,7 +154,7 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <form class="form-mf comment-leave" action="/Assistant/Comment" method="post">
+                            <form id="comment-leave" class="form-mf " action="/Assistant/Comment" method="post">
                                 <div class="row">
                                     <div class="mb-3">
                                         <div class="form-group">
@@ -165,14 +165,14 @@
                                     </div>
                                     <span class="text-danger mb-3 danger"></span>
                                     <div class="col-md-12">
-                                        <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
+                                        <button type="submit" class="button button-a button-big button-rouded">Comment</button>
                                     </div>
                                 </div>
                             </form>
                         }
                         else
                         {
-                            <form class="form-mf comment-leave">
+                            <form id="comment-leave" class="form-mf">
                                 <div class="row">
                                     <div class="mb-3">
                                         <div class="form-group">
@@ -183,7 +183,7 @@
                                     </div>
                                     <span class="text-danger mb-3 danger"></span>
                                     <div class="col-md-12">
-                                        <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
+                                        <button type="submit" class="button button-a button-big button-rouded">Comment</button>
                                     </div>
                                 </div>
                             </form>
@@ -304,142 +304,8 @@
 
 
 @section script{
-
-    <script>
-
-        $(document).ready(function () {
-            document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
-
-                e.addEventListener("mouseenter", function (x) {
-                    let parent = document.getElementById(x.target.getAttribute("data-parent"))
-                    parent.style.backgroundColor = "yellow"
-
-                    $(parent).css({ backgroundColor: "#E3E300", transition: "all 0.3s ease-in" })
-                })
-
-                e.addEventListener("mouseleave", function (x) {
-                    let parent = document.getElementById(x.target.getAttribute("data-parent"))
-                    parent.style.backgroundColor = "white"
-                })
-
-            })
-        })
-
-        document.querySelectorAll(".replay").forEach(function (e) {
-
-            e.addEventListener("click", function (x) {
-                x.preventDefault();
-
-                let parent = x.target.parentElement
-                const elemet = x.target
-                let isAdded = elemet.getAttribute("data-add")
-
-                if (isAdded == "0") {
-                    elemet.setAttribute("data-add", "1")
-                    let userId = x.target.getAttribute("data-userid")
-                    let commentId = x.target.getAttribute("data-commentid")
-                    parent.appendChild(ComentCreate(userId, commentId))
-
-                    CommentValidation(parent)
-
-                    // Remove Form
-                    document.querySelectorAll(".canceled").forEach(function (e) {
-                        e.addEventListener("click", function (x) {
-                            let comment = x.target.parentElement.parentElement
-                            RemoveForm(comment)
-                            elemet.setAttribute("data-add", "0")
-                        })
-
-                    })
-                }
-            })
-        })
-
-        function ComentCreate(userId, comment) {
-            let form = document.createElement("form")
-            form.setAttribute("class", "d-block mt-3")
-            form.setAttribute("method", "post")
-            form.setAttribute("action", "/Assistant/Comment")
-
-            let html = `
-                                                              <div class="mb-3">
-                                                                <div class="form-group">
-                                                                  <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                                                                  <input type="hidden" name="userId" value="%user">
-                                                                  <input type="hidden" name="commetId" value="%coment">
-                                                                  <span class="text-danger"></span>
-                                                                </div>
-                                                              </div>
-                                                              <div class="d-inline-block mt-2" >
-                                                                  <button type="submit" class="button button-a button-rouded">Send Message</button>
-                                                              </div>
-                                                              <div class="d-inline-block mt-2">
-                                                                  <button type="button" class="button canceled button-a button-rouded">Cancel</button>
-                                                              </div>
-                                                        `
-            html = html.replace("%user", userId)
-            html = html.replace("%coment", comment)
-            form.innerHTML = html
-            return form
-        }
-
-        function RemoveForm(comment) {
-            let parent = comment.parentElement
-            try {
-                parent.removeChild(comment)
-            } catch (e) {
-
-            }
-        }
-
-
-
-        function CommentValidation(parent) {
-
-            for (let i = 0; i < parent.children.length; i++) {
-                if (parent.children[i].tagName == "FORM") {
-                    let form = parent.children[i]
-                    form.addEventListener("submit", function (x) {
-
-                        const div = x.target.children[0].children[0]
-
-                        let textarea = div.children[0].value.trim()
-                        let user = div.children[1].value
-                        if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
-                            x.preventDefault()
-                            div.children[3].innerText = "Please Comment Add"
-                        }
-
-                        if (user == 0) {
-                            x.preventDefault()
-                            div.children[3].innerText = "Please Sign In Or Sign Up"
-                        }
-                    })
-                }
-            }
-
-        }
-    </script>
-
-    <script>
-        document.querySelector(".comment-leave").addEventListener("submit", function (e) {
-            const div = e.target.children[0].children[0].children[0]
-            let textarea = div.children[0].value.trim()
-            let user = div.children[1].value
-            let errorText = document.querySelector(".danger")
-            if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
-                e.preventDefault()
-                errorText.innerHTML = "Please Comment Add"
-            }
-
-            if (user == 0) {
-                e.preventDefault()
-                errorText.innerHTML = "Please Sign In Or Sign Up"
-            }
-
-        })
-    </script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+   
     <script>
         $(document).ready(function () {
             $(".lead-add").each(function () {
@@ -447,4 +313,131 @@
             })
         })
     </script>
+
+    <script src="~/js/blog.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('submit', '#comment-leave', (e) => {
+                e.preventDefault();
+                const div = e.target.children[0].children[0].children[0]
+                let Comment = div.children[0].value.trim()
+                let UserId = div.children[1].value
+                let BlogDetailsId = div.children[2].value
+                let errorText = document.querySelector(".danger")
+
+                if (!Comment || Comment == undefined || Comment == "" || Comment.length == 0) {
+                    e.preventDefault()
+                    errorText.innerHTML = "Please Comment Add"
+                    return;
+                }
+
+                if (Comment.length < 3) {
+                    e.preventDefault()
+                    errorText.innerHTML = "Mimum Comment Character 2"
+                    return;
+                }
+
+                if (UserId == 0) {
+                    e.preventDefault()
+                    errorText.innerHTML = "Please Sign In Or Sign Up"
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
+
+                $.ajax({
+                    url: '/Assistant/Comment',
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    type: 'POST',
+                    data: { UserId: UserId, Comment: Comment, BlogDetailsId: BlogDetailsId },
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 201) {
+                            // Messange Success
+                            Swal.fire(
+                                'Messange Send',
+                                '',
+                                'success'
+                            )
+                            // Reload
+                            setTimeout(() => {
+                                location.href = `/Home/SinglePage/${BlogDetailsId}`;
+
+                            }, 2000)
+
+                        } else if (response.status == 400) {
+                            Swal.fire(
+                                'This Tags Already Added',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            Swal.fire(
+                                'Not Added',
+                                '',
+                                'error'
+                            )
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+    <script>
+        // Vaildation and Send Here
+        // Here Send Ajax
+        function SendComment(Comment, UserId, ParentId, BlogDetailsId) {
+            $(document).ready(() => {
+                $.ajax({
+                    url: '/Assistant/Comment',
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    type: 'POST',
+                    data: { UserId: UserId, Comment: Comment, BlogDetailsId: BlogDetailsId, ParentId:ParentId },
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 201) {
+                            // Messange Success
+                            Swal.fire(
+                                'Messange Send',
+                                '',
+                                'success'
+                            )
+                            // Reload
+                            setTimeout(() => {
+                                location.href = `/Home/SinglePage/${BlogDetailsId}`;
+
+                            }, 2000)
+
+                        } else if (response.status == 400) {
+                            Swal.fire(
+                                'This Tags Already Added',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            Swal.fire(
+                                'Not Added',
+                                '',
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            })
+        }
+
+    </script>
+
 }

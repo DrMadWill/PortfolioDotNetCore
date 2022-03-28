@@ -62,7 +62,7 @@
                     <li><a class="nav-link scrollto " asp-fragment="work" asp-controller="Home" asp-action="Index">Work</a></li>
                     <li><a class="nav-link scrollto " asp-fragment="blog" asp-controller="Home" asp-action="Index">Blog</a></li>
                     <li><a class="nav-link scrollto" asp-fragment="contact" asp-controller="Home" asp-action="Index">Contact</a></li>
-                    <li><a class="nav-link scrollto"  asp-controller="Assistant" asp-action="Search"><i style="font-size:1.2rem;" class="bi bi-search"></i></a></li>
+                    <li><a class="nav-link scrollto" asp-controller="Assistant" asp-action="Search"><i style="font-size:1.2rem;" class="bi bi-search"></i></a></li>
 
                     <li class="dropdown">
 
@@ -140,12 +140,13 @@
     <script src="~/lib/glightbox/js/glightbox.min.js"></script>
     <script src="~/lib/swiper/swiper-bundle.min.js"></script>
     <script src="~/lib/typed.js/typed.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- jquery latest version -->
+    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
 
     <!-- Template Main JS File -->
     <script src="~/js/main.js"></script>
 
-    @RenderSection("script",false)
+    @RenderSection("script", false)
 
 </body>
 

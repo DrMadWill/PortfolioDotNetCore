@@ -25,76 +25,81 @@ namespace ParfolioWebSiteView.Controllers
             userManager = _userManager;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Comment(string message, string userId, int? commetId, int? blogId)
-        {
-            if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(userId)) return NotFound();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Comment(string message, string userId, int? commetId, int? blogId)
+        //{
+        //    if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(userId)) return NotFound();
 
-            var user = await userManager.FindByIdAsync(userId);
-            if (user == null) return NotFound();
+        //    var user = await userManager.FindByIdAsync(userId);
+        //    if (user == null) return NotFound();
 
-            // Leave Comment
-            if (commetId == null)
-            {
-                var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id.Equals(blogId));
-                if (blog == null) return NotFound();
+        //    // Leave Comment
+        //    if (commetId == null)
+        //    {
+        //        var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id.Equals(blogId));
+        //        if (blog == null) return NotFound();
 
-                Commet comment = new Commet
-                {
-                    BlogDetailsId = blog.Id,
-                    Comment = message,
-                    Date = DateTime.Now,
-                    IsBlocked = false,
-                    UserId = user.Id
+        //        Commet comment = new Commet
+        //        {
+        //            BlogDetailsId = blog.Id,
+        //            Comment = message,
+        //            Date = DateTime.Now,
+        //            IsBlocked = false,
+        //            UserId = user.Id
 
-                };
+        //        };
 
-                await dbContext.Commets.AddAsync(comment);
-                await dbContext.SaveChangesAsync();
-                return Redirect($"/Home/SinglePage/{blog.Id}");
-            }
+        //        await dbContext.Commets.AddAsync(comment);
+        //        await dbContext.SaveChangesAsync();
+        //        return Redirect($"/Home/SinglePage/{blog.Id}");
+        //    }
 
-            // Replay
-            if (blogId == null)
-            {
-                var commentData = await dbContext.Commets
-                    .Select(x => new { x.Id, x.BlogDetailsId })
-                    .FirstOrDefaultAsync(dr => dr.Id == commetId);
-                if (commentData == null) return NotFound();
+        //    // Replay
+        //    if (blogId == null)
+        //    {
+        //        var commentData = await dbContext.Commets
+        //            .Select(x => new { x.Id, x.BlogDetailsId })
+        //            .FirstOrDefaultAsync(dr => dr.Id == commetId);
+        //        if (commentData == null) return NotFound();
 
-                Commet comment = new Commet
-                {
-                    BlogDetailsId = commentData.BlogDetailsId,
-                    Comment = message,
-                    Date = DateTime.Now,
-                    IsBlocked = false,
-                    UserId = user.Id,
-                    ParentId = commentData.Id
+        //        Commet comment = new Commet
+        //        {
+        //            BlogDetailsId = commentData.BlogDetailsId,
+        //            Comment = message,
+        //            Date = DateTime.Now,
+        //            IsBlocked = false,
+        //            UserId = user.Id,
+        //            ParentId = commentData.Id
 
-                };
+        //        };
 
-                await dbContext.Commets.AddAsync(comment);
-                await dbContext.SaveChangesAsync();
-                return Redirect($"/Home/SinglePage/{commentData.BlogDetailsId}");
-            }
-            return Redirect("/");
-        }
+        //        await dbContext.Commets.AddAsync(comment);
+        //        await dbContext.SaveChangesAsync();
+        //        return Redirect($"/Home/SinglePage/{commentData.BlogDetailsId}");
+        //    }
+        //    return Redirect("/");
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> Comment(Commet commentu)
         {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null) return Json(new
+            {
+                status = 404
+            });
+
+            commentu.UserId = user.Id;
+
+            // Model Validation
             if (!ModelState.IsValid) return Json(new
             {
                 status = 404
             });
 
-            var user = await userManager.FindByIdAsync(commentu.UserId);
-            if (user == null) return Json(new
-            {
-                status = 404
-            });
+            
 
             // Leave Comment
             if (commentu.ParentId == null)
@@ -107,7 +112,6 @@ namespace ParfolioWebSiteView.Controllers
                 commentu.BlogDetailsId = blog.Id;
                 commentu.Date = DateTime.Now;
                 commentu.IsBlocked = false;
-                commentu.UserId = user.Id;
 
                 await dbContext.Commets.AddAsync(commentu);
                 await dbContext.SaveChangesAsync();
@@ -116,25 +120,20 @@ namespace ParfolioWebSiteView.Controllers
                     status = 201
                 });
             }
-
-            // Replay
-            if (commentu.ParentId == null)
+            else
             {
                 var commentData = await dbContext.Commets
                     .Select(x => new { x.Id, x.BlogDetailsId })
-                    .FirstOrDefaultAsync(dr => dr.Id == commentu.BlogDetailsId);
+                    .FirstOrDefaultAsync(dr => dr.Id == commentu.ParentId);
                 if (commentData == null) return Json(new
                 {
                     status = 404
                 });
 
-
                 commentu.BlogDetailsId = commentData.BlogDetailsId;
                 commentu.Date = DateTime.Now;
                 commentu.IsBlocked = false;
-                commentu.UserId = user.Id;
                 commentu.ParentId = commentData.Id;
-
 
                 await dbContext.Commets.AddAsync(commentu);
                 await dbContext.SaveChangesAsync();
@@ -143,10 +142,6 @@ namespace ParfolioWebSiteView.Controllers
                     status = 201
                 });
             }
-            return Json(new
-            {
-                status = 404
-            });
         }
 
         //==================== Search ========================

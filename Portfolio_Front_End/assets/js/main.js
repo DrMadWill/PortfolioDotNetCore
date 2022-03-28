@@ -260,23 +260,23 @@ document.querySelectorAll(".replay").forEach(function (e) {
       elemet.setAttribute("data-add", "1")
       let userId = x.target.getAttribute("data-userid")
       let commentId = x.target.getAttribute("data-commentid")
-      parent.appendChild(ComentCreate(userId, commentId))
+      let comment = ComentCreate(userId, commentId)
+      parent.appendChild(comment)
 
-      CommentValidation(parent)
-
+      Vaildation(comment)
+      let canceled = comment.children[2].children[0]
       // Remove Form
-      document.querySelectorAll(".canceled").forEach(function (e) {
-        e.addEventListener("click", function (x) {
-          let comment = x.target.parentElement.parentElement
-          RemoveForm(comment)
-          elemet.setAttribute("data-add", "0")
-        })
-
+      canceled.addEventListener("click", function (x) {
+        let comment = x.target.parentElement.parentElement
+        RemoveForm(comment)
+        elemet.setAttribute("data-add", "0")
       })
+
     }
 
   })
 })
+
 
 function ComentCreate(userId, comment) {
   let form = document.createElement("form")
@@ -307,32 +307,16 @@ function ComentCreate(userId, comment) {
 
 function RemoveForm(comment) {
   let parent = comment.parentElement
-  try {
-    parent.removeChild(comment)
-  } catch (e) {
-
-  }
+  parent.removeChild(comment)
 }
-
-
-
-function CommentValidation(parent) {
-
-  for (let i = 0; i < parent.children.length; i++) {
-    if (parent.children[i].tagName == "FORM") {
-      let form = parent.children[i]
-      Vaildation(form)
-    }
-  }
-
-}
-
 
 function Vaildation(form){
   form.addEventListener("submit", function (x) {
+    x.preventDefault();
     const div = x.target.children[0].children[0]
     let textarea = div.children[0].value.trim()
     let user = div.children[1].value
+    let commentId = div.children[2].value
     if (!textarea || textarea == undefined || textarea == "" || textarea.length == 0) {
       x.preventDefault()
       div.children[3].innerText = "Please Comment Add"
@@ -342,8 +326,22 @@ function Vaildation(form){
       x.preventDefault()
       div.children[3].innerText = "Please Sign In Or Sign Up"
     }
+
+    if(commentId == undefined || commentId == ""){
+      location.href = location.href
+    }
+
+    SendComment(textarea,user,commentId)
   })
 }
+
+
+function SendComment(commnet,user,commentId){
+  $(document).ready(()=>{
+    
+  })
+}
+
 
 
 document.querySelector(".comment-leave").addEventListener("submit",function(e){

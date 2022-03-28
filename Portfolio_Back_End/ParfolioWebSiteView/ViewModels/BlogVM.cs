@@ -41,11 +41,11 @@ namespace ParfolioWebSiteView.ViewModels
                                 $"<div class='comment-avatar'>" +
                                     $"<img src='/img/Profile/{child.User.Image}' >" +
                                 $"</div>" +
-                                $"<div class='comment-details'>" +
+                                $"<div class='comment-details w-100'>" +
                                     $"<h4 class='comment-author parent-coment' data-parent='comment{child.ParentId}'>{child.User.FullName} => {GetUserFullName(child.ParentId)}</h4>" +
                                     $"<span>{child.Date.ToShortDateString()}</span>" +
                                     $"<p>{child.Comment}</p>" +
-                                    $"<a class='replay' data-add='0' data-userid='0' data-commentid='{child.Id}' href='#'>Reply</a>"+
+                                    $"<a class='replay' data-add='0' data-userid='0' data-blog='0' data-commentid='{child.Id}' href='#'>Reply</a>"+
                                 $"</div>" +
                             $"</li>");
 
@@ -62,11 +62,11 @@ namespace ParfolioWebSiteView.ViewModels
                                 $"<div class='comment-avatar'>" +
                                     $"<img src='/img/Profile/{child.User.Image}' >" +
                                 $"</div>" +
-                                $"<div class='comment-details'>" +
+                                $"<div class='comment-details w-100'>" +
                                     $"<h4 class='comment-author parent-coment' data-parent='comment{child.ParentId}'>{child.User.FullName} => {GetUserFullName(child.ParentId)}</h4>" +
                                     $"<span>{child.Date.ToShortDateString()}</span>" +
                                     $"<p>{child.Comment}</p>" +
-                                    $"<a class='replay' data-add='0' data-userid='{user.Id}' data-commentid='{child.Id}' href='#'>Reply</a>" +
+                                    $"<a class='replay' data-add='0' data-userid='{user.Id}' data-blog='{child.BlogDetailsId}' data-commentid='{child.Id}' href='#'>Reply</a>" +
                                 $"</div>" +
                             $"</li>");
 
