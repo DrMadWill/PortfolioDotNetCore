@@ -55,9 +55,11 @@
                     <div class="col-lg-4 my-2 col-sm-12">
                         <label class="col-form-label d-block">Current Image</label>
                         <img class="img-fluid" src="~/img/Profile/@Model.Image" />
+                        <p class="p-1">Image</p>
+                        <span asp-validation-for="Photo" class="text-danger my-1"></span>
                         <div class="custom-file">
                             <div class="custom-file">
-                                <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Photo" required onchange="showPreview(event);" class="custom-file-input">
+                                <input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" asp-for="Photo" onchange="showPreview(event);" class="custom-file-input">
                                 <label class="custom-file-label" for="file-ip-1">Choose Image</label>
                             </div>
                             <div class="w-100 d-flex mt-3 justify-content-center">

@@ -66,6 +66,10 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="example-date-input" class="col-form-label">Project date</label>
+                        <input class="form-control" type="date" asp-for="Date">
+                    </div>
 
                     <div class="form-group">
                         <label asp-for="Title" class="col-form-label">Title</label>
@@ -73,12 +77,13 @@
                         <span asp-validation-for="Title" class="text-danger my-1"></span>
                     </div>
                     <p class="p-1">Image</p>
+                    <span asp-validation-for="Photo" class="text-danger my-1"></span>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload Image</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" asp-for="Photo" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" required onchange="showPreview(event);">
+                            <input type="file" class="custom-file-input" asp-for="Photo" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" onchange="showPreview(event);">
                             <label class="custom-file-label" asp-for="Photo">Choose Image</label>
                             <span asp-validation-for="Photo" class="text-danger my-1"></span>
                         </div>

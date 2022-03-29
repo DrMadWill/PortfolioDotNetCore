@@ -201,7 +201,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             portfolioDb.PortfolioDetail.LocatoionURL = portfolio.PortfolioDetail.LocatoionURL;
             portfolioDb.PortfolioDetail.Client = portfolio.PortfolioDetail.Client;
             portfolioDb.PortfolioDetail.Descriptoion = portfolio.PortfolioDetail.Descriptoion;
-
+            portfolioDb.Date = portfolio.Date;
             dbContext.Update(portfolioDb);
             await dbContext.SaveChangesAsync();
             TempData["PortfolioAlert"] = portfolioDb.Title + " Portfolio Updated";

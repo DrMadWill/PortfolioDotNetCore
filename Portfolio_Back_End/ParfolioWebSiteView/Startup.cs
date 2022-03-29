@@ -31,7 +31,7 @@ namespace ParfolioWebSiteView
             services.AddControllersWithViews();
             services.AddDbContext<PorfolioDbContext>(option =>
             {
-                option.UseSqlServer(Configuration.GetConnectionString("Defaultdb"));
+                option.UseSqlServer(Configuration.GetConnectionString("ServerDb"));
             });
 
             services.AddIdentity<User, IdentityRole>()

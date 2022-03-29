@@ -30,7 +30,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         {
             var about = await dbContext.Abouts.FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
             if(about == null) return Redirect("/System/Error404");
-
+           
             return View(about);
         }
 
@@ -42,7 +42,6 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             // Find About
             var aboutDB = await dbContext.Abouts.FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
             if(aboutDB==null) return Redirect("/System/Error404");
-
             aboutDB.MainSkill = about.MainSkill;
             aboutDB.Descriptoion = about.Descriptoion;
             await dbContext.SaveChangesAsync();

@@ -55,15 +55,16 @@
                         <input class="form-control" type="text" asp-for="Name">
                         <span asp-validation-for="Name" class="text-danger my-1"></span>
                     </div>
-                    <p>Image</p>
+                    <p class="p-1">Image</p>
+                    <span asp-validation-for="Photo" class="text-danger my-1"></span>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Upload</span>
                         </div>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" asp-for="Photo" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif"  required onchange="showPreview(event);">
+                            <input type="file" class="custom-file-input" asp-for="Photo" accept="image/jpeg,image/jpg,image/png,image/gif,image/jfif" onchange="showPreview(event);">
                             <label class="custom-file-label" asp-for="Photo">Choose Image</label>
-                            <span asp-validation-for="Photo" class="text-danger my-1"></span>
+                            
                         </div>
                         <div class="w-100 d-flex mt-3 justify-content-center">
                             <img id="file-ip-1-preview" class="img-fluid" src="0" alt="your image" />
