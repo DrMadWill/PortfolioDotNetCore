@@ -235,7 +235,7 @@
                                     <div class="swiper-slide">
                                         <div class="testimonial-box">
                                             <div class="author-test">
-                                                <img style="width:150px;height:150px;" src="~/img/Refreance/@item.Image" alt="" class="rounded-circle b-shadow-a">
+                                                <img style="width:150px;height:auto;" src="~/img/Refreance/@item.Image" alt="" class="b-shadow-a">
                                                 <span class="author">@item.Name</span>
                                             </div>
                                             <div class="content-test">
@@ -371,7 +371,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mt-2 text-center">
-                                                    <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
+                                                    <button type="submit" class="button  button-a button-big button-rouded">Send Message</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -450,10 +450,11 @@
     <!-- Template Main JS File -->
     <script src="~/js/messange_validation.js"></script>
 
+    <!--Messange Send Ajax-->
     <script>
         $(document).ready(function () {
             $(".lead-add").each(function () {
-                $(this).children("p").addClass("lead")
+                $(this).children("p").addClass("lead");
             })
 
             $(document).on('submit', '#form', (e) => {
@@ -519,6 +520,7 @@
         })
     </script>
 
+    <!--Referance Text Class Add-->
     <script>
         $(document).ready(function () {
             $(".s-dec-add").each(function () {
@@ -527,6 +529,8 @@
             })
         })
     </script>
+
+    <!--About Text Class Add-->
     <script>
         $(document).ready(function () {
             $(".descript-add").each(function () {

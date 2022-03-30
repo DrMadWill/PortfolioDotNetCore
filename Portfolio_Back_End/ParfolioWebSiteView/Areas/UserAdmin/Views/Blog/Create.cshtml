@@ -212,6 +212,14 @@
             $(document).on('submit', '#form', (e) => {
                 e.preventDefault();
                 const id = $("#name").val()
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                });
                 $.ajax({
                     url: '/UserAdmin/BlogCategory/Create',
                     headers: {

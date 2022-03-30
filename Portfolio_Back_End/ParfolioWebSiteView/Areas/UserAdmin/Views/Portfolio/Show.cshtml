@@ -173,6 +173,14 @@
         $(document).ready(() => {
             $(document).on('submit', '#addForm', (e) => {
                 e.preventDefault();
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                });
                 let file = $("#file-ip-1")[0].files[0];
                 var form_data = new FormData();
                 form_data.append('file', file);

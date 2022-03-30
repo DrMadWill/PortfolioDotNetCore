@@ -16,7 +16,7 @@ namespace ParfolioWebSiteView.Models
         [MaxLength(150, ErrorMessage = "Maximum Length 150")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Title is Required")]
-        [MaxLength(500, ErrorMessage = "Maximum Length 500")]
+        [MaxLength(2500, ErrorMessage = "Maximum Length 2500")]
         public string Title { get; set; }
 
         [MaxLength(150)]

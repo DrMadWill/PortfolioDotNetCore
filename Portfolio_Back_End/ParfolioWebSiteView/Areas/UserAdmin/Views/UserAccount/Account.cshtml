@@ -389,7 +389,14 @@
 
             $(".contact-onlie-edit-button").each(function () {
                 $(this).click(function (e) {
-
+                    Swal.fire({
+                        title: 'Give me a second.',
+                        text: '"',
+                        imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                        imageWidth: 400,
+                        imageHeight: 350,
+                        imageAlt: 'Loading',
+                    });
                     const id = $(e.currentTarget).data('id');
                     $.ajax({
                         url: `/UserAdmin/ConactOnline/Update/${id}`,
@@ -421,7 +428,14 @@
         $(document).on("submit", "#formedit", (e) => {
             e.preventDefault();
             let ContactId = $("#ContactId").val()
-            console.log(ContactId)
+            Swal.fire({
+                title: 'Give me a second.',
+                text: '"',
+                imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                imageWidth: 400,
+                imageHeight: 350,
+                imageAlt: 'Loading',
+            });
             $.ajax({
                 url: '/UserAdmin/ConactOnline/Update',
                 headers: {
@@ -457,6 +471,14 @@
             $(document).on('submit', '#form', (e) => {
                 e.preventDefault();
                 let ContactId = $("#ContactId").val()
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                });
                 $.ajax({
                     url: '/UserAdmin/ConactOnline/Create',
                     headers: {
@@ -492,6 +514,14 @@
             e.preventDefault();
             let url = $(this).attr("href");
             let element = this.parentElement.parentElement;
+            Swal.fire({
+                title: 'Give me a second.',
+                text: '"',
+                imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                imageWidth: 400,
+                imageHeight: 350,
+                imageAlt: 'Loading',
+            });
             var __RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
             Swal.fire({
                 title: 'Are You Sure Delete?',
