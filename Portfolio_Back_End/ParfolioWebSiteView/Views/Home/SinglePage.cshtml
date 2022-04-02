@@ -23,6 +23,7 @@
         }
     </style>
     <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
 }
 
 <div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
@@ -99,6 +100,7 @@
                                             <p>
                                                 @item.Comment
                                             </p>
+                                            
                                             <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
@@ -128,6 +130,24 @@
                                             <p>
                                                 @item.Comment
                                             </p>
+                                            <div class="icon-more">
+                                                <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                    <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                                                    @if (item.User.UserName == User.Identity.Name)
+                                                    {
+                                                        <a class="dropdown-item text-center" href="#"><i class="ti-pencil"></i> Edit</a>
+                                                        <a class="dropdown-item text-danger text-center" href="#"><i class="ti-trash"></i>Delete</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>
+                                                    }
+
+                                                </div>
+                                            </div>
                                             <a class='replay' data-add='0' data-blog="@item.BlogDetailsId" data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
@@ -305,7 +325,7 @@
 
 @section script{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-   
+
     <script>
         $(document).ready(function () {
             $(".lead-add").each(function () {
@@ -315,7 +335,7 @@
     </script>
 
     <script src="~/js/blog.js"></script>
-
+    @* Leave Commet *@
     <script>
         $(document).ready(function () {
             $(document).on('submit', '#comment-leave', (e) => {
@@ -354,7 +374,7 @@
                 })
 
                 $.ajax({
-                    url: '/Assistant/Comment',
+                    url: '/Comment/Create',
                     headers: {
                         "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
                     },
@@ -393,18 +413,20 @@
         })
     </script>
 
-    <script>
+
+    @* Child Comment *@
+                 <script>
         // Vaildation and Send Here
         // Here Send Ajax
         function SendComment(Comment, UserId, ParentId, BlogDetailsId) {
             $(document).ready(() => {
                 $.ajax({
-                    url: '/Assistant/Comment',
+                    url: '/Comment/Create',
                     headers: {
                         "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
                     },
                     type: 'POST',
-                    data: { UserId: UserId, Comment: Comment, BlogDetailsId: BlogDetailsId, ParentId:ParentId },
+                    data: { UserId: UserId, Comment: Comment, BlogDetailsId: BlogDetailsId, ParentId: ParentId },
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 201) {
                             // Messange Success
@@ -439,5 +461,8 @@
         }
 
     </script>
+
+    @* Comment Edit Ajax  *@
+
 
 }

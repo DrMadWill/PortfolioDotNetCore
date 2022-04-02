@@ -1304,3 +1304,26 @@ footer .credits a {
   color: #fff;
 }
 
+.list-comments li {
+    position: relative;
+}
+
+.icon-more {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+    .icon-more .dropdown-menu {
+        z-index:25;
+        margin-top: 10px;
+        position:absolute;
+        left:-140px;
+    }
+    .more-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        padding-top: 10.5px;
+    }

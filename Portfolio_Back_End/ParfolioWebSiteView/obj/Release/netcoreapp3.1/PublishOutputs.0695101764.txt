@@ -53,6 +53,7 @@ C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebS
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\apple-touch-icon.png
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\Blog\TextFile.txt
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\counters-bg.jpg
+C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\Domainrain.png
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\favicon.jpeg
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\hero-bg.jpg
 C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\img\Home\image.jpg

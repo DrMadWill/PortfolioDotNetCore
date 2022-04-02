@@ -115,7 +115,11 @@ function Vaildation(form) {
 }
 
 
-
+document.querySelectorAll(".more-btn").forEach(elment => {
+    elment.addEventListener("click", function () {
+        $(elment.nextElementSibling).toggleClass("show");
+    })
+})
 
 
 

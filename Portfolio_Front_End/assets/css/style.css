@@ -433,7 +433,7 @@ a:hover {
 # Header
 --------------------------------------------------------------*/
 #header {
-  transition: all 0.5s;
+  transition:                                         all 0.5s;
   z-index: 997;
   padding: 20px 0;
 }
@@ -1305,4 +1305,14 @@ footer .credits {
 }
 footer .credits a {
   color: #fff;
+}
+
+.comment-details{
+  position: relative;
+}
+
+.icon-more{
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
