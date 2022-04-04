@@ -87,7 +87,38 @@ namespace ParfolioWebSiteView.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<JsonResult> Update(int? id)
+        {
+            // Data Check
+            if (id == null) return Json(new { status = 404 });
 
+            // Comment Check
+            var comment = await dbContext.Commets.FirstOrDefaultAsync(dr => dr.Id == id && dr.IsBlocked == false);
+            if(comment == null) return Json(new { status = 404 });
+            return Json(comment);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> Update(Commet commentu)
+        {
+            // Data Check
+            if (!ModelState.IsValid) return Json(new { status = 404 });
+
+            // User Check
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if(user == null) return Json(new { status = 404 });
+
+            // Comment Check
+            var commentDb = await dbContext.Commets
+                .FirstOrDefaultAsync(dr =>dr.User == user 
+                && dr.Id == commentu.Id && dr.IsBlocked == false);
+            if (commentDb == null) return Json(new { status = 404 });
+
+            commentDb.Comment = commentu.Comment;
+            await dbContext.SaveChangesAsync();
+            return Json(new { status= 201});
+        }
     }
 }

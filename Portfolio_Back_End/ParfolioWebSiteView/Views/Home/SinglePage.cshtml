@@ -100,7 +100,7 @@
                                             <p>
                                                 @item.Comment
                                             </p>
-                                            
+
                                             <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
@@ -138,7 +138,7 @@
                                                 <div class="dropdown-menu p-1" aria-labelledby="icon-more">
                                                     @if (item.User.UserName == User.Identity.Name)
                                                     {
-                                                        <a class="dropdown-item text-center" href="#"><i class="ti-pencil"></i> Edit</a>
+                                                        <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@item.Id"><i class="ti-pencil"></i> Edit</a>
                                                         <a class="dropdown-item text-danger text-center" href="#"><i class="ti-trash"></i>Delete</a>
                                                     }
                                                     else
@@ -322,6 +322,30 @@
 
 </main><!-- End #main -->
 
+<div class="modal fade" id="UpdatCommentModalCenter" tabindex="-1" role="dialog" aria-labelledby="UpdatCommentModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Update Commet
+                </h4>
+            </div>
+            <div class="modal-body text-center">
+                <form method="post" id="updateForm">
+                    <input type="hidden" id="UpdateCommentId">
+                    <div class="form-group">
+                        <textarea id="updateTextMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button form="updateForm" type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section script{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
@@ -415,7 +439,7 @@
 
 
     @* Child Comment *@
-                 <script>
+    <script>
         // Vaildation and Send Here
         // Here Send Ajax
         function SendComment(Comment, UserId, ParentId, BlogDetailsId) {
@@ -462,7 +486,59 @@
 
     </script>
 
-    @* Comment Edit Ajax  *@
+    @* Comment Edit Get *@
+
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.btn-update', (e) => {
+                e.preventDefault();
+                let updateCommentId = $(e.currentTarget).attr("data-id")
+
+                if (updateCommentId == null) {
+                    return;
+                }
+
+                //Swal.fire({
+                //    title: 'Give me a second.',
+                //    text: '"',
+                //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                //    imageWidth: 400,
+                //    imageHeight: 350,
+                //    imageAlt: 'Loading',
+                //})
+
+                $.ajax({
+                    url: `/Comment/Update/${updateCommentId}`,
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            Swal.fire(
+                                'Not Find Concat Onlie Link',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            console.log(response)
+                            $("#UpdateCommentId").val(updateCommentId)
+                            $("#updateTextMessage").val(response.comment)
+                        }
+                    }
+                });
+                //console.log(button)
+
+            })
+        })
+    </script>
+
+
+    @* Comment Edit POST *@
+
+    <script>
+
+    </script>
+
+    <script src = "~/Admin/assets/js/popper.min.js" ></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
 
 
 }
