@@ -120,5 +120,29 @@ namespace ParfolioWebSiteView.Controllers
             await dbContext.SaveChangesAsync();
             return Json(new { status= 201});
         }
+
+
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> Delete(int? id)
+        {
+            // Data Check
+            if (id == null) return Json(new { status = 404 });
+
+            // User Check
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null) return Json(new { status = 404 });
+
+            // Comment Check
+            var commentDb = await dbContext.Commets
+                .FirstOrDefaultAsync(dr => dr.User == user
+                && dr.Id == id && dr.IsBlocked == false);
+            if (commentDb == null) return Json(new { status = 404 });
+
+            dbContext.Commets.Remove(commentDb);
+            await dbContext.SaveChangesAsync();
+            return Json(new { status = 201 });
+        }
+
+
     }
 }
