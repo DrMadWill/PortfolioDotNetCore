@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj": {}
+    "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj": {
+    "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
+        "projectUniqueName": "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
         "projectName": "ParfolioWebSiteView",
-        "projectPath": "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
+        "projectPath": "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
         "packagesPath": "C:\\Users\\nofel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\obj\\",
+        "outputPath": "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nofel\\AppData\\Roaming\\NuGet\\NuGet.Config",

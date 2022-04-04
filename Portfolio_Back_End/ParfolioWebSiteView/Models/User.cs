@@ -41,6 +41,6 @@ namespace ParfolioWebSiteView.Models
         public IList<Portfolio> Portfolios { get; set; }
         public IList<Commet> Commets { get; set; }
         public IList<MessengeUser> MessengeUsers { get; set; }
-
+        public IList<Seal> Seals { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dQgQmhsaDguz4Um+TV2vDMLMMCGrbTWOImGv6SNS0cbjhwZQEoEtizTkA+9KOLnzytmZc3THdUKltpcwgOKJRw==",
+  "dgSpecHash": "Ny0to/bcq8X+7d3UigrCyHrtiFNRVcqZ02ExPv2DdCWeiG8ouFw2qKoYUXOfXdCZ7HhqCaBpmHfG2wewRE/6tQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nofel\\OneDrive\\Desktop\\PortfolioWebSite\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
+  "projectFilePath": "C:\\Users\\nofel\\OneDrive\\Desktop\\New folder (2)\\PortfolioDotNetCore\\Portfolio_Back_End\\ParfolioWebSiteView\\ParfolioWebSiteView.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nofel\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\nofel\\.nuget\\packages\\castle.windsor\\5.1.1\\castle.windsor.5.1.1.nupkg.sha512",

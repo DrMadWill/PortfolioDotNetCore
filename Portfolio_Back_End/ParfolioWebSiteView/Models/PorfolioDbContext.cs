@@ -32,6 +32,10 @@ namespace ParfolioWebSiteView.Models
         public DbSet<Commet> Commets { get; set; }
         public DbSet<MessengeUser> MessengeUsers { get; set; }
 
+        public DbSet<Prodact> Prodacts { get; set; }
+        public DbSet<Seal> Seals { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

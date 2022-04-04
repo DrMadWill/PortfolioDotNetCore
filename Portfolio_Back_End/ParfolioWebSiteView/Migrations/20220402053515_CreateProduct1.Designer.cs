@@ -10,8 +10,8 @@ using ParfolioWebSiteView.Models;
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    [Migration("20220403145627_BackToDatabase")]
-    partial class BackToDatabase
+    [Migration("20220402053515_CreateProduct1")]
+    partial class CreateProduct1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -553,6 +553,27 @@ namespace ParfolioWebSiteView.Migrations
                     b.ToTable("PortfolioDetails");
                 });
 
+            modelBuilder.Entity("ParfolioWebSiteView.Models.Prodact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prodacts");
+                });
+
             modelBuilder.Entity("ParfolioWebSiteView.Models.Referance", b =>
                 {
                     b.Property<int>("Id")
@@ -582,6 +603,37 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Referances");
+                });
+
+            modelBuilder.Entity("ParfolioWebSiteView.Models.Seal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<float>("Count")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProdactId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdactId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Seals");
                 });
 
             modelBuilder.Entity("ParfolioWebSiteView.Models.Service", b =>
@@ -935,6 +987,19 @@ namespace ParfolioWebSiteView.Migrations
                 {
                     b.HasOne("ParfolioWebSiteView.Models.User", "User")
                         .WithMany("Referances")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ParfolioWebSiteView.Models.Seal", b =>
+                {
+                    b.HasOne("ParfolioWebSiteView.Models.Prodact", "Prodact")
+                        .WithMany("Seals")
+                        .HasForeignKey("ProdactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ParfolioWebSiteView.Models.User", "User")
+                        .WithMany("Seals")
                         .HasForeignKey("UserId");
                 });
 

@@ -29,7 +29,7 @@ namespace ParfolioWebSiteView.Extensions
             //Send Email
             var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com",587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("templatemail24@gmail.com", "*******************");
+            smtp.Authenticate("templatemail24@gmail.com", "**************");
             smtp.Send(email);
             smtp.Disconnect(true);
         }
