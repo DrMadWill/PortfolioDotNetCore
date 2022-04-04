@@ -333,8 +333,11 @@
             <div class="modal-body text-center">
                 <form method="post" id="updateForm">
                     <input type="hidden" id="UpdateCommentId">
+                    <input type="hidden" id="editUserId" value="@Model.Blog.UserId">
+                    <input type="hidden" id="editBlogDetail" value="@Model.Blog.Id">
                     <div class="form-group">
                         <textarea id="updateTextMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                        <div id="eroor" class="text-danger my-2"></div>
                     </div>
                 </form>
             </div>
@@ -498,14 +501,14 @@
                     return;
                 }
 
-                //Swal.fire({
-                //    title: 'Give me a second.',
-                //    text: '"',
-                //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
-                //    imageWidth: 400,
-                //    imageHeight: 350,
-                //    imageAlt: 'Loading',
-                //})
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
 
                 $.ajax({
                     url: `/Comment/Update/${updateCommentId}`,
@@ -533,8 +536,80 @@
 
     @* Comment Edit POST *@
 
+    <script>
+        $(document).ready(function () {
+            $(document).on('submit', '#updateForm', (e) => {
+                e.preventDefault();
 
+                let Comment = $("#updateTextMessage").val().trim()
+                let UserId = $("#editUserId").val().trim()
+                let CommentId = $("#UpdateCommentId").val().trim()
+                let BlogDetailsId = $("#editBlogDetail").val()
+                let errorText = $("#eroor")
 
+                if (!Comment || Comment == undefined || Comment == "" || Comment.length == 0) {
+                    e.preventDefault()
+                    errorText.text("Please Comment Add")
+                    return;
+                }
+
+                if (Comment.length < 3) {
+                    e.preventDefault()
+                    errorText.text("Mimum Comment Character 2")
+                    return;
+                }
+
+                if (UserId == 0) {
+                    e.preventDefault()
+                    errorText.text("Please Sign In Or Sign Up")
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
+
+                $.ajax({
+                    url: '/Comment/Update',
+                    headers: {
+                        "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    type: 'POST',
+                    data: { UserId: UserId, Comment: Comment, Id: CommentId },
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 201) {
+                            // Messange Success
+                            Swal.fire(
+                                'Comment Updated',
+                                '',
+                                'success'
+                            )
+                            // Reload
+                            setTimeout(() => {
+                                location.href = `/Home/SinglePage/${BlogDetailsId}`;
+
+                            }, 2000)
+                        }
+                        else
+                        {
+                            Swal.fire(
+                                'Comment Not Changed Added',
+                                '',
+                                'error'
+                            )
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+    @* Comment Delete *@
 
     <script>
         $(document).ready(function () {
@@ -568,10 +643,12 @@
                                         '',
                                         'success'
                                     )
-                                    element.innerHTML = '';
+                                    setTimeout(() => {
+                                        location.href = `/Home/SinglePage/${BlogDetailsId}`;
+
+                                    }, 2000)
                                 }
-                                else
-                                {
+                                else {
                                     Swal.fire(
                                         'Don"t Deleted',
                                         '',
@@ -586,7 +663,7 @@
         })
     </script>
 
-    <script src = "~/Admin/assets/js/popper.min.js" ></script>
+    <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
 
 

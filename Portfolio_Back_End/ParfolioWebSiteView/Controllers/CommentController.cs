@@ -138,7 +138,9 @@ namespace ParfolioWebSiteView.Controllers
                 && dr.Id == id && dr.IsBlocked == false);
             if (commentDb == null) return Json(new { status = 404 });
 
-            dbContext.Commets.Remove(commentDb);
+            var childComment = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.Id).ToListAsync();
+            childComment.Add(commentDb);
+            dbContext.Commets.RemoveRange(childComment);
             await dbContext.SaveChangesAsync();
             return Json(new { status = 201 });
         }
