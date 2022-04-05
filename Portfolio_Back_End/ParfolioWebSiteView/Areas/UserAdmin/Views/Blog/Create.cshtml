@@ -7,27 +7,14 @@
 
 @section header_link {
 
-    <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/metisMenu.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/slicknav.min.css">
-    <!-- amchart css -->
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- others css -->
-    <link rel="stylesheet" href="~/Admin/assets/css/typography.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/default-css.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
-    <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
+    <partial name="_AdminPanelHeaderLink" />
     <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
     <style>
         #file-ip-1-preview {
             display: none;
         }
     </style>
-    <!-- modernizr css -->
-    <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
 }
 
 
@@ -187,16 +174,12 @@
 </div>
 
 @section footer_link{
-    <!-- jquery latest version -->
-    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
-    <!-- bootstrap 4 js -->
-    <script src="~/Admin/assets/js/popper.min.js"></script>
-    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
-    <script src="~/Admin/assets/js/owl.carousel.min.js"></script>
-    <script src="~/Admin/assets/js/metisMenu.min.js"></script>
-    <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
-    <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
+
+    <partial name="_AdminPanelScripts" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+
     <script>
         ClassicEditor
             .create(document.querySelector('#Descriptoion'))
@@ -300,8 +283,7 @@
     </script>
 
     <script>
-        function showPreview(event)
-        {
+        function showPreview(event) {
             if (event.target.files.length > 0) {
                 var src = URL.createObjectURL(event.target.files[0]);
                 var preview = document.getElementById("file-ip-1-preview");
@@ -312,8 +294,6 @@
     </script>
 
     <partial name="_ValidationScriptsPartial" />
-    <!-- others plugins -->
-    <script src="~/Admin/assets/js/plugins.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    <script src="~/Admin/assets/js/scripts.js"></script>
+
 }
+
