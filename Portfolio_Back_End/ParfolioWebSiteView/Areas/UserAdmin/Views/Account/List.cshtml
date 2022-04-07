@@ -1,8 +1,11 @@
 ﻿
-@model UserListVM
+@model User_ListVM
 
 @{
     ViewData["Title"] = "Account List";
+}
+@section header_link{
+    <partial name="_AdminPanelListHeaderLink" />
 }
 <div class="main-content-inner">
     <div class="row">
@@ -22,7 +25,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <h4 class="header-title ">User Table</h4>
-                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
+                        <a href="/UserAdmin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
                     </div>
                     <div class="single-table">
                         <div class="table-responsive">
@@ -41,7 +44,7 @@
                                 <tbody>
                                     @foreach (var item in Model.Users)
                                     {
-                                        <tr >
+                                        <tr>
                                             <td>@item.FirstName</td>
                                             <td>@item.LastName</td>
                                             <td>
@@ -83,14 +86,15 @@
                                             </td>
                                             <td>
                                                 <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="/Admin/Account/Update/@item.Id" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a onclick="return confirm('Silmək istədiyinizdən əminsiz?')" href="/Admin/Account/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                    <li class="mr-3"><a href="/UserAdmin/Account/Update/@item.Id" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                    <li><a onclick="return confirm('Silmək istədiyinizdən əminsiz?')" href="/UserAdmin/Account/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
                                                 </ul>
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+
                             <ul class="pagination mt-2">
                                 <li class="page-item">
                                     <a class="page-link" href="/Admin/Account/List/@Model.Previous" aria-label="Previous">
@@ -107,7 +111,7 @@
                                     }
                                     else
                                     {
-                                        <li class="page-item"><a class="page-link" href="/Admin/Account/List/@i">@i</a></li>
+                                        <li class="page-item"><a class="page-link" href="/UserAdmin/Account/List/@i">@i</a></li>
                                     }
                                 }
 
@@ -127,3 +131,8 @@
 </div>
 
 
+@section footer_link{
+
+    <partial name="_AdminPanelListScripts" />
+
+}

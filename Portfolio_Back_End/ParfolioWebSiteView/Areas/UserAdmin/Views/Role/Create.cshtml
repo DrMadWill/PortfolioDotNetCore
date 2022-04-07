@@ -1,5 +1,7 @@
 ﻿@model IdentityRole
-
+@section header_link {
+    <partial name="_AdminPanelHeaderLink" />
+}
 
 <div class="card">
     <div class="card-body">
@@ -15,6 +17,8 @@
     </div>
 </div>
 @section footer_link{
+    <partial name="_AdminPanelScripts" />
+
     <partial name="_ValidationScriptsPartial" />
     <script>
         $(document).ready(function () {

@@ -1,5 +1,7 @@
 ﻿@model User_CU_VM
-
+@section header_link {
+    <partial name="_AdminPanelHeaderLink" />
+}
 <div class="row justify-content-center">
 
     <div class="card col-6 my-3 ">
@@ -96,17 +98,18 @@
 </div>
 
 @section footer_link{
+    <partial name="_AdminPanelScripts" />
 
+    <partial name="_ValidationScriptsPartial" />
     <script>
-        $(document).ready(function(){
-            $(".form-gp input").each(function(x){
-                if($(this).val()!=""){
+        $(document).ready(function () {
+            $(".form-gp input").each(function (x) {
+                if ($(this).val() != "") {
                     $(this).focus()
                 }
             })
         })
     </script>
 
-    <partial name="_ValidationScriptsPartial" />
-
+    
 }

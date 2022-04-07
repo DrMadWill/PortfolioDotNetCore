@@ -1,19 +1,18 @@
-﻿using PagedList;
+﻿using Microsoft.AspNetCore.Identity;
+using PagedList;
 using ParfolioWebSiteView.Models;
 using System;
-using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ParfolioWebSiteView.Areas.Admin.ViewModes
+namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModels
 {
-    public class UserListVM
+    public class User_ListVM
     {
         public IPagedList<User> Users { get; set; }
-       
         public List<IdentityRole> Roles { get; set; }
-        public List <IdentityUserRole<string>> UserRoles { get; set; }
+        public List<IdentityUserRole<string>> UserRoles { get; set; }
         public List<string> FindAllRoleNameById(string id)
         {
             List<string> names = new List<string>();
@@ -55,11 +54,10 @@ namespace ParfolioWebSiteView.Areas.Admin.ViewModes
 
             }
         }
-        
         private int _TolalPage;
-        
+
         public int TotalPaged { get { return _TolalPage; } }
-        
+
         public void PagedCount(int totalCountElement, int countElemet)
         {
             if (totalCountElement == 0)
@@ -68,9 +66,6 @@ namespace ParfolioWebSiteView.Areas.Admin.ViewModes
                 _TolalPage = totalCountElement / countElemet;
             else
                 _TolalPage = totalCountElement / countElemet + 1;
-
         }
-
-
     }
 }

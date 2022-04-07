@@ -8,11 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using PagedList;
 using PagedList.Mvc;
-using ParfolioWebSiteView.Areas.UserAdmin.ViewModes;
+using ParfolioWebSiteView.Areas.UserAdmin.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 {
-    [Area("Admin")]
+    [Area("UserAdmin")]
     [Authorize(Roles = "SuperAdmin")]
     public class RoleController : Controller
     {

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PagedList;
-using PagedList.Mvc;
-using Microsoft.AspNetCore.Identity;
 
-namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModes
+namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModels
 {
     public class RoleListVM
     {
@@ -51,6 +50,5 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModes
                 _TolalPage = totalCountElement / countElemet + 1;
 
         }
-
     }
 }

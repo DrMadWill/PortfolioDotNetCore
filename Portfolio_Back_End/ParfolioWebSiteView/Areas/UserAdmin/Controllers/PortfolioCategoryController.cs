@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using PagedList;
 using PagedList.Mvc;
-using ParfolioWebSiteView.Areas.Admin.ViewModes;
 using Microsoft.AspNetCore.Authorization;
 using ParfolioWebSiteView.Areas.UserAdmin.ViewModels;
 

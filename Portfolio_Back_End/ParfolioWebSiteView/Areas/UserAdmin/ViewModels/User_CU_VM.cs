@@ -1,13 +1,12 @@
-﻿using ParfolioWebSiteView.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ParfolioWebSiteView.Areas.Admin.ViewModes
+namespace ParfolioWebSiteView.Areas.UserAdmin.ViewModels
 {
     public class User_CU_VM
     {
@@ -16,7 +15,7 @@ namespace ParfolioWebSiteView.Areas.Admin.ViewModes
         [MaxLength(100, ErrorMessage = "So Large Image Name")]
         [MinLength(1, ErrorMessage = "So Small Image Name")]
         public string Image { get; set; }
-        
+
         [MaxLength(100, ErrorMessage = "So Large User Name")]
         [MinLength(1, ErrorMessage = "So Small User Name")]
         public string UserName { get; set; }
@@ -47,6 +46,5 @@ namespace ParfolioWebSiteView.Areas.Admin.ViewModes
         public List<IdentityRole> Roles { get; set; }
 
         public List<string> RolIds { get; set; }
-
     }
 }

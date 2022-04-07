@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ParfolioWebSiteView.Areas.UserAdmin.ViewModes;
+using ParfolioWebSiteView.Areas.UserAdmin.ViewModels;
 using ParfolioWebSiteView.Models;
 using ParfolioWebSiteView.Extensions;
 using System;
@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 {
-    [Area("Admin")]
+    [Area("UserAdmin")]
     [Authorize(Roles = "SuperAdmin")]
     public class AccountController : Controller
     {
@@ -36,7 +36,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         public async Task<IActionResult> List(int? id)
         {
-            UserListVM userList = new UserListVM
+            User_ListVM userList = new User_ListVM
             {
                 Users = (await userManager.Users.ToListAsync()).ToPagedList(id ?? 1, 10),
                 CurrentPage = id ?? 1,
