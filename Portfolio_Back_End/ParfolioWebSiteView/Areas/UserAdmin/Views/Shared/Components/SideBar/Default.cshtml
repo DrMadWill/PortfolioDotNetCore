@@ -1,0 +1,33 @@
+﻿@model IList<Bar>
+
+
+@foreach (var item in Model)
+{
+    if (ViewBag.child != null)
+    {
+        <li class="@(item.Id ==((BarChild)ViewBag.child).BarId?"active":"")">
+            <a href="javascript:void(0)" aria-expanded="true"><i class="@item.Icon"></i><span>@item.Name</span></a>
+            <ul class="collapse">
+                @foreach (var child in item.BarChildren)
+                {
+                    <li class="@(child.Id ==((BarChild)ViewBag.child).Id?"active":"")"><a href="@child.Link">@child.Name</a></li>
+                }
+            </ul>
+        </li> }
+    else
+    {
+        <li>
+            <a href="javascript:void(0)" aria-expanded="true"><i class="@item.Icon"></i><span>@item.Name</span></a>
+            <ul class="collapse">
+                @foreach (var child in item.BarChildren)
+                {
+                    <li><a href="@child.Link">@child.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+
+
+}
+
+

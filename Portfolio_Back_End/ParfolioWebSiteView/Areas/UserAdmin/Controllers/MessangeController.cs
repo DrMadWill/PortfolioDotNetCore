@@ -11,6 +11,7 @@ using PagedList.Mvc;
 using ParfolioWebSiteView.Areas.Admin.ViewModes;
 using Microsoft.AspNetCore.Authorization;
 using ParfolioWebSiteView.Areas.UserAdmin.ViewModels;
+using ParfolioWebSiteView.Areas.UserAdmin.Data;
 
 namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 {

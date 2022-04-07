@@ -51,13 +51,15 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
+
+                            @await Component.InvokeAsync("SideBar")
                             @*<li>
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
                                     <ul class="collapse">
                                         <li><a href="/UserAdmin">Dashboard</a></li>
                                     </ul>
                                 </li>*@
-                            <li><a href="/UserAdmin/Messange/List"><i class="bi bi-inbox-fill"></i> <span>Messange Box</span></a></li>
+                            @*<li><a href="/UserAdmin/Messange/List"><i class="bi bi-inbox-fill"></i> <span>Messange Box</span></a></li>
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-user"></i><span>User</span></a>
                                 <ul class="collapse">
@@ -102,9 +104,7 @@
                                     <li><a href="/UserAdmin/Blog/List">List</a></li>
                                     <li><a href="/UserAdmin/Blog/Create">Create</a></li>
                                 </ul>
-                            </li>
-
-
+                            </li>*@
 
 
                         </ul>
