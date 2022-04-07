@@ -1,0 +1,129 @@
+﻿
+@model UserListVM
+
+@{
+    ViewData["Title"] = "Account List";
+}
+<div class="main-content-inner">
+    <div class="row">
+        @if (TempData["UserAlert"] != null)
+        {
+            <div class="col-12 mt-2 alert-dismiss">
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    @TempData["UserAlert"].ToString()
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </div>
+        }
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <h4 class="header-title ">User Table</h4>
+                        <a href="/Admin/Account/Create" class="btn btn-flat btn-outline-success d-inline-block  ml-auto mb-3"><i class="ti-plus"></i></a>
+                    </div>
+                    <div class="single-table">
+                        <div class="table-responsive">
+                            <table class="table table-hover progress-table text-center">
+                                <thead class="text-uppercase">
+                                    <tr>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Email Confirmed Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Users)
+                                    {
+                                        <tr >
+                                            <td>@item.FirstName</td>
+                                            <td>@item.LastName</td>
+                                            <td>
+                                                <img style="width: 120px; height: auto;" class="rounded-circle" src="~/img/Profile/@item.Image" />
+                                            </td>
+                                            <td>
+                                                @if (item.Gender)
+                                                {
+                                                    <span>
+                                                        Male
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        Famale
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @foreach (var roleName in Model.FindAllRoleNameById(item.Id))
+                                                {
+                                                    <strong class="mx-1">
+                                                        @roleName
+                                                    </strong>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @if (item.EmailConfirmed)
+                                                {
+                                                    <button type="button" class="btn btn-flat btn-success mb-3"><i class="fa fa-check-square-o"></i></button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" class="btn btn-flat btn-warning mb-3"><i class="fa fa-hourglass-1"></i></button>
+                                                }
+                                            </td>
+                                            <td>
+                                                <ul class="d-flex justify-content-center">
+                                                    <li class="mr-3"><a href="/Admin/Account/Update/@item.Id" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+                                                    <li><a onclick="return confirm('Silmək istədiyinizdən əminsiz?')" href="/Admin/Account/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <ul class="pagination mt-2">
+                                <li class="page-item">
+                                    <a class="page-link" href="/Admin/Account/List/@Model.Previous" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+
+                                @for (int i = 1; i <= Model.TotalPaged; i++)
+                                {
+                                    if (i == Model.CurrentPage)
+                                    {
+                                        <li class="page-item active"><button type="button" class="page-link">@i</button></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item"><a class="page-link" href="/Admin/Account/List/@i">@i</a></li>
+                                    }
+                                }
+
+                                <li class="page-item">
+                                    <a class="page-link" href="/Admin/Account/List/@Model.Nextviews" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

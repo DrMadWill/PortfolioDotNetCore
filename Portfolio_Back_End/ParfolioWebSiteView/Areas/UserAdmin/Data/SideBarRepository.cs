@@ -109,5 +109,12 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Data
             return null;
         }
 
+        public void Adds(params Bar[] bar)
+        {
+            _bars.AddRange(bar);
+        }
+
+
+
     }
 }

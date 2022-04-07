@@ -1,0 +1,95 @@
+﻿@model User_CU_VM
+
+    <div class="row justify-content-center">
+
+        <div class="card col-6 my-3 ">
+            <div class="card-body">
+                <h4 class="header-title"> User Create</h4>
+                <div class="p-2" asp-validation-summary="All" style="color:red;font-size:1.5rem;"></div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-gp">
+                        <label asp-for="UserName">UserName</label>
+                        <input type="text" asp-for="UserName">
+                        <i class="ti-user"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Email">Email address</label>
+                        <input type="email" asp-for="Email">
+                        <i class="ti-email"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="Password">Password</label>
+                        <input type="password" asp-for="Password">
+                        <i class="ti-lock"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" asp-for="ConfirmPassword">
+                        <i class="ti-lock"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="FirstName">FirstName</label>
+                        <input type="text" asp-for="FirstName">
+                        <i class="ti-user"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-gp">
+                        <label asp-for="LastName">LastName</label>
+                        <input type="text" asp-for="LastName">
+                        <i class="ti-user"></i>
+                        <div class="text-danger"></div>
+                    </div>
+                    <div class="form-group px-3 row">
+                        <label class="col-12">Gender</label>
+                        <div class="custom-control col-6 custom-radio">
+                            <input type="radio" checked asp-for="Gender" id="Male" value="@bool.TrueString" class="custom-control-input">
+                            <label class="custom-control-label" for="Male">Male</label>
+                        </div>
+                        <div class="custom-control col-6 custom-radio">
+                            <input type="radio" asp-for="Gender" id="Famale" value="@bool.FalseString" class="custom-control-input">
+                            <label class="custom-control-label" for="Famale">Famale</label>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload Img</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="Photo">
+                            <label class="custom-file-label" asp-for="Photo">Choose Photo</label>
+                        </div>
+                    </div>
+
+                    <select class="custom-select" multiple asp-for="RolIds">
+                        @foreach (var item in Model.Roles)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+@section footer_link{
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(document).ready(function(){
+            $(".form-gp input").each(function(x){
+                if($(this).val()!=""){
+                    $(this).focus()
+                }
+            })
+        })
+    </script>
+
+ }
