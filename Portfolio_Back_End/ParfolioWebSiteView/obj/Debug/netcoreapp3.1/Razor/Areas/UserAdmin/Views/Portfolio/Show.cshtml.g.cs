@@ -61,8 +61,15 @@ using PagedList.Mvc;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 8 "C:\Users\nofel\OneDrive\Desktop\PortfolioWebSite\Portfolio_Back_End\ParfolioWebSiteView\Areas\UserAdmin\_ViewImports.cshtml"
+using ParfolioWebSiteView.Extensions;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e37c1023ed8174efa7ca9775c16e2756e50b37f1", @"/Areas/UserAdmin/Views/Portfolio/Show.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ec73bb66bca2c4d7c4fc20d7107cfab8137f699a", @"/Areas/UserAdmin/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"11ad01e7b50d3b6ca595772d775f2aa002e761d0", @"/Areas/UserAdmin/_ViewImports.cshtml")]
     public class Areas_UserAdmin_Views_Portfolio_Show : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<Portfolio>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("name", "_AdminPanelHeaderLink", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -118,7 +125,7 @@ using PagedList.Mvc;
 #nullable disable
             DefineSection("header_link", async() => {
                 WriteLiteral("\r\n\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e37c1023ed8174efa7ca9775c16e2756e50b37f17949", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e37c1023ed8174efa7ca9775c16e2756e50b37f18192", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
@@ -181,7 +188,7 @@ WriteAttributeValue("", 267, namesss, 267, 8, false);
 #line hidden
 #nullable disable
             WriteLiteral("\r\n                    </h3>\r\n                    <div class=\"row mt-3 text-center\">\r\n                        <div class=\"col-6\">\r\n                            <h4>Main Image</h4>\r\n                            <div>\r\n                                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "e37c1023ed8174efa7ca9775c16e2756e50b37f111070", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "e37c1023ed8174efa7ca9775c16e2756e50b37f111313", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -278,7 +285,7 @@ WriteAttributeValue("", 2331, Model.PortfolioDetail.LocatoionURL, 2331, 35, fals
 #line hidden
 #nullable disable
             WriteLiteral("                                <div class=\"d-inline-block image-box m-2\">\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "e37c1023ed8174efa7ca9775c16e2756e50b37f116610", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "e37c1023ed8174efa7ca9775c16e2756e50b37f116853", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -342,7 +349,7 @@ WriteAttributeValue("", 3610, item.Id, 3610, 8, false);
                     <strong>Warning!</strong>  Your Maxumum Image Limit 5.
                 </div>
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e37c1023ed8174efa7ca9775c16e2756e50b37f120152", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e37c1023ed8174efa7ca9775c16e2756e50b37f120395", async() => {
                 WriteLiteral("\r\n                    <input id=\"pid\" type=\"hidden\"");
                 BeginWriteAttribute("value", " value=\"", 4681, "\"", 4698, 1);
 #nullable restore
@@ -395,7 +402,7 @@ WriteAttributeValue("", 4689, Model.Id, 4689, 9, false);
 ");
             DefineSection("footer_link", async() => {
                 WriteLiteral("\r\n\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e37c1023ed8174efa7ca9775c16e2756e50b37f123273", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "e37c1023ed8174efa7ca9775c16e2756e50b37f123516", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

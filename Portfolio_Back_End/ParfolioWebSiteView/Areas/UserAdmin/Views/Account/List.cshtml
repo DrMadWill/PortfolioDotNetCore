@@ -95,33 +95,7 @@
                                 </tbody>
                             </table>
 
-                            <ul class="pagination mt-2">
-                                <li class="page-item">
-                                    <a class="page-link" href="/Admin/Account/List/@Model.Previous" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-
-                                @for (int i = 1; i <= Model.TotalPaged; i++)
-                                {
-                                    if (i == Model.CurrentPage)
-                                    {
-                                        <li class="page-item active"><button type="button" class="page-link">@i</button></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item"><a class="page-link" href="/UserAdmin/Account/List/@i">@i</a></li>
-                                    }
-                                }
-
-                                <li class="page-item">
-                                    <a class="page-link" href="/Admin/Account/List/@Model.Nextviews" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            <partial name="_PaginationList" model="Model.Users.PaginationLinkModel" />
                         </div>
                     </div>
                 </div>

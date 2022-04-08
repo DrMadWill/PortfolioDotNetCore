@@ -49,13 +49,13 @@ namespace ParfolioWebSiteView.Controllers
                 Blogs = await dbContext.Blogs
                 .Where(dr => dr.UserId == user.Id)
                 .Include(x => x.BlogCategory)
-                .Take(3)
+                .Take(9)
                 .OrderByDescending(x => x.Id)
                 .ToListAsync(),
                 Portfolios = await dbContext.Portfolios
                 .Where(dr => dr.UserId == user.Id)
                 .Include(x => x.PortfolioCategory)
-                .Take(3)
+                .Take(9)
                 .OrderByDescending(x => x.Id)
                 .ToListAsync()
             };

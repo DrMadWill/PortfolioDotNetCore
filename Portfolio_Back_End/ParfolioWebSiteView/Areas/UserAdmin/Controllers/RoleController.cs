@@ -10,6 +10,8 @@ using PagedList;
 using PagedList.Mvc;
 using ParfolioWebSiteView.Areas.UserAdmin.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using ParfolioWebSiteView.Extensions;
+
 namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 {
     [Area("UserAdmin")]
@@ -28,16 +30,12 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         public async Task<IActionResult> List(int? id)
         {
-            RoleListVM role = new RoleListVM
-            {
-                Roles = (await roleManager.Roles.ToListAsync()).ToPagedList(id ?? 1, 10),
-                CurrentPage = id ?? 1
-            };
-            role.PagedCount(role.Roles.TotalItemCount, 10);
-            return View(role);
+            var roles = dbContext.Roles.OrderBy(x=>x.Id).AsQueryable();
+            var roleList = await PaginationList<IdentityRole>.CreateAsync(roles.AsNoTracking(), id ?? 1, 10, "/UserAdmin/Role/List");
+            return View(roleList);
         }
 
-        [HttpGet]
+        [HttpGet]   
         public IActionResult Create()
         {
             IdentityRole role = new IdentityRole();
@@ -133,7 +131,5 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             TempData["RoleAlert"] = role.Name + " .Role Deleted.";
             return Redirect("/Admin/Role/List");
         }
-
-
     }
 }

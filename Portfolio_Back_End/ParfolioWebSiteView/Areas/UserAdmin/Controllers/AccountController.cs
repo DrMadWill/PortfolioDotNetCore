@@ -36,14 +36,14 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         public async Task<IActionResult> List(int? id)
         {
+
+            var user = dbContext.User.OrderBy(x => x.Id).AsQueryable();
             User_ListVM userList = new User_ListVM
             {
-                Users = (await userManager.Users.ToListAsync()).ToPagedList(id ?? 1, 10),
-                CurrentPage = id ?? 1,
+                Users =await PaginationList<User>.CreateAsync(user.AsNoTracking(), id ?? 1, 2, "/UserAdmin/Account/List"),
                 Roles = await roleManager.Roles.ToListAsync(),
                 UserRoles = await dbContext.UserRoles.ToListAsync()
             };
-            userList.PagedCount(userList.Users.TotalItemCount, 10);
             return View(userList);
         }
 

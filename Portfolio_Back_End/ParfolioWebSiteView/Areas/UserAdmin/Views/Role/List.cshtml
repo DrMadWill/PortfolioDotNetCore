@@ -1,4 +1,4 @@
-﻿@model RoleListVM
+﻿@model PaginationList<IdentityRole>
 
 @{
     ViewData["Title"] = "Role List";
@@ -37,11 +37,10 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model.Roles)
+                                    @foreach (var item in Model)
                                     {
                                         <tr>
                                             <th scope="row">@item.Id</th>
@@ -56,35 +55,7 @@
                                     }
                                 </tbody>
                             </table>
-                            @*@Html.PagedListPager(Model, page => Url.Action("List", new { page }));*@
-
-                            <ul class="pagination mt-2">
-                                <li class="page-item">
-                                    <a class="page-link" href="/Admin/Role/List/@Model.Previous" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-
-                                @for (int i = 1; i <= Model.TotalPaged; i++)
-                                {
-                                    if (i == Model.CurrentPage)
-                                    {
-                                        <li class="page-item active"><button type="button" class="page-link">@i</button></li>
-                                    }
-                                    else
-                                    {
-                                        <li class="page-item"><a class="page-link" href="/UserAdmin/Role/List/@i">@i</a></li>
-                                    }
-                                }
-
-                                <li class="page-item">
-                                    <a class="page-link" href="/Admin/Role/List/@Model.Nextviews" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            <partial name="_PaginationList" model="Model.PaginationLinkModel"/>
                         </div>
                     </div>
                 </div>
