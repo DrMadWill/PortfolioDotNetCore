@@ -134,13 +134,12 @@ namespace ParfolioWebSiteView.Controllers
 
             // User Check
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null) return Json(new { status = 404 });
+            if (user == null) return Json(new { status = 403 });
 
 
 
             // Comment Check
             var commentDb = await dbContext.Commets
-                .Include(x => x.CommentChildren)
                 .FirstOrDefaultAsync(dr => dr.User == user
                 && dr.Id == id && dr.IsBlocked == false);
             if (commentDb == null) return Json(new { status = 404 });
@@ -157,11 +156,18 @@ namespace ParfolioWebSiteView.Controllers
             }
 
             // Child Comment
-            var commentChildren = await dbContext.Commets
-                .Where(dr => dr.ParentId == commentDb.Id).ToListAsync();
-            commentChildren.Add(commentDb);
-            
-            dbContext.Commets.RemoveRange(commentChildren);
+            commentDb.CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
+
+            //commentDb.CommentChildren.Reverse()
+
+            //foreach (var item in commentDb.CommentChildren)
+            //{
+
+            //}
+            commentDb.CommentChildren.Add(commentDb);
+
+
+            dbContext.Commets.RemoveRange(commentDb.CommentChildren);
             await dbContext.SaveChangesAsync();
             return Json(new { status = 201 });
         }
@@ -192,5 +198,48 @@ namespace ParfolioWebSiteView.Controllers
                 .Skip(commentSectionIndex ?? 1 - 1).Take(commentSize).ToListAsync();
             return Json(comments);
         }
+
+
+
+        public async Task<IActionResult> Delete2(int? id)
+        {
+            // Data Check
+            if (id == null) return NotFound();
+
+            // User Check
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            if (user == null) return NotFound();
+
+
+
+            // Comment Check
+            var commentDb = await dbContext.Commets
+                .FirstOrDefaultAsync(dr => dr.User == user
+                && dr.Id == id && dr.IsBlocked == false);
+            if (commentDb == null) return NotFound();
+
+            // Parent Check
+            if (commentDb.ParentId != null)
+            {
+                var count = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.ParentId).CountAsync();
+                if (count < 2)
+                {
+                    var commentParent = await dbContext.Commets.FindAsync(commentDb.ParentId);
+                    commentParent.IsChild = false;
+                }
+            }
+
+            // Child Comment
+            commentDb.CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
+            commentDb.CommentChildren.Add(commentDb);
+            dbContext.Commets.RemoveRange(commentDb.CommentChildren);
+            await dbContext.SaveChangesAsync();
+            return Redirect("/Goood");
+        }
+
+
+
+
+
     }
 }

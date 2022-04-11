@@ -81,7 +81,7 @@ namespace ParfolioWebSiteView.Controllers
             if (comment != null)
             {
                 comment.CommentChildren = await dbContext.Commets
-                    .Where(dr => dr.ParentId == comment.Id && dr.IsBlocked == false)
+                    .Where(dr => dr.ParentId == comment.Id && dr.IsBlocked == false).Take(5)
                     .ToListAsync();
             }
 
