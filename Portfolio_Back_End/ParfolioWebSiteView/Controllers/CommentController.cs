@@ -169,7 +169,7 @@ namespace ParfolioWebSiteView.Controllers
 
             dbContext.Commets.RemoveRange(commentDb.CommentChildren);
             await dbContext.SaveChangesAsync();
-            return Json(new { status = 201 });
+            return Json(new { status = 202 });
         }
 
 

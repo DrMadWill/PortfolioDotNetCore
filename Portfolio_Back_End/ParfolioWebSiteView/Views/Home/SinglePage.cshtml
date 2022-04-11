@@ -190,12 +190,20 @@
                                                 </div>
                                                 <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@commentChildren.Id' href='#'>Reply</a>
                                             </div>
+                                            @if (commentChildren.IsChild)
+                                            {
+                                                <button class="btn d-block w-100 my-2 showMore btn-light text-center">See Answers</button>
+                                            }
                                         </li>
                                     }
                                 }
                             }
                         </ul>
-                        <button data-index="1" class="btn showMore btn-primary"> Load More Comment...</button>
+                        @if (Model.CommentCount > 1)
+                        {
+                            <button class="btn d-block w-100 my-2 showMore btn-light text-center">See More Comment</button>
+                        }
+
                     </div>
                     <div class="form-comments">
                         <div class="title-box-2">
@@ -504,7 +512,7 @@
                             )
                             // Reload
                             setTimeout(() => {
-                                location.href = `/Home/SinglePage/${BlogDetailsId}`;
+                                location.reload()
 
                             }, 2000)
                         } else {
@@ -624,7 +632,7 @@
                             )
                             // Reload
                             setTimeout(() => {
-                                location.href = `/Home/SinglePage/${BlogDetailsId}`;
+                                location.reload()
 
                             }, 2000)
                         }
@@ -641,14 +649,13 @@
         })
     </script>
 
-     Comment Delete 
+    @*Comment Delete*@
 
     <script>
         $(document).ready(function () {
             $(document).on('click', '.delete-btn', function (e) {
                 e.preventDefault();
                 let url = $(this).attr("href");
-                let element = this.parentElement.parentElement.parentElement.parentElement;
                 var __RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
                 Swal.fire({
                     title: 'Are You Sure Delete?',
@@ -669,16 +676,15 @@
                             },
                             dataType: "json",
                             success: function (response) {
-                                if (response.status == 201) {
+                                if (response.hasOwnProperty('status') && response.status === 202) {
                                     Swal.fire(
                                         'Deleted!',
                                         '',
                                         'success'
                                     )
                                     setTimeout(() => {
-                                        location.href = `/Home/SinglePage/${BlogDetailsId}`;
-
-                                    }, 2000)
+                                        location.reload()
+                                    },2000)
                                 }
                                 else {
                                     Swal.fire(
@@ -704,10 +710,17 @@
             $(".showMore").click(function () {
                 let BlogId = $("#BlogId").val()
                 let CommentSectionIndex = $(e.currentTarget).attr("data-index")
-
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
                 $.ajax({
                     url: `/Comment/GetMoreComment`,
-                    data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex},
+                    data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex },
                     type: 'GET',
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 404) {
@@ -726,57 +739,11 @@
             })
 
         })
-        
+
     </script>
 
 
-    <script>
-        $(document).ready(function () {
-
-            console.log(".showMore")
-
-            $(".showMore").click(function () {
-                let BlogId = $("#BlogId").val()
-                let CommentSectionIndex = $(e.currentTarget).attr("data-index")
-                console.log(BlogId, CommentSectionIndex)
-
-            })
-
-        //    $(document).on('click', '.showMore', (e) => {
-        //        let BlogId = $("#BlogId").val()
-        //        let CommentSectionIndex = $(e.currentTarget).attr("data-index")
-        //        console.log(BlogId, CommentSectionIndex)
-        //        //Swal.fire({
-        //        //    title: 'Give me a second.',
-        //        //    text: '"',
-        //        //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
-        //        //    imageWidth: 400,
-        //        //    imageHeight: 350,
-        //        //    imageAlt: 'Loading',
-        //        //})
-
-        //        $.ajax({
-        //            url: `/Comment/GetMoreComment`,
-        //            data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex},
-        //            type: 'GET',
-        //            success: (response) => {
-        //                if (response.hasOwnProperty('status') && response.status === 404) {
-        //                    Swal.fire(
-        //                        'Not Find Concat Onlie Link',
-        //                        '',
-        //                        'error'
-        //                    )
-        //                } else {
-        //                    console.log(response)
-                           
-        //                }
-        //            }
-        //        //});
-        //        //console.log(button)
-
-        //    })
-        //})
-    </script>
+  
 
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
