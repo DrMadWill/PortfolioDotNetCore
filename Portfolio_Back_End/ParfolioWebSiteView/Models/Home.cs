@@ -11,8 +11,8 @@ namespace ParfolioWebSiteView.Models
     public class Home
     {
         [ForeignKey("User")]
-        public string Id { get; set; }
-        public User User { get; set; }
+        public virtual string Id { get; set; }
+        public virtual User User { get; set; }
 
         [MaxLength(350,ErrorMessage ="Maximum Length is 350")]
         [MinLength(3,ErrorMessage = "Maximum Length is 350")]

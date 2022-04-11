@@ -9,14 +9,11 @@ namespace ParfolioWebSiteView.Models
     public class Tag
     {
 
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [MaxLength(250)]
         [Required]
         public string Name { get; set; }
-
-        public List<BlogToTag> BlogToTags { get; set; }
-
-
+        public virtual List<BlogToTag> BlogToTags { get; set; }
     }
 }

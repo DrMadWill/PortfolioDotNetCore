@@ -55,7 +55,6 @@ namespace ParfolioWebSiteView.Controllers
                 commentu.BlogDetailsId = blog.Id;
                 commentu.Date = DateTime.Now;
                 commentu.IsBlocked = false;
-
                 await dbContext.Commets.AddAsync(commentu);
                 await dbContext.SaveChangesAsync();
                 return Json(new
@@ -65,18 +64,22 @@ namespace ParfolioWebSiteView.Controllers
             }
             else
             {
-                var commentData = await dbContext.Commets
-                    .Select(x => new { x.Id, x.BlogDetailsId })
+                var commentParent = await dbContext.Commets
                     .FirstOrDefaultAsync(dr => dr.Id == commentu.ParentId);
-                if (commentData == null) return Json(new
+                if (commentParent == null) return Json(new
                 {
                     status = 404
                 });
 
-                commentu.BlogDetailsId = commentData.BlogDetailsId;
+                //Is Chaild True
+                commentParent.IsChild = true;
+
+
+                commentu.ParentId = commentParent.Id;
+                commentu.BlogDetailsId = commentParent.BlogDetailsId;
                 commentu.Date = DateTime.Now;
                 commentu.IsBlocked = false;
-                commentu.ParentId = commentData.Id;
+                commentu.UserId = user.Id;
 
                 await dbContext.Commets.AddAsync(commentu);
                 await dbContext.SaveChangesAsync();
@@ -95,7 +98,7 @@ namespace ParfolioWebSiteView.Controllers
 
             // Comment Check
             var comment = await dbContext.Commets.FirstOrDefaultAsync(dr => dr.Id == id && dr.IsBlocked == false);
-            if(comment == null) return Json(new { status = 404 });
+            if (comment == null) return Json(new { status = 404 });
             return Json(comment);
         }
 
@@ -108,17 +111,18 @@ namespace ParfolioWebSiteView.Controllers
 
             // User Check
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if(user == null) return Json(new { status = 404 });
+            if (user == null) return Json(new { status = 404 });
 
             // Comment Check
             var commentDb = await dbContext.Commets
-                .FirstOrDefaultAsync(dr =>dr.User == user 
+                .FirstOrDefaultAsync(dr => dr.User == user
                 && dr.Id == commentu.Id && dr.IsBlocked == false);
+
             if (commentDb == null) return Json(new { status = 404 });
 
             commentDb.Comment = commentu.Comment;
             await dbContext.SaveChangesAsync();
-            return Json(new { status= 201});
+            return Json(new { status = 201 });
         }
 
 
@@ -132,19 +136,61 @@ namespace ParfolioWebSiteView.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null) return Json(new { status = 404 });
 
+
+
             // Comment Check
             var commentDb = await dbContext.Commets
+                .Include(x => x.CommentChildren)
                 .FirstOrDefaultAsync(dr => dr.User == user
                 && dr.Id == id && dr.IsBlocked == false);
             if (commentDb == null) return Json(new { status = 404 });
 
-            var childComment = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.Id).ToListAsync();
-            childComment.Add(commentDb);
-            dbContext.Commets.RemoveRange(childComment);
+            // Parent Check
+            if(commentDb.ParentId != null)
+            {
+                var count = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.ParentId).CountAsync();
+                if(count < 2)
+                {
+                    var commentParent = await dbContext.Commets.FindAsync(commentDb.ParentId);
+                    commentParent.IsChild = false;
+                }
+            }
+
+            // Child Comment
+            var commentChildren = await dbContext.Commets
+                .Where(dr => dr.ParentId == commentDb.Id).ToListAsync();
+            commentChildren.Add(commentDb);
+            
+            dbContext.Commets.RemoveRange(commentChildren);
             await dbContext.SaveChangesAsync();
             return Json(new { status = 201 });
         }
 
 
+        [HttpGet]
+        public async Task<JsonResult> GetMoreComment(int? blogId, int? commentSectionIndex)
+        {
+
+            if (blogId == null) return Json(new { status = 404 });
+
+            var blog = await dbContext.Blogs.FirstOrDefaultAsync(dr => dr.Id == blogId);
+            if (blog == null) return Json(new { status = 404 });
+
+            // DataBase Count 
+            int count = await dbContext.Commets.CountAsync();
+            // CommentSize
+            int commentSize = 5;
+
+            int maxSize = (int)Math.Ceiling(count / (double)commentSize);
+            if (commentSectionIndex > maxSize) return Json(new { status = 404 });
+
+            // Defaul Number
+            if (commentSectionIndex == null || commentSectionIndex == 0 || commentSectionIndex < 0) commentSectionIndex = 1;
+
+            var comments = await dbContext.Commets
+                .Where(dr => dr.BlogDetailsId == blog.Id && dr.IsBlocked == false)
+                .Skip(commentSectionIndex ?? 1 - 1).Take(commentSize).ToListAsync();
+            return Json(comments);
+        }
     }
 }

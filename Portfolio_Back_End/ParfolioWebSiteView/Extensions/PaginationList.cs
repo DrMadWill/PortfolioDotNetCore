@@ -21,10 +21,12 @@ namespace ParfolioWebSiteView.Extensions
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             this.AddRange(items);
-            _PaginationLinkModel = new PaginationLinkModel();
-            _PaginationLinkModel.PageIndex = pageIndex;
-            _PaginationLinkModel.TotalPages = TotalPages;
-            _PaginationLinkModel.Link = link;
+            _PaginationLinkModel = new PaginationLinkModel
+            {
+                PageIndex = pageIndex,
+                TotalPages = this.TotalPages,
+                Link = link
+            };
         }
 
         public static async Task<PaginationList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize,string link)

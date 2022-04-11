@@ -7,10 +7,10 @@ namespace ParfolioWebSiteView.Models
 {
     public class PortfolioCategory
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         public string  Name { get; set; }
 
-        public List<Portfolio> Portfolios { get; set; }
+        public virtual List<Portfolio> Portfolios { get; set; }
 
     }
 }

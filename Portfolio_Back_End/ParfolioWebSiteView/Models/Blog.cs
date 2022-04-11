@@ -10,7 +10,7 @@ namespace ParfolioWebSiteView.Models
     public class Blog
     {
         [Key]
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         [MaxLength(200, ErrorMessage = "Maxum Limit 200")]
         [Required(ErrorMessage = "Title is Required")]
         public string Title { get; set; }
@@ -20,15 +20,15 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = "Front Description is Required")]
         public string Description { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
-        public BlogCategory BlogCategory { get; set; }
-        public int BlogCategoryId { get; set; }
+        public virtual BlogCategory BlogCategory { get; set; }
+        public virtual int BlogCategoryId { get; set; }
 
-        public List<BlogToTag> BlogToTags { get; set; }
+        public virtual List<BlogToTag> BlogToTags { get; set; }
 
-        public User User { get; set; }
-        public string UserId { get; set; }
+        public virtual User User { get; set; }
+        public virtual string UserId { get; set; }
 
-        public BlogDetails BlogDetails { get; set; }
+        public virtual BlogDetails BlogDetails { get; set; }
 
         [NotMapped]
         public TimeSpan Time { get { return (DateTime.Now.Subtract(Date));} }

@@ -8,9 +8,9 @@ namespace ParfolioWebSiteView.Models
 {
     public class BlogCategory
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         [MaxLength(150)]
         public string Name { get; set; }
-        public List<Blog> Blogs { get; set; }
+        public virtual List<Blog> Blogs { get; set; }
     }
 }

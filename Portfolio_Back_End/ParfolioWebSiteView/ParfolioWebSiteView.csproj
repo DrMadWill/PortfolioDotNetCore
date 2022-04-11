@@ -19,6 +19,14 @@
     <Compile Remove="Migrations\20220323130851_AcivementIdMaxLengt.Designer.cs" />
     <Compile Remove="Migrations\20220325200950_BlogImageRequared1.cs" />
     <Compile Remove="Migrations\20220325200950_BlogImageRequared1.Designer.cs" />
+    <Compile Remove="Migrations\20220409061927_Addds.cs" />
+    <Compile Remove="Migrations\20220409061927_Addds.Designer.cs" />
+    <Compile Remove="Migrations\20220409065626_CreateCommentChildTable.cs" />
+    <Compile Remove="Migrations\20220409065626_CreateCommentChildTable.Designer.cs" />
+    <Compile Remove="Migrations\20220409070441_CreateCommentChildTable1.cs" />
+    <Compile Remove="Migrations\20220409070441_CreateCommentChildTable1.Designer.cs" />
+    <Compile Remove="Migrations\20220409070812_CreateCommentChildTable4.cs" />
+    <Compile Remove="Migrations\20220409070812_CreateCommentChildTable4.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

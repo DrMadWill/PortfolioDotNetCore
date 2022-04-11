@@ -14,6 +14,14 @@ namespace ParfolioWebSiteView.ViewModels
         public List<Commet> Commets { get; set; }
         public List<Tag> Tags { get; set; }
 
+        // Comment Section
+
+        public int CommentCount { get; set; }
+        public Commet Commet { get; set; }
+     
+
+
+
         public string GetUserFullName(int? id)
         {
             return Commets.Find(dr => dr.Id == id).User.FullName.ToString();

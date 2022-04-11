@@ -31,7 +31,6 @@ namespace ParfolioWebSiteView.Models
         public DbSet<BlogDetails> BlogDetails { get; set; }
         public DbSet<Commet> Commets { get; set; }
         public DbSet<MessengeUser> MessengeUsers { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -81,7 +80,8 @@ namespace ParfolioWebSiteView.Models
                 .WithMany(y => y.BlogToTags)
                 .HasForeignKey(fk => fk.BlogId);
 
-        }
+           
 
+        }
     }
 }

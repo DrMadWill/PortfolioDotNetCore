@@ -74,14 +74,26 @@ namespace ParfolioWebSiteView.Controllers
                 .Include(y => y.User)
                 .FirstOrDefaultAsync(dr => dr.Id == id);
 
+            var comment = await dbContext.Commets
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(dr => dr.BlogDetailsId == id && dr.IsBlocked == false);
+
+            if (comment != null)
+            {
+                comment.CommentChildren = await dbContext.Commets
+                    .Where(dr => dr.ParentId == comment.Id && dr.IsBlocked == false)
+                    .ToListAsync();
+            }
+
             BlogVM blogVM = new BlogVM
             {
                 Blog = blog,
+                // Comment Section
+                CommentCount = await dbContext.Commets
+                    .Where(dr => dr.BlogDetailsId == id 
+                    && dr.IsBlocked == false).CountAsync(),
 
-                Commets = await dbContext.Commets
-                .Where(dr => dr.BlogDetails.Id == blog.Id && dr.IsBlocked == false)
-                .Include(x => x.User)
-                .ToListAsync(),
+                Commet = comment,
 
                 Tags = await dbContext.BlogToTags
                 .Where(dr => dr.BlogId == blog.Id)
@@ -93,9 +105,8 @@ namespace ParfolioWebSiteView.Controllers
                 .OrderByDescending(x => x.Id)
                 .Take(10)
                 .ToListAsync(),
-
             };
-
+            
             return View(blogVM);
         }
 

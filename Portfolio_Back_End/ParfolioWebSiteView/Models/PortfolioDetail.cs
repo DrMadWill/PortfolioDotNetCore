@@ -13,8 +13,8 @@ namespace ParfolioWebSiteView.Models
     {
 
         [Key, ForeignKey("Portfolio")]
-        public int Id { get; set; }
-        public Portfolio Portfolio { get; set; }
+        public virtual int Id { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
         [MaxLength(150)]
         [Required]
         public string Client { get; set; }
@@ -26,6 +26,6 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public List<IFormFile> Photos { get; set; }
 
-        public List<DetailImage> DetailImages { get; set; }
+        public virtual List<DetailImage> DetailImages { get; set; }
     }
 }

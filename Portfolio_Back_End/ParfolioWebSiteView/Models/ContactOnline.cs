@@ -8,7 +8,7 @@ namespace ParfolioWebSiteView.Models
 {
     public class ContactOnline
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [MaxLength(50)]
         public string Name { get; set; }
@@ -20,9 +20,9 @@ namespace ParfolioWebSiteView.Models
         [MaxLength(200)]
         [Required]
         public string Icon { get; set; }
-        public Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
         [Required]
-        public string ContactId { get; set; }
+        public virtual string ContactId { get; set; }
 
     }
 }

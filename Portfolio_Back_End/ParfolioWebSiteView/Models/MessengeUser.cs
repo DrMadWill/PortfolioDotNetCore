@@ -10,10 +10,10 @@ namespace ParfolioWebSiteView.Models
     public class MessengeUser
     {
         [Key]
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public User User { get; set; }
-        public string UserId { get; set; }
+        public virtual User User { get; set; }
+        public virtual string UserId { get; set; }
 
         [MinLength(3, ErrorMessage = "Minmum Length 3 Character")]
         [MaxLength(150, ErrorMessage = "Maxmum Length 150 Character")]

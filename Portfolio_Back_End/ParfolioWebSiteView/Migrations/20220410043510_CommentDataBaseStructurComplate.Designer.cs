@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410043510_CommentDataBaseStructurComplate")]
+    partial class CommentDataBaseStructurComplate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,8 +321,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BlogDetailsId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -856,10 +856,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasForeignKey("BlogDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ParfolioWebSiteView.Models.Commet", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
 
                     b.HasOne("ParfolioWebSiteView.Models.User", "User")
                         .WithMany("Commets")

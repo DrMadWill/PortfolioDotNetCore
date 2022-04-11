@@ -14,7 +14,7 @@ namespace ParfolioWebSiteView.Models
     {
 
 
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         [Required(ErrorMessage = "Title is Required")]
         public string Title { get; set; }
 
@@ -23,12 +23,12 @@ namespace ParfolioWebSiteView.Models
 
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public PortfolioCategory PortfolioCategory { get; set; }
-        public int PortfolioCategoryId { get; set; }
+        public virtual PortfolioCategory PortfolioCategory { get; set; }
+        public virtual int PortfolioCategoryId { get; set; }
 
-        public PortfolioDetail PortfolioDetail { get; set; }
+        public virtual PortfolioDetail PortfolioDetail { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
         [Required]
         public string UserId { get; set; }
 
@@ -36,6 +36,6 @@ namespace ParfolioWebSiteView.Models
         public IFormFile Photo { get; set; }
 
         [NotMapped]
-        public List<PortfolioCategory> PortfolioCategoriesVM { get; set; }
+        public virtual List<PortfolioCategory> PortfolioCategoriesVM { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace ParfolioWebSiteView.Models
     public class Service
     {
 
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [MaxLength(100,ErrorMessage =" Maxumum Length 100")]
         [MinLength(3,ErrorMessage =" Minumum Length 3")]
@@ -27,9 +27,9 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = " Descriptoion Is Required")]
         public string Descriptoion { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
         [Required]
-        public string UserId { get; set; }
+        public virtual string UserId { get; set; }
 
 
     }

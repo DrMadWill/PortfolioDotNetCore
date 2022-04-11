@@ -10,13 +10,12 @@ namespace ParfolioWebSiteView.Models
     public class BlogDetails
     {
         [Key, ForeignKey("Blog")]
-        public int Id { get; set; }
-        public Blog Blog { get; set; }
+        public virtual int Id { get; set; }
+        public virtual Blog Blog { get; set; }
 
         [Column(TypeName = "ntext")]
         [Required(ErrorMessage = "Description is Required")]
         public string Description { get; set; }
-        public IList<Commet> Commets { get; set; }
-
+        public virtual IList<Commet> Commets { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParfolioWebSiteView.Models;
 
 namespace ParfolioWebSiteView.Migrations
 {
     [DbContext(typeof(PorfolioDbContext))]
-    partial class PorfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220409081324_CreateCommentChildTable4")]
+    partial class CreateCommentChildTable4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,6 +289,44 @@ namespace ParfolioWebSiteView.Migrations
                     b.ToTable("BlogToTags");
                 });
 
+            modelBuilder.Entity("ParfolioWebSiteView.Models.CommentChild", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("ntext");
+
+                    b.Property<int>("CommetId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogDetailsId");
+
+                    b.HasIndex("CommetId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CommentChildren");
+                });
+
             modelBuilder.Entity("ParfolioWebSiteView.Models.Commet", b =>
                 {
                     b.Property<int>("Id")
@@ -309,9 +349,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -319,8 +356,6 @@ namespace ParfolioWebSiteView.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BlogDetailsId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -849,6 +884,27 @@ namespace ParfolioWebSiteView.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ParfolioWebSiteView.Models.CommentChild", b =>
+                {
+                    b.HasOne("ParfolioWebSiteView.Models.BlogDetails", "BlogDetails")
+                        .WithMany("CommentChildren")
+                        .HasForeignKey("BlogDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ParfolioWebSiteView.Models.Commet", "Commet")
+                        .WithMany("CommentChildren")
+                        .HasForeignKey("CommetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ParfolioWebSiteView.Models.User", "User")
+                        .WithMany("CommentChildren")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ParfolioWebSiteView.Models.Commet", b =>
                 {
                     b.HasOne("ParfolioWebSiteView.Models.BlogDetails", "BlogDetails")
@@ -856,10 +912,6 @@ namespace ParfolioWebSiteView.Migrations
                         .HasForeignKey("BlogDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ParfolioWebSiteView.Models.Commet", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
 
                     b.HasOne("ParfolioWebSiteView.Models.User", "User")
                         .WithMany("Commets")

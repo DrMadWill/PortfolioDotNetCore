@@ -10,7 +10,7 @@ namespace ParfolioWebSiteView.Models
 {
     public class Referance
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [Required(ErrorMessage = "Name is Required")]
         [MaxLength(150, ErrorMessage = "Maximum Length 150")]
@@ -25,8 +25,8 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public IFormFile Photo { get; set; }
 
-        public User User { get; set; }
-        public string UserId { get; set; }
+        public virtual User User { get; set; }
+        public virtual string UserId { get; set; }
 
     }
 }

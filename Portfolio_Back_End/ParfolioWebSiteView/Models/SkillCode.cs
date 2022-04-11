@@ -9,7 +9,7 @@ namespace ParfolioWebSiteView.Models
 {
     public class SkillCode
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
         [MaxLength(75,ErrorMessage ="Maximum Length 75")]
         [MinLength(3,ErrorMessage ="Minum Length 4")]
@@ -20,9 +20,9 @@ namespace ParfolioWebSiteView.Models
         [Column(TypeName = "tinyint")]
         public byte Percent { get; set; }
 
-        public About About { get; set; }
+        public virtual About About { get; set; }
         [Required]
-        public string AboutId { get; set; }
+        public virtual string AboutId { get; set; }
 
     }
 }

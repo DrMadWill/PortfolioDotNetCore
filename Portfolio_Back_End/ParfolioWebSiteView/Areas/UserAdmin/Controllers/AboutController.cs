@@ -36,7 +36,7 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(About about)
-        {
+        { 
             if (!ModelState.IsValid) return Redirect("/System/Error404");
             // Find About
             var aboutDB = await dbContext.Abouts.FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name);
@@ -44,8 +44,6 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
             aboutDB.MainSkill = about.MainSkill;
             aboutDB.Descriptoion = about.Descriptoion;
             await dbContext.SaveChangesAsync();
-
-
             return Redirect("/UserAdmin/UserAccount/Account");
         }
     }

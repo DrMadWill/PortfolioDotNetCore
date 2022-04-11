@@ -27,20 +27,19 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public string FullName { get { return FirstName + " " + LastName; } }
         public bool Gender { get; set; }
-        public About About { get; set; }
-        public Home Home { get; set; }
-        public Contact Contact { get; set; }
+        public virtual About About { get; set; }
+        public virtual Home Home { get; set; }
+        public virtual Contact Contact { get; set; }
 
         [NotMapped]
         public IFormFile Photo { get; set; }
 
-        public IList<Blog> Blogs { get; set; }
-        public IList<Achievements> Achievements { get; set; }
-        public IList<Referance> Referances { get; set; }
-        public IList<Service> Services { get; set; }
-        public IList<Portfolio> Portfolios { get; set; }
-        public IList<Commet> Commets { get; set; }
-        public IList<MessengeUser> MessengeUsers { get; set; }
-
+        public virtual IList<Blog> Blogs { get; set; }
+        public virtual IList<Achievements> Achievements { get; set; }
+        public virtual IList<Referance> Referances { get; set; }
+        public virtual IList<Service> Services { get; set; }
+        public virtual IList<Portfolio> Portfolios { get; set; }
+        public virtual IList<Commet> Commets { get; set; }
+        public virtual IList<MessengeUser> MessengeUsers { get; set; }
     }
 }

@@ -25,7 +25,7 @@
     <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
 }
-
+<input type="hidden" id="BlogId" value="@Model.Blog.Id" />
 <div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
     <div class="overlay-mf"></div>
     <div class="hero-content display-table">
@@ -71,7 +71,7 @@
                                 </li>
                                 <li>
                                     <span class="bi bi-chat-text"></span>
-                                    <a href="#comment">@Model.Commets.Count</a>
+                                    <a href="#comment">@Model.CommentCount</a>
                                 </li>
                             </ul>
                         </div>
@@ -81,54 +81,60 @@
                     </div>
                     <div id="comment" class="box-comments">
                         <div class="title-box-2">
-                            <h4 class="title-comments title-left">Comments (@Model.Commets.Count)</h4>
+                            <h4 class="title-comments title-left">Comments (@Model.CommentCount)</h4>
                         </div>
                         <ul class="list-comments">
                             @if (!User.Identity.IsAuthenticated)
                             {
-                                @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
+                                @if (Model.Commet != null)
                                 {
-                                    @Model.ChildCommentHtml.Clear()
-
-                                    <li id="@item.HtmlId">
+                                    <li id="@Model.Commet.HtmlId">
                                         <div class="comment-avatar">
-                                            <img src="~/img/Profile/@item.User.Image" alt="">
+                                            <img src="~/img/Profile/@Model.Commet.User.Image" alt="">
                                         </div>
-                                        <div class="comment-details">
-                                            <h4 class="comment-author">@item.User.FullName</h4>
-                                            <span>@item.Date.ToShortDateString()</span>
+                                        <div class="comment-details w-100">
+                                            <h4 class="comment-author">@Model.Commet.User.UserName</h4>
+                                            <span>@Model.Commet.Date.ToShortDateString()</span>
                                             <p>
-                                                @item.Comment
+                                                @Model.Commet.Comment
                                             </p>
 
-                                            <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@item.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@Model.Commet.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
 
-                                    if (Model.IsParentComment(item.Id))
-                                    {
-                                        Model.WriteChildComments(Model.GetParentComments(item.Id));
 
-                                        @Html.Raw(Model.ChildCommentHtml.ToString())
+                                    foreach (var commentChild in Model.Commet.CommentChildren)
+                                    {
+                                        <li id="@commentChild.HtmlId" class="comment-children">
+                                            <div class="comment-avatar">
+                                                <img src="~/img/Profile/@commentChild.User.Image" alt="">
+                                            </div>
+                                            <div class="comment-details w-100">
+                                                <h4 class="comment-author parent-coment" data-parent="comment@(commentChild.ParentId)">@commentChild.User.UserName => @Model.Commet.User.UserName</h4>
+                                                <span>@commentChild.Date.ToShortDateString()</span>
+                                                <p>
+                                                    @commentChild.Comment
+                                                </p>
+                                                <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@commentChild.Id' href='#'>Reply</a>
+                                            </div>
+                                        </li>
                                     }
                                 }
-
                             }
                             else
                             {
-                                @foreach (var item in Model.Commets.Where(x => x.ParentId == null))
+                                if (Model.Commet != null)
                                 {
-                                    @Model.ChildCommentHtml.Clear()
-
-                                    <li id="@item.HtmlId">
+                                    <li id="@Model.Commet.HtmlId">
                                         <div class="comment-avatar">
-                                            <img src="~/img/Profile/@item.User.Image" alt="">
+                                            <img src="~/img/Profile/@Model.Commet.User.Image" alt="">
                                         </div>
                                         <div class="comment-details w-100">
-                                            <h4 class="comment-author">@item.User.FullName</h4>
-                                            <span>@item.Date.ToShortDateString()</span>
+                                            <h4 class="comment-author">@Model.Commet.User.FullName</h4>
+                                            <span>@Model.Commet.Date.ToShortDateString()</span>
                                             <p>
-                                                @item.Comment
+                                                @Model.Commet.Comment
                                             </p>
                                             <div class="icon-more">
                                                 <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
@@ -136,10 +142,10 @@
                                                 </button>
 
                                                 <div class="dropdown-menu p-1" aria-labelledby="icon-more">
-                                                    @if (item.User.UserName == User.Identity.Name)
+                                                    @if (Model.Commet.User.UserName == User.Identity.Name)
                                                     {
-                                                        <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@item.Id"><i class="ti-pencil"></i> Edit</a>
-                                                        <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@item.Id"><i class="ti-trash"></i>Delete</a>
+                                                        <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@Model.Commet.Id"><i class="ti-pencil"></i> Edit</a>
+                                                        <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@Model.Commet.Id"><i class="ti-trash"></i>Delete</a>
                                                     }
                                                     else
                                                     {
@@ -148,22 +154,48 @@
 
                                                 </div>
                                             </div>
-                                            <a class='replay' data-add='0' data-blog="@item.BlogDetailsId" data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@Model.Commet.Id' href='#'>Reply</a>
                                         </div>
                                     </li>
 
-                                    if (Model.IsParentComment(item.Id))
+                                    foreach (var commentChildren in Model.Commet.CommentChildren)
                                     {
-                                        Model.WriteChildComments(Model.GetParentComments(item.Id), user);
+                                        <li id="@commentChildren.HtmlId" class="comment-children">
+                                            <div class="comment-avatar">
+                                                <img src="~/img/Profile/@commentChildren.User.Image" alt="">
+                                            </div>
+                                            <div class="comment-details w-100">
+                                                <h4 class="comment-author parent-coment" data-parent="comment@(commentChildren.ParentId)">@commentChildren.User.UserName => @commentChildren.User.UserName</h4>
+                                                <span>@commentChildren.Date.ToShortDateString()</span>
+                                                <p>
+                                                    @commentChildren.Comment
+                                                </p>
+                                                <div class="icon-more">
+                                                    <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                        <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                                    </button>
 
-                                        @Html.Raw(Model.ChildCommentHtml.ToString())
+                                                    <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                                                        @if (commentChildren.User.UserName == User.Identity.Name)
+                                                        {
+                                                            <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@commentChildren.Id"><i class="ti-pencil"></i> Edit</a>
+                                                            <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@commentChildren.Id"><i class="ti-trash"></i>Delete</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>
+                                                        }
 
+                                                    </div>
+                                                </div>
+                                                <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@commentChildren.Id' href='#'>Reply</a>
+                                            </div>
+                                        </li>
                                     }
-
                                 }
-
                             }
                         </ul>
+                        <button data-index="1" class="btn showMore btn-primary"> Load More Comment...</button>
                     </div>
                     <div class="form-comments">
                         <div class="title-box-2">
@@ -447,6 +479,14 @@
         // Here Send Ajax
         function SendComment(Comment, UserId, ParentId, BlogDetailsId) {
             $(document).ready(() => {
+                Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
                 $.ajax({
                     url: '/Comment/Create',
                     headers: {
@@ -467,13 +507,6 @@
                                 location.href = `/Home/SinglePage/${BlogDetailsId}`;
 
                             }, 2000)
-
-                        } else if (response.status == 400) {
-                            Swal.fire(
-                                'This Tags Already Added',
-                                '',
-                                'error'
-                            )
                         } else {
                             Swal.fire(
                                 'Not Added',
@@ -595,8 +628,7 @@
 
                             }, 2000)
                         }
-                        else
-                        {
+                        else {
                             Swal.fire(
                                 'Comment Not Changed Added',
                                 '',
@@ -609,7 +641,7 @@
         })
     </script>
 
-    @* Comment Delete *@
+     Comment Delete 
 
     <script>
         $(document).ready(function () {
@@ -662,6 +694,90 @@
             });
         })
     </script>
+
+    @* Comment More *@
+
+    <script>
+
+        $(document).ready(function (e) {
+
+            $(".showMore").click(function () {
+                let BlogId = $("#BlogId").val()
+                let CommentSectionIndex = $(e.currentTarget).attr("data-index")
+
+                $.ajax({
+                    url: `/Comment/GetMoreComment`,
+                    data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex},
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            Swal.fire(
+                                'Not Find Concat Onlie Link',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            console.log(response)
+
+                        }
+                    }
+                });
+
+            })
+
+        })
+        
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            console.log(".showMore")
+
+            $(".showMore").click(function () {
+                let BlogId = $("#BlogId").val()
+                let CommentSectionIndex = $(e.currentTarget).attr("data-index")
+                console.log(BlogId, CommentSectionIndex)
+
+            })
+
+        //    $(document).on('click', '.showMore', (e) => {
+        //        let BlogId = $("#BlogId").val()
+        //        let CommentSectionIndex = $(e.currentTarget).attr("data-index")
+        //        console.log(BlogId, CommentSectionIndex)
+        //        //Swal.fire({
+        //        //    title: 'Give me a second.',
+        //        //    text: '"',
+        //        //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+        //        //    imageWidth: 400,
+        //        //    imageHeight: 350,
+        //        //    imageAlt: 'Loading',
+        //        //})
+
+        //        $.ajax({
+        //            url: `/Comment/GetMoreComment`,
+        //            data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex},
+        //            type: 'GET',
+        //            success: (response) => {
+        //                if (response.hasOwnProperty('status') && response.status === 404) {
+        //                    Swal.fire(
+        //                        'Not Find Concat Onlie Link',
+        //                        '',
+        //                        'error'
+        //                    )
+        //                } else {
+        //                    console.log(response)
+                           
+        //                }
+        //            }
+        //        //});
+        //        //console.log(button)
+
+        //    })
+        //})
+    </script>
+
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>

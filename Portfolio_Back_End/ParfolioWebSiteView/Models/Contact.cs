@@ -10,8 +10,8 @@ namespace ParfolioWebSiteView.Models
     public class Contact
     {
         [ForeignKey("User")]
-        public string Id { get; set; }
-        public User User { get; set; }
+        public  virtual string Id { get; set; }
+        public virtual User User { get; set; }
 
         [MaxLength(75,ErrorMessage ="Max Length 75 ")]
         [Phone(ErrorMessage ="Plase Write Phone Number Format")]
@@ -25,7 +25,7 @@ namespace ParfolioWebSiteView.Models
         [Required(ErrorMessage = "Description Is Required.")]
         [Column(TypeName = "ntext")]
         public string Description { get; set; }
-        public List<ContactOnline> ContactOnlines { get; set; }
+        public virtual List<ContactOnline> ContactOnlines { get; set; }
         
     }
 }
