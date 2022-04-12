@@ -51,13 +51,13 @@ document.querySelectorAll(".replay").forEach(function (e) {
 })
 
 
-function ComentCreate(userId, comment,blogId) {
+function ComentCreate(userId, comment, blogId) {
     let form = document.createElement("form")
     form.setAttribute("class", "d-block mt-3")
     form.setAttribute("action", "/Location")
 
     let html =
-    `
+        `
       <div class="mb-3">
         <div class="form-group">
           <textarea id="textMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
@@ -114,12 +114,14 @@ function Vaildation(form) {
     })
 }
 
-
-document.querySelectorAll(".more-btn").forEach(elment => {
-    elment.addEventListener("click", function () {
-        $(elment.nextElementSibling).toggleClass("show");
+function CommentElement() {
+    document.querySelectorAll(".more-btn").forEach(elment => {
+        elment.addEventListener("click", function () {
+            $(elment.nextElementSibling).toggleClass("show");
+        })
     })
-})
+}
+
 
 
 

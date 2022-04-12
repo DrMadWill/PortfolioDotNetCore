@@ -34,15 +34,6 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public string HtmlId { get { return "comment" + Id; } }
 
-        // For Ajax Send Data
-        [NotMapped]
-        public string UserName { get; set; }
-
-        // For Ajax Send Data
-        [NotMapped]
-        public string Image { get; set; }
-
-
         
         //public async Task<List<Commet>> ComentChildernAsync(IQueryable<Commet> soruce,int id)
         //{

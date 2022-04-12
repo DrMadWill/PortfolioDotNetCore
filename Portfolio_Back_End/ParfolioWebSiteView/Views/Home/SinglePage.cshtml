@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
 }
 <input type="hidden" id="BlogId" value="@Model.Blog.Id" />
+<input type="hidden" id="UserIdentityName" value="@User.Identity.Name" />
+<input type="hidden" id="UserIdentityIsAuthenticated" value="@User.Identity.IsAuthenticated.ToString()" />
 <div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
     <div class="overlay-mf"></div>
     <div class="hero-content display-table">
@@ -131,7 +133,7 @@
                                             <img src="~/img/Profile/@Model.Commet.User.Image" alt="">
                                         </div>
                                         <div class="comment-details w-100">
-                                            <h4 class="comment-author">@Model.Commet.User.FullName</h4>
+                                            <h4 class="comment-author">@Model.Commet.User.UserName</h4>
                                             <span>@Model.Commet.Date.ToShortDateString()</span>
                                             <p>
                                                 @Model.Commet.Comment
@@ -373,7 +375,7 @@
             <div class="modal-body text-center">
                 <form method="post" id="updateForm">
                     <input type="hidden" id="UpdateCommentId">
-                    <input type="hidden" id="editUserId" value="@Model.Blog.UserId">
+                    <input type="hidden" id="editUserId" value="@user.Id">
                     <input type="hidden" id="editBlogDetail" value="@Model.Blog.Id">
                     <div class="form-group">
                         <textarea id="updateTextMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
@@ -684,7 +686,7 @@
                                     )
                                     setTimeout(() => {
                                         location.reload()
-                                    },2000)
+                                    }, 2000)
                                 }
                                 else {
                                     Swal.fire(
@@ -718,6 +720,7 @@
                     imageHeight: 350,
                     imageAlt: 'Loading',
                 })
+
                 $.ajax({
                     url: `/Comment/GetMoreComment`,
                     data: { blogId: BlogId, commentSectionIndex: CommentSectionIndex },
@@ -731,20 +734,130 @@
                             )
                         } else {
                             console.log(response)
-
+                            WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
                         }
                     }
                 });
+            })
+        })
+    </script>
 
+
+    <script>
+        function WriteComment(conments, userId, userName) {
+
+            userName = new String(userName).trim();
+            let commetArray = new Array(conments)
+            let commentsHtmlArray = new Array()
+            if (userName == null || userName.length == 0) {
+                conments.forEach(function (e) {
+                    let li = document.createElement("li")
+                    li.setAttribute('id', e.htmlId);
+
+                    let html =
+                        `
+                            <div class="comment-avatar">
+                                <img src="~/img/Profile/${e.image}" alt="">
+                            </div>
+                            <div class="comment-details w-100">
+                                <h4 class="comment-author">@Model.Commet.User.UserName</h4>
+                                <span>${
+                                    new Date(e.date).getUTCDate()
+                                        }</span >
+                                <p>
+                                    ${e.comment}
+                                </p>
+                                <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
+                            </div>
+                        `
+                    li.innerHTML = html
+                    commentsHtmlArray.push(li)
+                })
+            } else {
+
+                conments.forEach(function (e) {
+                    let li = document.createElement("li")
+                    li.setAttribute('id', e.htmlId);
+                    html =
+                        `
+                            <li id="${e.htmlId}">
+                                    <div class="comment-avatar">
+                                        <img src="~/img/Profile/${e.image}" alt="">
+                                    </div>
+                                    <div class="comment-details w-100">
+                                        <h4 class="comment-author">${e.userName}</h4>
+                                        <span>${new Date(e.date).getUTCDate()}</span>
+                                        <p>
+                                            ${e.comment}
+                                        </p>
+                                        <div class="icon-more">
+                                            <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                            </button>
+
+                                            <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                        `
+
+                        if (e.userName == userName)
+                        {
+                                html = html + ` <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
+                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/ ${e.id}><i class="ti-trash"></i>Delete</a>`
+                        }
+                        else
+                        {
+                                html = html + ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
+                        }
+
+                        html = html +      `</div>
+                                        </div>
+                                        <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
+                                    </div>
+                                </li>
+
+
+
+                        `
+                    if (e.isChild) {
+                        html = html + `<button class="btn d-block w-100 my-2 showMore btn-light text-center">See Answers</button>`
+                    }
+
+                    li.innerHTML = html
+                    commentsHtmlArray.push(li)
+                })
+
+            }
+
+
+            commentsHtmlArray.forEach(function (elem) {
+                console.log(elem)
+                document.querySelector(".list-comments").appendChild(elem)
             })
 
-        })
+        }
 
     </script>
 
 
-  
+    <script>
+        $(".more-btn").each(function (e) {
+            let element = this
+            $(this).click(function () {
+                $(element.nextElementSibling).toggle("show");
+            })
+        })
 
+    </script>
+
+    <script>
+        //$(document).ready(function () {
+        //    document.querySelectorAll(".more-btn").forEach(elment => {
+        //        elment.addEventListener("click", function () {
+        //            $(elment.nextElementSibling).toggleClass("show");
+        //        })
+        //    })
+        //})
+        
+    </script>
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>

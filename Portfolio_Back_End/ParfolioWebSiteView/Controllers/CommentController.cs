@@ -119,6 +119,9 @@ namespace ParfolioWebSiteView.Controllers
                 && dr.Id == commentu.Id && dr.IsBlocked == false);
 
             if (commentDb == null) return Json(new { status = 404 });
+            
+            // Check user
+            if(commentDb.UserId == user.Id) return Json(new { status = 401 });
 
             commentDb.Comment = commentu.Comment;
             await dbContext.SaveChangesAsync();
@@ -136,16 +139,16 @@ namespace ParfolioWebSiteView.Controllers
             var user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user == null) return Json(new { status = 403 });
 
-
-
             // Comment Check
             var commentDb = await dbContext.Commets
                 .FirstOrDefaultAsync(dr => dr.User == user
                 && dr.Id == id && dr.IsBlocked == false);
             if (commentDb == null) return Json(new { status = 404 });
+            // Check user
+            if (commentDb.UserId == user.Id) return Json(new { status = 401 });
 
             // Parent Check
-            if(commentDb.ParentId != null)
+            if (commentDb.ParentId != null)
             {
                 var count = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.ParentId).CountAsync();
                 if(count < 2)
@@ -158,14 +161,7 @@ namespace ParfolioWebSiteView.Controllers
             // Child Comment
             commentDb.CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
 
-            //commentDb.CommentChildren.Reverse()
-
-            //foreach (var item in commentDb.CommentChildren)
-            //{
-
-            //}
             commentDb.CommentChildren.Add(commentDb);
-
 
             dbContext.Commets.RemoveRange(commentDb.CommentChildren);
             await dbContext.SaveChangesAsync();
@@ -194,51 +190,22 @@ namespace ParfolioWebSiteView.Controllers
             if (commentSectionIndex == null || commentSectionIndex == 0 || commentSectionIndex < 0) commentSectionIndex = 1;
 
             var comments = await dbContext.Commets
-                .Where(dr => dr.BlogDetailsId == blog.Id && dr.IsBlocked == false)
+                .Where(dr => dr.BlogDetailsId == blog.Id && dr.IsBlocked == false && dr.ParentId == null)
+                .Select(x => new
+                {
+                    x.Id,
+                    x.IsChild, 
+                    x.ParentId,
+                    x.BlogDetailsId,
+                    x.Comment,
+                    x.Date,
+                    x.HtmlId,
+                    x.User.UserName,
+                    x.User.Image
+                })
                 .Skip(commentSectionIndex ?? 1 - 1).Take(commentSize).ToListAsync();
             return Json(comments);
         }
-
-
-
-        public async Task<IActionResult> Delete2(int? id)
-        {
-            // Data Check
-            if (id == null) return NotFound();
-
-            // User Check
-            var user = await userManager.FindByNameAsync(User.Identity.Name);
-            if (user == null) return NotFound();
-
-
-
-            // Comment Check
-            var commentDb = await dbContext.Commets
-                .FirstOrDefaultAsync(dr => dr.User == user
-                && dr.Id == id && dr.IsBlocked == false);
-            if (commentDb == null) return NotFound();
-
-            // Parent Check
-            if (commentDb.ParentId != null)
-            {
-                var count = await dbContext.Commets.Where(dr => dr.ParentId == commentDb.ParentId).CountAsync();
-                if (count < 2)
-                {
-                    var commentParent = await dbContext.Commets.FindAsync(commentDb.ParentId);
-                    commentParent.IsChild = false;
-                }
-            }
-
-            // Child Comment
-            commentDb.CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
-            commentDb.CommentChildren.Add(commentDb);
-            dbContext.Commets.RemoveRange(commentDb.CommentChildren);
-            await dbContext.SaveChangesAsync();
-            return Redirect("/Goood");
-        }
-
-
-
 
 
     }
