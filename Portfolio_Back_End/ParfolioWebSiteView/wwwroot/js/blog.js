@@ -17,38 +17,38 @@ $(document).ready(function () {
 
 
 
-
 document.querySelectorAll(".replay").forEach(function (e) {
-
-    e.addEventListener("click", function (x) {
-        x.preventDefault();
-
-        let parent = x.target.parentElement
-        const elemet = x.target
-        let isAdded = elemet.getAttribute("data-add")
-
-        if (isAdded == "0") {
-            elemet.setAttribute("data-add", "1")
-            let userId = x.target.getAttribute("data-userid")
-            let commentId = x.target.getAttribute("data-commentid")
-            let blogId = x.target.getAttribute("data-blog")
-
-            let comment = ComentCreate(userId, commentId, blogId)
-            parent.appendChild(comment)
-
-            Vaildation(comment)
-            let canceled = comment.children[2].children[0]
-            // Remove Form
-            canceled.addEventListener("click", function (x) {
-                let comment = x.target.parentElement.parentElement
-                RemoveForm(comment)
-                elemet.setAttribute("data-add", "0")
-            })
-
-        }
-
-    })
+    e.addEventListener("click", Comment)
 })
+
+
+function Comment(x) {
+    x.preventDefault();
+
+    let parent = x.target.parentElement
+    const elemet = x.target
+    let isAdded = elemet.getAttribute("data-add")
+
+    if (isAdded == "0") {
+        elemet.setAttribute("data-add", "1")
+        let userId = x.target.getAttribute("data-userid")
+        let commentId = x.target.getAttribute("data-commentid")
+        let blogId = x.target.getAttribute("data-blog")
+
+        let comment = ComentCreate(userId, commentId, blogId)
+        parent.appendChild(comment)
+
+        Vaildation(comment)
+        let canceled = comment.children[2].children[0]
+        // Remove Form
+        canceled.addEventListener("click", function (x) {
+            let comment = x.target.parentElement.parentElement
+            RemoveForm(comment)
+            elemet.setAttribute("data-add", "0")
+        })
+
+    }
+}
 
 
 function ComentCreate(userId, comment, blogId) {
@@ -114,13 +114,13 @@ function Vaildation(form) {
     })
 }
 
-function CommentElement() {
-    document.querySelectorAll(".more-btn").forEach(elment => {
-        elment.addEventListener("click", function () {
-            $(elment.nextElementSibling).toggleClass("show");
-        })
-    })
-}
+//function CommentElement() {
+//    document.querySelectorAll(".more-btn").forEach(elment => {
+//        elment.addEventListener("click", function () {
+//            $(elment.nextElementSibling).toggleClass("show");
+//        })
+//    })
+//}
 
 
 

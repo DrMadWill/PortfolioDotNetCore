@@ -203,7 +203,7 @@
                         </ul>
                         @if (Model.CommentCount > 1)
                         {
-                            <button class="btn d-block w-100 my-2 showMore btn-light text-center">See More Comment</button>
+                            <button class="btn  w-100 my-2 showMore btn-light text-center" data-index="1">See More Comment</button>
                         }
 
                     </div>
@@ -375,7 +375,14 @@
             <div class="modal-body text-center">
                 <form method="post" id="updateForm">
                     <input type="hidden" id="UpdateCommentId">
-                    <input type="hidden" id="editUserId" value="@user.Id">
+                    @if (user != null)
+                    {
+                        <input type="hidden" id="editUserId" value="@user.Id">
+                    }
+                    else
+                    {
+                        <input type="hidden" id="editUserId" value="">
+                    }
                     <input type="hidden" id="editBlogDetail" value="@Model.Blog.Id">
                     <div class="form-group">
                         <textarea id="updateTextMessage" class="form-control input-mf" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
@@ -710,8 +717,10 @@
         $(document).ready(function (e) {
 
             $(".showMore").click(function () {
+                let showMore = this
                 let BlogId = $("#BlogId").val()
-                let CommentSectionIndex = $(e.currentTarget).attr("data-index")
+                let CommentSectionIndexHtml = $(showMore)
+                let CommentSectionIndex = CommentSectionIndexHtml.attr("data-index")
                 Swal.fire({
                     title: 'Give me a second.',
                     text: '"',
@@ -728,12 +737,17 @@
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 404) {
                             Swal.fire(
-                                'Not Find Concat Onlie Link',
+                                'Max Messenge Show',
                                 '',
                                 'error'
                             )
                         } else {
-                            console.log(response)
+                            
+                            if (response.length != 5) {
+                                showMore.style.display="none"
+                            }
+                            CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
+
                             WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
                         }
                     }
@@ -743,17 +757,17 @@
     </script>
 
 
+    @* Write Comment Funcition *@
     <script>
         function WriteComment(conments, userId, userName) {
 
             userName = new String(userName).trim();
-            let commetArray = new Array(conments)
             let commentsHtmlArray = new Array()
             if (userName == null || userName.length == 0) {
                 conments.forEach(function (e) {
                     let li = document.createElement("li")
                     li.setAttribute('id', e.htmlId);
-
+                    let Edate = new Date(e.date)
                     let html =
                         `
                             <div class="comment-avatar">
@@ -761,9 +775,8 @@
                             </div>
                             <div class="comment-details w-100">
                                 <h4 class="comment-author">@Model.Commet.User.UserName</h4>
-                                <span>${
-                                    new Date(e.date).getUTCDate()
-                                        }</span >
+                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+
                                 <p>
                                     ${e.comment}
                                 </p>
@@ -771,6 +784,35 @@
                             </div>
                         `
                     li.innerHTML = html
+                    let btnReplay = li.children[1].children[3]
+                    btnReplay.addEventListener('click', function (x) {
+
+                        x.preventDefault();
+
+                        let parent = x.target.parentElement
+                        const elemet = x.target
+                        let isAdded = elemet.getAttribute("data-add")
+
+                        if (isAdded == "0") {
+                            elemet.setAttribute("data-add", "1")
+                            let userId = x.target.getAttribute("data-userid")
+                            let commentId = x.target.getAttribute("data-commentid")
+                            let blogId = x.target.getAttribute("data-blog")
+
+                            let comment = ComentCreate(userId, commentId, blogId)
+                            parent.appendChild(comment)
+
+                            Vaildation(comment)
+                            let canceled = comment.children[2].children[0]
+                            // Remove Form
+                            canceled.addEventListener("click", function (x) {
+                                let comment = x.target.parentElement.parentElement
+                                RemoveForm(comment)
+                                elemet.setAttribute("data-add", "0")
+                            })
+
+                        }
+                    })
                     commentsHtmlArray.push(li)
                 })
             } else {
@@ -778,15 +820,16 @@
                 conments.forEach(function (e) {
                     let li = document.createElement("li")
                     li.setAttribute('id', e.htmlId);
+                    let Edate = new Date(e.date)
                     html =
                         `
-                            <li id="${e.htmlId}">
+                            
                                     <div class="comment-avatar">
                                         <img src="~/img/Profile/${e.image}" alt="">
                                     </div>
                                     <div class="comment-details w-100">
                                         <h4 class="comment-author">${e.userName}</h4>
-                                        <span>${new Date(e.date).getUTCDate()}</span>
+                                        <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
                                         <p>
                                             ${e.comment}
                                         </p>
@@ -801,7 +844,7 @@
                         if (e.userName == userName)
                         {
                                 html = html + ` <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
-                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/ ${e.id}><i class="ti-trash"></i>Delete</a>`
+                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>`
                         }
                         else
                         {
@@ -812,7 +855,6 @@
                                         </div>
                                         <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
                                     </div>
-                                </li>
 
 
 
@@ -822,42 +864,69 @@
                     }
 
                     li.innerHTML = html
+                    let btnMore = li.children[1].children[3].children[0]
+                    let btnReplay = li.children[1].children[4]
+                    btnReplay.addEventListener('click', function (x) {
+
+                        x.preventDefault();
+
+                        let parent = x.target.parentElement
+                        const elemet = x.target
+                        let isAdded = elemet.getAttribute("data-add")
+
+                        if (isAdded == "0") {
+                            elemet.setAttribute("data-add", "1")
+                            let userId = x.target.getAttribute("data-userid")
+                            let commentId = x.target.getAttribute("data-commentid")
+                            let blogId = x.target.getAttribute("data-blog")
+
+                            let comment = ComentCreate(userId, commentId, blogId)
+                            parent.appendChild(comment)
+
+                            Vaildation(comment)
+                            let canceled = comment.children[2].children[0]
+                            // Remove Form
+                            canceled.addEventListener("click", function (x) {
+                                let comment = x.target.parentElement.parentElement
+                                RemoveForm(comment)
+                                elemet.setAttribute("data-add", "0")
+                            })
+
+                        }
+                    })
+
+                    btnMore.addEventListener("click", function (e) {
+                        $(e.currentTarget.nextElementSibling).toggle("show")
+                    })
                     commentsHtmlArray.push(li)
                 })
 
             }
-
+            
 
             commentsHtmlArray.forEach(function (elem) {
-                console.log(elem)
                 document.querySelector(".list-comments").appendChild(elem)
             })
-
         }
 
     </script>
 
 
     <script>
-        $(".more-btn").each(function (e) {
-            let element = this
-            $(this).click(function () {
-                $(element.nextElementSibling).toggle("show");
+        function CommentElemet() {
+            $(".more-btn").each(function (e) {
+                let element = this
+                $(this).click(function () {
+                    $(element.nextElementSibling).toggle("show");
+                })
             })
-        })
+        }
+
+        CommentElemet()
 
     </script>
 
-    <script>
-        //$(document).ready(function () {
-        //    document.querySelectorAll(".more-btn").forEach(elment => {
-        //        elment.addEventListener("click", function () {
-        //            $(elment.nextElementSibling).toggleClass("show");
-        //        })
-        //    })
-        //})
-        
-    </script>
+
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>

@@ -120,9 +120,6 @@ namespace ParfolioWebSiteView.Controllers
 
             if (commentDb == null) return Json(new { status = 404 });
             
-            // Check user
-            if(commentDb.UserId == user.Id) return Json(new { status = 401 });
-
             commentDb.Comment = commentu.Comment;
             await dbContext.SaveChangesAsync();
             return Json(new { status = 201 });
@@ -144,8 +141,6 @@ namespace ParfolioWebSiteView.Controllers
                 .FirstOrDefaultAsync(dr => dr.User == user
                 && dr.Id == id && dr.IsBlocked == false);
             if (commentDb == null) return Json(new { status = 404 });
-            // Check user
-            if (commentDb.UserId == user.Id) return Json(new { status = 401 });
 
             // Parent Check
             if (commentDb.ParentId != null)
@@ -187,8 +182,8 @@ namespace ParfolioWebSiteView.Controllers
             if (commentSectionIndex > maxSize) return Json(new { status = 404 });
 
             // Defaul Number
-            if (commentSectionIndex == null || commentSectionIndex == 0 || commentSectionIndex < 0) commentSectionIndex = 1;
-
+            if (commentSectionIndex == 0 || commentSectionIndex < 0) commentSectionIndex = 1;
+            int index = commentSectionIndex ?? 1;
             var comments = await dbContext.Commets
                 .Where(dr => dr.BlogDetailsId == blog.Id && dr.IsBlocked == false && dr.ParentId == null)
                 .Select(x => new
@@ -203,7 +198,7 @@ namespace ParfolioWebSiteView.Controllers
                     x.User.UserName,
                     x.User.Image
                 })
-                .Skip(commentSectionIndex ?? 1 - 1).Take(commentSize).ToListAsync();
+                .Skip(Math.Abs(index - 1) * commentSize).Take(commentSize).ToListAsync();
             return Json(comments);
         }
 

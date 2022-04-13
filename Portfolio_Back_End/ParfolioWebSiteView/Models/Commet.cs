@@ -34,26 +34,5 @@ namespace ParfolioWebSiteView.Models
         [NotMapped]
         public string HtmlId { get { return "comment" + Id; } }
 
-        
-        //public async Task<List<Commet>> ComentChildernAsync(IQueryable<Commet> soruce,int id)
-        //{
-        //    // CommentChildren Check Null Or Clear
-        //    if (CommentChildren == null) CommentChildren = new List<Commet>();
-        //    else CommentChildren.Clear();
-
-        //    // Select Children Comment
-        //    var coments = await soruce.Where(dr => dr.ParentId == id).ToListAsync();
-
-        //    foreach (var item in coments)
-        //        if (item.IsChild)
-        //            coments.InsertRange(
-        //                coments.IndexOf(item) + 1,
-        //                (IEnumerable<Commet>)ComentChildernAsync(soruce, item.Id)
-        //                );
-        //    CommentChildren.AddRange(coments);
-        //    return CommentChildren;
-        //}
-
-
     }
 }
