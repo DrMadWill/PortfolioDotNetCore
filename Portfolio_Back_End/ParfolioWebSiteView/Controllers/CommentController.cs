@@ -220,7 +220,8 @@ namespace ParfolioWebSiteView.Controllers
                     x.Date,
                     x.HtmlId,
                     x.User.UserName,
-                    x.User.Image
+                    x.User.Image,
+                    x.Parent.User.UserName
                 })
                 .Skip((cIndex - 1) * 5).Take(5).ToListAsync();
             return Json(comments);

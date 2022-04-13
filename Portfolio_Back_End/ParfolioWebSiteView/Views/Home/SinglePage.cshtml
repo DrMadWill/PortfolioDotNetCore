@@ -762,8 +762,8 @@
     </script>
 
 
-    @* Write Comment Funcition *@
-    <script>
+    @* Comment More Write Html Funcition *@
+<script>
         function WriteComment(conments, userId, userName) {
 
             userName = new String(userName).trim();
@@ -779,7 +779,7 @@
                                 <img src="~/img/Profile/${e.image}" alt="">
                             </div>
                             <div class="comment-details w-100">
-                                <h4 class="comment-author">@Model.Commet.User.UserName</h4>
+                                <h4 class="comment-author">${e.userName}</h4>
                                 <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
 
                                 <p>
@@ -871,38 +871,11 @@
                     li.innerHTML = html
                     let btnMore = li.children[1].children[3].children[0]
                     let btnReplay = li.children[1].children[4]
-                    btnReplay.addEventListener('click', function (x) {
+                    // Replay Comment Event Add
+                    btnReplay.addEventListener('click', ReplayComent)
+                    // Commentent Event Add
+                    btnMore.addEventListener("click", CommentCompanentEventFunction)
 
-                        x.preventDefault();
-
-                        let parent = x.target.parentElement
-                        const elemet = x.target
-                        let isAdded = elemet.getAttribute("data-add")
-
-                        if (isAdded == "0") {
-                            elemet.setAttribute("data-add", "1")
-                            let userId = x.target.getAttribute("data-userid")
-                            let commentId = x.target.getAttribute("data-commentid")
-                            let blogId = x.target.getAttribute("data-blog")
-
-                            let comment = ComentCreate(userId, commentId, blogId)
-                            parent.appendChild(comment)
-
-                            Vaildation(comment)
-                            let canceled = comment.children[2].children[0]
-                            // Remove Form
-                            canceled.addEventListener("click", function (x) {
-                                let comment = x.target.parentElement.parentElement
-                                RemoveForm(comment)
-                                elemet.setAttribute("data-add", "0")
-                            })
-
-                        }
-                    })
-
-                    btnMore.addEventListener("click", function (e) {
-                        $(e.currentTarget.nextElementSibling).toggle("show")
-                    })
                     commentsHtmlArray.push(li)
                 })
 
@@ -912,9 +885,10 @@
             })
         }
 
-    </script>
+</script>
 
 
+    @* Comment Companent Delete | Update | Xeber *@
     <script>
         function CommentElemet() {
             $(".more-btn").each(function (e) {
@@ -924,11 +898,19 @@
                 })
             })
         }
-
         CommentElemet()
-
     </script>
 
+    @* Comment Companent Event *@
+    <script>
+        function CommentCompanentEventFunction(e) {
+            let element = e.currentTarget
+            $(element.nextElementSibling).toggle("show");
+        }
+    </script>
+
+
+    @* Comment Child Ajax | GET  *@
     <script>
         $(document).ready(function (e) {
 
@@ -941,9 +923,9 @@
 
 
                 console.log(parentId, index)
-                
 
-                
+
+
                 //Swal.fire({
                 //    title: 'Give me a second.',
                 //    text: '"',
@@ -971,12 +953,189 @@
                             } else {
                                 showMoreAnswer.attr("data-index", new Number(showMoreAnswer) + 1)
                             }
+                            // Write Html
+                            WriteComentChild(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
                         }
                     }
                 });
             })
         })
     </script>
+
+    @* Child Comment Write Html *@
+<script>
+        function WriteComentChild(conments, userId, userName) {
+            userName = new String(userName).trim();
+            let commentsHtmlArray = new Array()
+            if (userName == null || userName.length == 0) {
+                conments.forEach(function (e) {
+
+                    let li = document.createElement("li")
+                    li.setAttribute('class', "comment-children");
+                    li.setAttribute('id', e.htmlId);
+                    let Edate = new Date(e.date)
+
+                    let html =
+                        `
+                            <div class="comment-avatar">
+                                <img src="~/img/Profile/${e.image}" alt="">
+                            </div>
+                        `
+                    li.innerHTML = html
+
+                    // Comment => Details 
+                    let commentDetails = document.createElement("div")
+                    $(commentDetails).attr("class", "comment-details w-100")
+
+                    let commentDetailHtml =
+                        `
+                            <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
+                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                <p>
+                                    ${e.comment}
+                                </p>
+                        `
+                    commentDetails.innerHTML = commentDetailHtml
+
+                    let btnReplay = document.createElement("a")
+                    $(btnReplay).attr("class", "replay")
+                    $(btnReplay).attr("data-add", "0")
+                    $(btnReplay).attr("data-userid", "0")
+                    $(btnReplay).attr("data-blog", "0")
+                    $(btnReplay).attr("data-commentid", "0")
+
+                    commentDetails.appendChild(btnReplay)
+                    li.appendChild(commentDetails)
+
+                    if (e.isChild) {
+                        let btnAnswers = document.createElement("button")
+                        $(btnAnswers).attr("class", "btn w-100 btn-child my-2 btn-light text-center")
+                        $(btnReplay).attr("data-id", e.id)
+                        $(btnReplay).attr("data-index", "1")
+
+                        li.appendChild(btnAnswers)
+                    }
+
+                    commentsHtmlArray.push(li)
+                })
+            } else {
+
+
+                conments.forEach(function (e) {
+
+                    let li = document.createElement("li")
+                    li.setAttribute('class', "comment-children");
+                    li.setAttribute('id', e.htmlId);
+                    let Edate = new Date(e.date)
+
+                    let html =
+                        `
+                            <div class="comment-avatar">
+                                <img src="~/img/Profile/${e.image}" alt="">
+                            </div>
+                        `
+                    li.innerHTML = html
+
+                    // Comment => Details 
+                    let commentDetails = document.createElement("div")
+                    $(commentDetails).attr("class", "comment-details w-100")
+
+                    let commentDetailHtml =
+                        `
+                            <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
+                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                <p>
+                                    ${e.comment}
+                                </p>
+                        `
+                    commentDetails.innerHTML = commentDetailHtml
+
+                    // Incon More Section
+                    let divIconMore = document.createElement("div")
+                    $(divIconMore).attr("class", "icon-more")
+
+                    let btnCompanet = document.createElement("button")
+                    btnCompanet.innerHTML = '<i style="font-size:1.2rem;" class="ti-more-alt"></i>'
+
+                    divIconMore.appendChild(btnCompanet)
+
+                    let divDropDown = document.createElement("div")
+                    $(divDropDown).attr("class", "dropdown-menu p-1")
+                    if (userName == e.userName) {
+                        divDropDown.innerHTML = `
+                            <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
+                            <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>
+                        `
+                    } else {
+                        divDropDown.innerHTML = ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
+                    }
+                    divIconMore.appendChild(divDropDown)
+                    commentDetails.appendChild(divIconMore)
+
+                    // Replay Section
+                    let btnReplay = document.createElement("a")
+                    $(btnReplay).attr("class", "replay")
+                    $(btnReplay).attr("data-add", "0")
+                    $(btnReplay).attr("data-userid", "0")
+                    $(btnReplay).attr("data-blog", "0")
+                    $(btnReplay).attr("data-commentid", "0")
+
+                    commentDetails.appendChild(btnReplay)
+                    li.appendChild(commentDetails)
+
+                    if (e.isChild) {
+                        let btnAnswers = document.createElement("button")
+                        $(btnAnswers).attr("class", "btn w-100 btn-child my-2 btn-light text-center")
+                        $(btnReplay).attr("data-id", e.id)
+                        $(btnReplay).attr("data-index", "1")
+
+                        li.appendChild(btnAnswers)
+                    }
+
+                    commentsHtmlArray.push(li)
+                })
+            }
+
+
+
+        }
+</script>
+
+
+    @* Replay Comment Function *@
+    <script>
+        function ReplayComent(x) {
+            x.preventDefault();
+
+            let parent = x.target.parentElement
+            const elemet = x.target
+            let isAdded = elemet.getAttribute("data-add")
+
+            if (isAdded == "0") {
+                elemet.setAttribute("data-add", "1")
+                let userId = x.target.getAttribute("data-userid")
+                let commentId = x.target.getAttribute("data-commentid")
+                let blogId = x.target.getAttribute("data-blog")
+
+                let comment = ComentCreate(userId, commentId, blogId)
+                parent.appendChild(comment)
+
+                Vaildation(comment)
+                let canceled = comment.children[2].children[0]
+                // Remove Form
+                canceled.addEventListener("click", function (x) {
+                    let comment = x.target.parentElement.parentElement
+                    RemoveForm(comment)
+                    elemet.setAttribute("data-add", "0")
+                })
+
+            }
+        }
+    </script>
+
+
+
+
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
