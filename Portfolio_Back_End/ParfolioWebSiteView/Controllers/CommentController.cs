@@ -206,13 +206,10 @@ namespace ParfolioWebSiteView.Controllers
         public async Task<JsonResult> GetChildComment(int? parentId,int? index)
         {
             if(parentId == null && index == null) return Json(new { status = 404 });
-
-            var parent = await dbContext.Commets
-                .FirstOrDefaultAsync(dr => dr.ParentId == parentId && dr.IsBlocked == false);
-
             int cIndex = index ?? 1;
+           
             var comments = await dbContext.Commets
-                .Where(dr => dr.ParentId == parent.Id && dr.IsBlocked == false)
+                .Where(dr => dr.ParentId == parentId && dr.IsBlocked == false)
                 .Select(x => new
                 {
                     x.Id,
@@ -225,7 +222,7 @@ namespace ParfolioWebSiteView.Controllers
                     x.User.UserName,
                     x.User.Image
                 })
-                .Skip(Math.Abs(cIndex - 1) * 5).Take(5).ToListAsync();
+                .Skip((cIndex - 1) * 5).Take(5).ToListAsync();
             return Json(comments);
         }
 

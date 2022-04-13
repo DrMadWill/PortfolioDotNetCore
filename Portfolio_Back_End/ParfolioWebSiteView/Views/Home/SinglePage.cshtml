@@ -122,7 +122,7 @@
                                             </div>
                                             @if (commentChild.IsChild)
                                             {
-                                                <button class="btn d-block w-100 btn-child my-2 showMore btn-light text-center" data-id="@commentChild.Id" data-index="1">See Answers</button>
+                                                <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChild.Id" data-index="1">See Answers</button>
                                             }
                                         </li>
                                     }
@@ -198,7 +198,7 @@
                                             </div>
                                             @if (commentChildren.IsChild)
                                             {
-                                                <button class="btn d-block w-100 btn-child my-2 showMore btn-light text-center" data-id="@commentChildren.Id" data-index="1">See Answers</button>
+                                                <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChildren.Id" data-index="1">See Answers</button>
                                             }
                                         </li>
                                     }
@@ -749,8 +749,9 @@
 
                             if (response.length != 5) {
                                 showMore.style.display = "none"
+                            } else {
+                                CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
                             }
-                            CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
 
                             WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
                         }
@@ -931,14 +932,18 @@
     <script>
         $(document).ready(function (e) {
 
-            $(".btn-child").click(function (e) {
-                let showMoreAnswer = this
-                console.log(showMoreAnswer)
+            $(document).on('click', '.btn-child', (e) => {
+
+                // Data Selection Section
+                let showMoreAnswer = e.currentTarget
+                let parentId = $(showMoreAnswer).attr("data-id")
+                let index = $(showMoreAnswer).attr("data-index")
+
+
+                console.log(parentId, index)
                 
 
-                //let parentId = $("#BlogId").val()
-                //let CommentSectionIndexHtml = $(showMore)
-                //let CommentSectionIndex = CommentSectionIndexHtml.attr("data-index")
+                
                 //Swal.fire({
                 //    title: 'Give me a second.',
                 //    text: '"',
@@ -948,28 +953,27 @@
                 //    imageAlt: 'Loading',
                 //})
 
-                //$.ajax({
-                //    url: `/Comment/GetChildComment`,
-                //    data: { parentId: BlogId, index: CommentSectionIndex },
-                //    type: 'GET',
-                //    success: (response) => {
-                //        if (response.hasOwnProperty('status') && response.status === 404) {
-                //            Swal.fire(
-                //                'Max Messenge Show',
-                //                '',
-                //                'error'
-                //            )
-                //        } else {
+                $.ajax({
+                    url: `/Comment/GetChildComment`,
+                    data: { parentId: parentId, index: index },
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            Swal.fire(
+                                'Max Messenge Show',
+                                '',
+                                'error'
+                            )
+                        } else {
 
-                //            if (response.length != 5) {
-                //                showMore.style.display = "none"
-                //            }
-                //            CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
-
-                //            WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
-                //        }
-                //    }
-                //});
+                            if (response.length != 5) {
+                                showMoreAnswer.style.display = "none"
+                            } else {
+                                showMoreAnswer.attr("data-index", new Number(showMoreAnswer) + 1)
+                            }
+                        }
+                    }
+                });
             })
         })
     </script>
