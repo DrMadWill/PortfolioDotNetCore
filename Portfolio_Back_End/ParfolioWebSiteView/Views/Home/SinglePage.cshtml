@@ -120,6 +120,10 @@
                                                 </p>
                                                 <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@commentChild.Id' href='#'>Reply</a>
                                             </div>
+                                            @if (commentChild.IsChild)
+                                            {
+                                                <button class="btn d-block w-100 btn-child my-2 showMore btn-light text-center" data-id="@commentChild.Id" data-index="1">See Answers</button>
+                                            }
                                         </li>
                                     }
                                 }
@@ -194,7 +198,7 @@
                                             </div>
                                             @if (commentChildren.IsChild)
                                             {
-                                                <button class="btn d-block w-100 my-2 showMore btn-light text-center">See Answers</button>
+                                                <button class="btn d-block w-100 btn-child my-2 showMore btn-light text-center" data-id="@commentChildren.Id" data-index="1">See Answers</button>
                                             }
                                         </li>
                                     }
@@ -742,9 +746,9 @@
                                 'error'
                             )
                         } else {
-                            
+
                             if (response.length != 5) {
-                                showMore.style.display="none"
+                                showMore.style.display = "none"
                             }
                             CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
 
@@ -823,7 +827,7 @@
                     let Edate = new Date(e.date)
                     html =
                         `
-                            
+
                                     <div class="comment-avatar">
                                         <img src="~/img/Profile/${e.image}" alt="">
                                     </div>
@@ -902,8 +906,6 @@
                 })
 
             }
-            
-
             commentsHtmlArray.forEach(function (elem) {
                 document.querySelector(".list-comments").appendChild(elem)
             })
@@ -926,7 +928,51 @@
 
     </script>
 
+    <script>
+        $(document).ready(function (e) {
 
+            $(".btn-child").click(function (e) {
+                let showMoreAnswer = this
+                console.log(showMoreAnswer)
+                
+
+                //let parentId = $("#BlogId").val()
+                //let CommentSectionIndexHtml = $(showMore)
+                //let CommentSectionIndex = CommentSectionIndexHtml.attr("data-index")
+                //Swal.fire({
+                //    title: 'Give me a second.',
+                //    text: '"',
+                //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                //    imageWidth: 400,
+                //    imageHeight: 350,
+                //    imageAlt: 'Loading',
+                //})
+
+                //$.ajax({
+                //    url: `/Comment/GetChildComment`,
+                //    data: { parentId: BlogId, index: CommentSectionIndex },
+                //    type: 'GET',
+                //    success: (response) => {
+                //        if (response.hasOwnProperty('status') && response.status === 404) {
+                //            Swal.fire(
+                //                'Max Messenge Show',
+                //                '',
+                //                'error'
+                //            )
+                //        } else {
+
+                //            if (response.length != 5) {
+                //                showMore.style.display = "none"
+                //            }
+                //            CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
+
+                //            WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
+                //        }
+                //    }
+                //});
+            })
+        })
+    </script>
 
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
