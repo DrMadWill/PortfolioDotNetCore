@@ -763,7 +763,7 @@
 
 
     @* Comment More Write Html Funcition *@
-<script>
+    <script>
         function WriteComment(conments, userId, userName) {
 
             userName = new String(userName).trim();
@@ -775,19 +775,19 @@
                     let Edate = new Date(e.date)
                     let html =
                         `
-                            <div class="comment-avatar">
-                                <img src="~/img/Profile/${e.image}" alt="">
-                            </div>
-                            <div class="comment-details w-100">
-                                <h4 class="comment-author">${e.userName}</h4>
-                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                <div class="comment-avatar">
+                                    <img src="~/img/Profile/${e.image}" alt="">
+                                </div>
+                                <div class="comment-details w-100">
+                                    <h4 class="comment-author">${e.userName}</h4>
+                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
 
-                                <p>
-                                    ${e.comment}
-                                </p>
-                                <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
-                            </div>
-                        `
+                                    <p>
+                                        ${e.comment}
+                                    </p>
+                                    <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
+                                </div>
+                            `
                     li.innerHTML = html
                     let btnReplay = li.children[1].children[3]
                     btnReplay.addEventListener('click', function (x) {
@@ -829,41 +829,39 @@
                     html =
                         `
 
-                                    <div class="comment-avatar">
-                                        <img src="~/img/Profile/${e.image}" alt="">
-                                    </div>
-                                    <div class="comment-details w-100">
-                                        <h4 class="comment-author">${e.userName}</h4>
-                                        <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                                        <p>
-                                            ${e.comment}
-                                        </p>
-                                        <div class="icon-more">
-                                            <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
-                                                <i style="font-size:1.2rem;" class="ti-more-alt"></i>
-                                            </button>
-
-                                            <div class="dropdown-menu p-1" aria-labelledby="icon-more">
-                        `
-
-                        if (e.userName == userName)
-                        {
-                                html = html + ` <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
-                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>`
-                        }
-                        else
-                        {
-                                html = html + ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
-                        }
-
-                        html = html +      `</div>
+                                        <div class="comment-avatar">
+                                            <img src="~/img/Profile/${e.image}" alt="">
                                         </div>
-                                        <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
-                                    </div>
+                                        <div class="comment-details w-100">
+                                            <h4 class="comment-author">${e.userName}</h4>
+                                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                            <p>
+                                                ${e.comment}
+                                            </p>
+                                            <div class="icon-more">
+                                                <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                    <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                            `
+
+                    if (e.userName == userName) {
+                        html = html + ` <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
+                                                    <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>`
+                    }
+                    else {
+                        html = html + ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
+                    }
+
+                    html = html + `</div>
+                                            </div>
+                                            <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
+                                        </div>
 
 
 
-                        `
+                            `
                     if (e.isChild) {
                         html = html + `<button class="btn d-block w-100 my-2 showMore btn-light text-center">See Answers</button>`
                     }
@@ -885,7 +883,7 @@
             })
         }
 
-</script>
+    </script>
 
 
     @* Comment Companent Delete | Update | Xeber *@
@@ -918,13 +916,9 @@
 
                 // Data Selection Section
                 let showMoreAnswer = e.currentTarget
+                let parentLi = showMoreAnswer.parentElement
                 let parentId = $(showMoreAnswer).attr("data-id")
                 let index = $(showMoreAnswer).attr("data-index")
-
-
-                console.log(parentId, index)
-
-
 
                 //Swal.fire({
                 //    title: 'Give me a second.',
@@ -954,7 +948,7 @@
                                 showMoreAnswer.attr("data-index", new Number(showMoreAnswer) + 1)
                             }
                             // Write Html
-                            WriteComentChild(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
+                            WriteComentChild(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim(), parentLi)
                         }
                     }
                 });
@@ -963,10 +957,12 @@
     </script>
 
     @* Child Comment Write Html *@
-<script>
-        function WriteComentChild(conments, userId, userName) {
+    <script>
+        function WriteComentChild(conments, userId, userName,parentLi) {
             userName = new String(userName).trim();
-            let commentsHtmlArray = new Array()
+            let ulComments = document.createElement("ul")
+            $(ulComments).attr("class", "list-unstyled p-0 m-0")
+
             if (userName == null || userName.length == 0) {
                 conments.forEach(function (e) {
 
@@ -977,24 +973,24 @@
 
                     let html =
                         `
-                            <div class="comment-avatar">
-                                <img src="~/img/Profile/${e.image}" alt="">
-                            </div>
-                        `
+                                <div class="comment-avatar">
+                                    <img src="~/img/Profile/${e.image}" alt="">
+                                </div>
+                            `
                     li.innerHTML = html
 
-                    // Comment => Details 
+                    // Comment => Details
                     let commentDetails = document.createElement("div")
                     $(commentDetails).attr("class", "comment-details w-100")
 
                     let commentDetailHtml =
                         `
-                            <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
-                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                                <p>
-                                    ${e.comment}
-                                </p>
-                        `
+                                <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
+                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                    <p>
+                                        ${e.comment}
+                                    </p>
+                            `
                     commentDetails.innerHTML = commentDetailHtml
 
                     let btnReplay = document.createElement("a")
@@ -1016,7 +1012,7 @@
                         li.appendChild(btnAnswers)
                     }
 
-                    commentsHtmlArray.push(li)
+                    ulComments.push(li)
                 })
             } else {
 
@@ -1030,31 +1026,55 @@
 
                     let html =
                         `
-                            <div class="comment-avatar">
-                                <img src="~/img/Profile/${e.image}" alt="">
-                            </div>
-                        `
+                                <div class="comment-avatar">
+                                    <img src="~/img/Profile/${e.image}" alt="">
+                                </div>
+                            `
                     li.innerHTML = html
 
-                    // Comment => Details 
+                    // Comment => Details
                     let commentDetails = document.createElement("div")
                     $(commentDetails).attr("class", "comment-details w-100")
 
+                    
+
                     let commentDetailHtml =
                         `
-                            <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
-                                <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                                <p>
-                                    ${e.comment}
-                                </p>
+                            <a href="#comment${e.parentId}"><h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4></a>
+                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                            <p>
+                                ${e.comment}
+                            </p>
                         `
                     commentDetails.innerHTML = commentDetailHtml
+
+                    let btnCommentName = $(commentDetails.children[0])
+
+                    let parentElemnt = $($(commentDetails.children[0]).attr("href"))
+
+                    btnCommentName.click("click", function (e) {
+
+                        
+                        setTimeout(() => {
+                            let left = document.documentElement.scrollLeft
+                            let top = new Number(document.documentElement.scrollTop) - 100
+                            window.scrollTo(left, top)
+                        }, 200)
+
+                        parentElemnt.css({ "backgroundColor": "yellow","transition": "all 0.5s ease-in-out"})
+                        setTimeout(() => {
+                            parentElemnt.css({ "backgroundColor": "white", "transition": "all 0.5s ease-in-out" })
+                        },2000)
+
+                    })
+
 
                     // Incon More Section
                     let divIconMore = document.createElement("div")
                     $(divIconMore).attr("class", "icon-more")
 
                     let btnCompanet = document.createElement("button")
+                    $(btnCompanet).attr("class","btn bg-transparent border border-1 rounded-circle more-btn")
                     btnCompanet.innerHTML = '<i style="font-size:1.2rem;" class="ti-more-alt"></i>'
 
                     divIconMore.appendChild(btnCompanet)
@@ -1063,9 +1083,9 @@
                     $(divDropDown).attr("class", "dropdown-menu p-1")
                     if (userName == e.userName) {
                         divDropDown.innerHTML = `
-                            <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
-                            <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>
-                        `
+                                <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
+                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>
+                            `
                     } else {
                         divDropDown.innerHTML = ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
                     }
@@ -1074,11 +1094,16 @@
 
                     // Replay Section
                     let btnReplay = document.createElement("a")
-                    $(btnReplay).attr("class", "replay")
+                    $(btnReplay).attr("class", "replay ")
                     $(btnReplay).attr("data-add", "0")
-                    $(btnReplay).attr("data-userid", "0")
-                    $(btnReplay).attr("data-blog", "0")
-                    $(btnReplay).attr("data-commentid", "0")
+                    $(btnReplay).attr("data-userid", userId)
+                    $(btnReplay).attr("data-blog", e.blogDetailsId)
+                    $(btnReplay).attr("data-commentid", e.id)
+                    $(btnReplay).text("Replay")
+                    $(btnReplay).css("cursor", "pointer");
+
+                    $(btnReplay).click(ReplayComent)
+
 
                     commentDetails.appendChild(btnReplay)
                     li.appendChild(commentDetails)
@@ -1086,20 +1111,26 @@
                     if (e.isChild) {
                         let btnAnswers = document.createElement("button")
                         $(btnAnswers).attr("class", "btn w-100 btn-child my-2 btn-light text-center")
-                        $(btnReplay).attr("data-id", e.id)
-                        $(btnReplay).attr("data-index", "1")
-
+                        $(btnAnswers).attr("data-id", e.id)
+                        $(btnAnswers).attr("data-index", "1")
+                        $(btnAnswers).text("See More Answer")
                         li.appendChild(btnAnswers)
                     }
+                    
 
-                    commentsHtmlArray.push(li)
+                    ulComments.appendChild(li)
                 })
             }
 
 
+            let liChildren = document.createElement("li")
+
+            $(liChildren).attr("class","pb-0")
+            liChildren.appendChild(ulComments)
+            insertAfter(liChildren, parentLi)
 
         }
-</script>
+    </script>
 
 
     @* Replay Comment Function *@
@@ -1134,7 +1165,11 @@
     </script>
 
 
-
+    <script>
+        function insertAfter(newNode, existingNode) {
+            existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+        }
+    </script>
 
 
     <script src="~/Admin/assets/js/popper.min.js"></script>

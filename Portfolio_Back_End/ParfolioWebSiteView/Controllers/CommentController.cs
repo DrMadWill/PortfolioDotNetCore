@@ -210,18 +210,18 @@ namespace ParfolioWebSiteView.Controllers
            
             var comments = await dbContext.Commets
                 .Where(dr => dr.ParentId == parentId && dr.IsBlocked == false)
-                .Select(x => new
+                .Select(x => new CommentJVM
                 {
-                    x.Id,
-                    x.IsChild,
-                    x.ParentId,
-                    x.BlogDetailsId,
-                    x.Comment,
-                    x.Date,
-                    x.HtmlId,
-                    x.User.UserName,
-                    x.User.Image,
-                    x.Parent.User.UserName
+                    Id = x.Id,
+                    IsChild = x.IsChild,
+                    ParentId =x.ParentId,
+                    BlogDetailsId=x.BlogDetailsId,
+                    Comment=x.Comment,
+                    Date=x.Date,
+                    HtmlId=x.HtmlId,
+                    UserName=x.User.UserName,
+                    Image=x.User.Image,
+                    ParentUserName =x.Parent.User.UserName
                 })
                 .Skip((cIndex - 1) * 5).Take(5).ToListAsync();
             return Json(comments);
