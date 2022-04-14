@@ -19,7 +19,7 @@ namespace ParfolioWebSiteView.Controllers
         private readonly PorfolioDbContext dbContext;
         private readonly UserManager<User> userManager;
 
-        public HomeController(PorfolioDbContext _dbContext,UserManager<User> _userManager)
+        public HomeController(PorfolioDbContext _dbContext, UserManager<User> _userManager)
         {
             dbContext = _dbContext;
             userManager = _userManager;
@@ -59,7 +59,7 @@ namespace ParfolioWebSiteView.Controllers
                 .OrderByDescending(x => x.Id)
                 .ToListAsync()
             };
-            
+
             return View(index);
         }
 
@@ -74,26 +74,19 @@ namespace ParfolioWebSiteView.Controllers
                 .Include(y => y.User)
                 .FirstOrDefaultAsync(dr => dr.Id == id);
 
-            var comment = await dbContext.Commets
-                    .Include(x => x.User)
-                    .FirstOrDefaultAsync(dr => dr.BlogDetailsId == id && dr.IsBlocked == false);
-
-            if (comment != null)
-            {
-                comment.CommentChildren = await dbContext.Commets
-                    .Where(dr => dr.ParentId == comment.Id && dr.IsBlocked == false).Take(5)
-                    .ToListAsync();
-            }
-
             BlogVM blogVM = new BlogVM
             {
                 Blog = blog,
                 // Comment Section
                 CommentCount = await dbContext.Commets
-                    .Where(dr => dr.BlogDetailsId == id 
+                    .Where(dr => dr.BlogDetailsId == id
                     && dr.IsBlocked == false).CountAsync(),
-
-                Commet = comment,
+                Commets = await dbContext.Commets
+                    .Include(x => x.User)
+                    .Where(dr => dr.BlogDetailsId == id 
+                            && dr.IsBlocked == false 
+                            && dr.ParentId == null)
+                    .Take(5).ToListAsync(),
 
                 Tags = await dbContext.BlogToTags
                 .Where(dr => dr.BlogId == blog.Id)
@@ -106,7 +99,7 @@ namespace ParfolioWebSiteView.Controllers
                 .Take(10)
                 .ToListAsync(),
             };
-            
+
             return View(blogVM);
         }
 
@@ -115,7 +108,7 @@ namespace ParfolioWebSiteView.Controllers
             if (id == null) return NotFound();
             var portfolio = await dbContext.Portfolios
                 .Include(x => x.PortfolioCategory)
-                .Include(s=>s.User)
+                .Include(s => s.User)
                 .Include(x => x.PortfolioDetail)
                 .ThenInclude(x => x.DetailImages)
                 .FirstOrDefaultAsync(dr => dr.Id == id);
@@ -123,7 +116,7 @@ namespace ParfolioWebSiteView.Controllers
             return View(portfolio);
         }
 
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -27,9 +27,7 @@ namespace ParfolioWebSiteView.Models
 
         public Commet Parent { get; set; }
         public int? ParentId { get; set; }
-
-        [NotMapped]
-        public List<Commet> CommentChildren { get; set; }
+       
         // Html Loaction 
         [NotMapped]
         public string HtmlId { get { return "comment" + Id; } }

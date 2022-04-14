@@ -88,59 +88,64 @@
                         <ul class="list-comments">
                             @if (!User.Identity.IsAuthenticated)
                             {
-                                @if (Model.Commet != null)
+                                foreach (var item in Model.Commets)
                                 {
-                                    <li id="@Model.Commet.HtmlId">
+                                    <li id="@item.HtmlId">
                                         <div class="comment-avatar">
-                                            <img src="~/img/Profile/@Model.Commet.User.Image" alt="">
+                                            <img src="~/img/Profile/@item.User.Image" alt="">
                                         </div>
                                         <div class="comment-details w-100">
-                                            <h4 class="comment-author">@Model.Commet.User.UserName</h4>
-                                            <span>@Model.Commet.Date.ToShortDateString()</span>
+                                            <h4 class="comment-author">@item.User.UserName</h4>
+                                            <span>@item.Date.ToShortDateString()</span>
                                             <p>
-                                                @Model.Commet.Comment
+                                                @item.Comment
                                             </p>
 
-                                            <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@Model.Commet.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
+                                        @if (item.IsChild)
+                                        {
+                                            <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@item.Id" data-index="1">See Answers</button>
+                                        }
+
                                     </li>
 
 
-                                    foreach (var commentChild in Model.Commet.CommentChildren)
-                                    {
-                                        <li id="@commentChild.HtmlId" class="comment-children">
-                                            <div class="comment-avatar">
-                                                <img src="~/img/Profile/@commentChild.User.Image" alt="">
-                                            </div>
-                                            <div class="comment-details w-100">
-                                                <h4 class="comment-author parent-coment" data-parent="comment@(commentChild.ParentId)">@commentChild.User.UserName => @Model.Commet.User.UserName</h4>
-                                                <span>@commentChild.Date.ToShortDateString()</span>
-                                                <p>
-                                                    @commentChild.Comment
-                                                </p>
-                                                <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@commentChild.Id' href='#'>Reply</a>
-                                            </div>
-                                            @if (commentChild.IsChild)
-                                            {
-                                                <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChild.Id" data-index="1">See Answers</button>
-                                            }
-                                        </li>
-                                    }
+                                    @*foreach (var commentChild in Model.Commet.CommentChildren)
+                                        {
+                                            <li id="@commentChild.HtmlId" class="comment-children">
+                                                <div class="comment-avatar">
+                                                    <img src="~/img/Profile/@commentChild.User.Image" alt="">
+                                                </div>
+                                                <div class="comment-details w-100">
+                                                    <h4 class="comment-author parent-coment" data-parent="comment@(commentChild.ParentId)">@commentChild.User.UserName => @Model.Commet.User.UserName</h4>
+                                                    <span>@commentChild.Date.ToShortDateString()</span>
+                                                    <p>
+                                                        @commentChild.Comment
+                                                    </p>
+                                                    <a class='replay' data-add='0' data-userid='0' data-blog="0" data-commentid='@commentChild.Id' href='#'>Reply</a>
+                                                </div>
+                                                @if (commentChild.IsChild)
+                                                {
+                                                    <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChild.Id" data-index="1">See Answers</button>
+                                                }
+                                            </li>
+                                        }*@
                                 }
                             }
                             else
                             {
-                                if (Model.Commet != null)
+                                foreach (var item in Model.Commets)
                                 {
-                                    <li id="@Model.Commet.HtmlId">
+                                    <li id="@item.HtmlId">
                                         <div class="comment-avatar">
-                                            <img src="~/img/Profile/@Model.Commet.User.Image" alt="">
+                                            <img src="~/img/Profile/@item.User.Image" alt="">
                                         </div>
                                         <div class="comment-details w-100">
-                                            <h4 class="comment-author">@Model.Commet.User.UserName</h4>
-                                            <span>@Model.Commet.Date.ToShortDateString()</span>
+                                            <h4 class="comment-author">@item.User.UserName</h4>
+                                            <span>@item.Date.ToShortDateString()</span>
                                             <p>
-                                                @Model.Commet.Comment
+                                                @item.Comment
                                             </p>
                                             <div class="icon-more">
                                                 <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
@@ -148,10 +153,10 @@
                                                 </button>
 
                                                 <div class="dropdown-menu p-1" aria-labelledby="icon-more">
-                                                    @if (Model.Commet.User.UserName == User.Identity.Name)
+                                                    @if (item.User.UserName == User.Identity.Name)
                                                     {
-                                                        <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@Model.Commet.Id"><i class="ti-pencil"></i> Edit</a>
-                                                        <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@Model.Commet.Id"><i class="ti-trash"></i>Delete</a>
+                                                        <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@item.Id"><i class="ti-pencil"></i> Edit</a>
+                                                        <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@item.Id"><i class="ti-trash"></i>Delete</a>
                                                     }
                                                     else
                                                     {
@@ -160,54 +165,58 @@
 
                                                 </div>
                                             </div>
-                                            <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@Model.Commet.Id' href='#'>Reply</a>
+                                            <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@item.Id' href='#'>Reply</a>
                                         </div>
+                                        @if (item.IsChild)
+                                        {
+                                            <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@item.Id" data-index="1">See Answers</button>
+                                        }
                                     </li>
 
-                                    foreach (var commentChildren in Model.Commet.CommentChildren)
-                                    {
-                                        <li id="@commentChildren.HtmlId" class="comment-children">
-                                            <div class="comment-avatar">
-                                                <img src="~/img/Profile/@commentChildren.User.Image" alt="">
-                                            </div>
-                                            <div class="comment-details w-100">
-                                                <h4 class="comment-author parent-coment" data-parent="comment@(commentChildren.ParentId)">@commentChildren.User.UserName => @commentChildren.User.UserName</h4>
-                                                <span>@commentChildren.Date.ToShortDateString()</span>
-                                                <p>
-                                                    @commentChildren.Comment
-                                                </p>
-                                                <div class="icon-more">
-                                                    <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
-                                                        <i style="font-size:1.2rem;" class="ti-more-alt"></i>
-                                                    </button>
-
-                                                    <div class="dropdown-menu p-1" aria-labelledby="icon-more">
-                                                        @if (commentChildren.User.UserName == User.Identity.Name)
-                                                        {
-                                                            <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@commentChildren.Id"><i class="ti-pencil"></i> Edit</a>
-                                                            <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@commentChildren.Id"><i class="ti-trash"></i>Delete</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>
-                                                        }
-
-                                                    </div>
+                                    @*foreach (var commentChildren in Model.Commet.CommentChildren)
+                                        {
+                                            <li id="@commentChildren.HtmlId" class="comment-children">
+                                                <div class="comment-avatar">
+                                                    <img src="~/img/Profile/@commentChildren.User.Image" alt="">
                                                 </div>
-                                                <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@commentChildren.Id' href='#'>Reply</a>
-                                            </div>
-                                            @if (commentChildren.IsChild)
-                                            {
-                                                <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChildren.Id" data-index="1">See Answers</button>
-                                            }
-                                        </li>
-                                    }
+                                                <div class="comment-details w-100">
+                                                    <h4 class="comment-author parent-coment" data-parent="comment@(commentChildren.ParentId)">@commentChildren.User.UserName => @commentChildren.User.UserName</h4>
+                                                    <span>@commentChildren.Date.ToShortDateString()</span>
+                                                    <p>
+                                                        @commentChildren.Comment
+                                                    </p>
+                                                    <div class="icon-more">
+                                                        <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                            <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                                        </button>
+
+                                                        <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                                                            @if (commentChildren.User.UserName == User.Identity.Name)
+                                                            {
+                                                                <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id="@commentChildren.Id"><i class="ti-pencil"></i> Edit</a>
+                                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/@commentChildren.Id"><i class="ti-trash"></i>Delete</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <a class='replay' data-add='0' data-blog="@Model.Blog.Id" data-userid='@user.Id' data-commentid='@commentChildren.Id' href='#'>Reply</a>
+                                                </div>
+                                                @if (commentChildren.IsChild)
+                                                {
+                                                    <button class="btn w-100 btn-child my-2 btn-light text-center" data-id="@commentChildren.Id" data-index="1">See Answers</button>
+                                                }
+                                            </li>
+                                        }*@
                                 }
                             }
                         </ul>
-                        @if (Model.CommentCount > 1)
+                        @if (Model.Commets.Count == 5)
                         {
-                            <button class="btn  w-100 my-2 showMore btn-light text-center" data-index="1">See More Comment</button>
+                            <button class="btn  w-100 my-2 showMore btn-light text-center" data-index="2">See More Comment</button>
                         }
 
                     </div>
@@ -777,19 +786,19 @@
                     let Edate = new Date(e.date)
                     let html =
                         `
-                                <div class="comment-avatar">
-                                    <img src="~/img/Profile/${e.image}" alt="">
-                                </div>
-                                <div class="comment-details w-100">
-                                    <h4 class="comment-author">${e.userName}</h4>
-                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                                                                                <div class="comment-avatar">
+                                                                                                    <img src="~/img/Profile/${e.image}" alt="">
+                                                                                                </div>
+                                                                                                <div class="comment-details w-100">
+                                                                                                    <h4 class="comment-author">${e.userName}</h4>
+                                                                                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
 
-                                    <p>
-                                        ${e.comment}
-                                    </p>
-                                    <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
-                                </div>
-                        `
+                                                                                                    <p>
+                                                                                                        ${e.comment}
+                                                                                                    </p>
+                                                                                                    <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
+                                                                                                </div>
+                                                                                        `
                     if (e.isChild) {
                         html = html + `<button data-index="1"  data-id="${e.id}" class="btn btn-child  w-100 my-2 btn-light text-center">See Answers</button>`
                     }
@@ -809,39 +818,39 @@
                     html =
                         `
 
-                                        <div class="comment-avatar">
-                                            <img src="~/img/Profile/${e.image}" alt="">
-                                        </div>
-                                        <div class="comment-details w-100">
-                                            <h4 class="comment-author">${e.userName}</h4>
-                                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                                            <p>
-                                                ${e.comment}
-                                            </p>
-                                            <div class="icon-more">
-                                                <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
-                                                    <i style="font-size:1.2rem;" class="ti-more-alt"></i>
-                                                </button>
+                                                                                                        <div class="comment-avatar">
+                                                                                                            <img src="~/img/Profile/${e.image}" alt="">
+                                                                                                        </div>
+                                                                                                        <div class="comment-details w-100">
+                                                                                                            <h4 class="comment-author">${e.userName}</h4>
+                                                                                                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                                                                                            <p>
+                                                                                                                ${e.comment}
+                                                                                                            </p>
+                                                                                                            <div class="icon-more">
+                                                                                                                <button class="btn bg-transparent border border-1 rounded-circle more-btn" type="button">
+                                                                                                                    <i style="font-size:1.2rem;" class="ti-more-alt"></i>
+                                                                                                                </button>
 
-                                                <div class="dropdown-menu p-1" aria-labelledby="icon-more">
-                            `
+                                                                                                                <div class="dropdown-menu p-1" aria-labelledby="icon-more">
+                                                                                            `
 
                     if (e.userName == userName) {
                         html = html + ` <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
-                                                    <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>`
+                                                                                                                    <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>`
                     }
                     else {
                         html = html + ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
                     }
 
                     html = html + `</div>
-                                            </div>
-                                            <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
-                                        </div>
+                                                                                                            </div>
+                                                                                                            <a class='replay' data-add='0' data-blog="${e.blogDetailsId}" data-userid='${userId}' data-commentid='${e.id}' href='#'>Reply</a>
+                                                                                                        </div>
 
 
 
-                            `
+                                                                                            `
                     if (e.isChild) {
                         html = html + `<button data-index="1" data-id="${e.id}" class="btn btn-child w-100 my-2 btn-light text-center">See Answers</button>`
                     }
@@ -939,7 +948,7 @@
 
     @* Child Comment Write Html *@
     <script>
-        function WriteComentChild(conments, userId, userName,parentLi) {
+        function WriteComentChild(conments, userId, userName, parentLi) {
             userName = new String(userName).trim();
             let ulComments = document.createElement("ul")
             $(ulComments).attr("class", "list-unstyled p-0 m-0")
@@ -954,10 +963,10 @@
 
                     let html =
                         `
-                                <div class="comment-avatar">
-                                    <img src="~/img/Profile/${e.image}" alt="">
-                                </div>
-                            `
+                                                                                                <div class="comment-avatar">
+                                                                                                    <img src="~/img/Profile/${e.image}" alt="">
+                                                                                                </div>
+                                                                                            `
                     li.innerHTML = html
 
                     // Comment => Details
@@ -966,12 +975,12 @@
 
                     let commentDetailHtml =
                         `
-                                <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
-                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                                    <p>
-                                        ${e.comment}
-                                    </p>
-                            `
+                                                                                                <h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4>
+                                                                                                    <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                                                                                    <p>
+                                                                                                        ${e.comment}
+                                                                                                    </p>
+                                                                                            `
                     commentDetails.innerHTML = commentDetailHtml
 
                     let btnReplay = document.createElement("a")
@@ -1007,26 +1016,26 @@
 
                     let html =
                         `
-                                <div class="comment-avatar">
-                                    <img src="~/img/Profile/${e.image}" alt="">
-                                </div>
-                            `
+                                                                                                <div class="comment-avatar">
+                                                                                                    <img src="~/img/Profile/${e.image}" alt="">
+                                                                                                </div>
+                                                                                            `
                     li.innerHTML = html
 
                     // Comment => Details
                     let commentDetails = document.createElement("div")
                     $(commentDetails).attr("class", "comment-details w-100")
 
-                    
+
 
                     let commentDetailHtml =
                         `
-                            <a href="#comment${e.parentId}"><h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4></a>
-                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
-                            <p>
-                                ${e.comment}
-                            </p>
-                        `
+                                                                                            <a href="#comment${e.parentId}"><h4 class="comment-author parent-coment" data-parent="comment${e.parentId}">${e.userName} => ${e.parentUserName}</h4></a>
+                                                                                            <span>${Edate.getDate()}/${Edate.getMonth()}/${Edate.getFullYear()}</span>
+                                                                                            <p>
+                                                                                                ${e.comment}
+                                                                                            </p>
+                                                                                        `
                     commentDetails.innerHTML = commentDetailHtml
 
                     let btnCommentName = $(commentDetails.children[0])
@@ -1035,17 +1044,17 @@
 
                     btnCommentName.click("click", function (e) {
 
-                        
+
                         setTimeout(() => {
                             let left = document.documentElement.scrollLeft
                             let top = new Number(document.documentElement.scrollTop) - 100
                             window.scrollTo(left, top)
                         }, 200)
 
-                        parentElemnt.css({ "backgroundColor": "yellow","transition": "all 0.5s ease-in-out"})
+                        parentElemnt.css({ "backgroundColor": "yellow", "transition": "all 0.5s ease-in-out" })
                         setTimeout(() => {
                             parentElemnt.css({ "backgroundColor": "white", "transition": "all 0.5s ease-in-out" })
-                        },2000)
+                        }, 2000)
 
                     })
 
@@ -1055,7 +1064,7 @@
                     $(divIconMore).attr("class", "icon-more")
 
                     let btnCompanet = document.createElement("button")
-                    $(btnCompanet).attr("class","btn bg-transparent border border-1 rounded-circle more-btn")
+                    $(btnCompanet).attr("class", "btn bg-transparent border border-1 rounded-circle more-btn")
                     btnCompanet.innerHTML = '<i style="font-size:1.2rem;" class="ti-more-alt"></i>'
                     $(btnCompanet).click(CommentCompanentEventFunction)
 
@@ -1065,9 +1074,9 @@
                     $(divDropDown).attr("class", "dropdown-menu p-1")
                     if (userName == e.userName) {
                         divDropDown.innerHTML = `
-                                <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
-                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>
-                            `
+                                                                                                <a class="dropdown-item btn-update text-center" href="#" data-toggle="modal" data-target="#UpdatCommentModalCenter" data-id=" ${e.id}"><i class="ti-pencil"></i> Edit</a>
+                                                                                                <a class="dropdown-item text-danger text-center delete-btn" href="/Comment/Delete/${e.id}"><i class="ti-trash"></i>Delete</a>
+                                                                                            `
                     } else {
                         divDropDown.innerHTML = ` <a class="dropdown-item text-center" href="#"> <i class="ti-info"></i>Xeber</a>`
                     }
@@ -1098,7 +1107,7 @@
                         $(btnAnswers).text("See More Answer")
                         li.appendChild(btnAnswers)
                     }
-                    
+
 
                     ulComments.appendChild(li)
                 })
@@ -1107,7 +1116,7 @@
 
             let liChildren = document.createElement("li")
 
-            $(liChildren).attr("class","pb-0")
+            $(liChildren).attr("class", "pb-0")
             liChildren.appendChild(ulComments)
             insertAfter(liChildren, parentLi)
 

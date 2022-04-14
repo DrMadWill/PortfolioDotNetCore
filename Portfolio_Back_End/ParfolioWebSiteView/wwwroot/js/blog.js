@@ -1,19 +1,4 @@
-// Parent Comment Location
-$(document).ready(function () {
-    document.querySelectorAll(".comment-children .parent-coment").forEach(function (e) {
 
-        e.addEventListener("mouseenter", function (x) {
-            let parent = document.getElementById(x.target.getAttribute("data-parent"))
-            parent.style.backgroundColor = "yellow"
-        })
-
-        e.addEventListener("mouseleave", function (x) {
-            let parent = document.getElementById(x.target.getAttribute("data-parent"))
-            parent.style.backgroundColor = "white"
-        })
-
-    })
-})
 
 
 

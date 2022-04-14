@@ -154,11 +154,11 @@ namespace ParfolioWebSiteView.Controllers
             }
 
             // Child Comment
-            commentDb.CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
+             var CommentChildren = await dbContext.Commets.AsNoTracking().AsQueryable().ComentChildernAsync(commentDb.Id);
 
-            commentDb.CommentChildren.Add(commentDb);
+            CommentChildren.Add(commentDb);
 
-            dbContext.Commets.RemoveRange(commentDb.CommentChildren);
+            dbContext.Commets.RemoveRange(CommentChildren);
             await dbContext.SaveChangesAsync();
             return Json(new { status = 202 });
         }
