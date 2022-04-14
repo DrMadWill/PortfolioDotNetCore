@@ -39,7 +39,6 @@
 
                         </ol>
 
-
                         <strong> All persons registered on the site accept the following rules:</strong>
                         <ol>
                             <li> We use your personal information in connection with the development of the site.</li>
@@ -47,6 +46,7 @@
                             <li> If the development of the Site is stopped, your data may be lost.</li>
 
                         </ol>
+
                         Important Notifications:
                         <ol>
                             <li>In case of misuse and improper use of the site, the profile will be closed.</li>
@@ -58,28 +58,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="widget-sidebar">
-                        <h5 class="sidebar-title">Top Post</h5>
-                        <div class="sidebar-content">
-                            <ul class="list-sidebar">
-                                <li>
-                                    <a href="#">Atque placeat maiores.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Lorem ipsum dolor sit amet consectetur</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Atque placeat maiores nam quo autem</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nam quo autem exercitationem.</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("TopBlog")
                 </div>
             </div>
         </div>
