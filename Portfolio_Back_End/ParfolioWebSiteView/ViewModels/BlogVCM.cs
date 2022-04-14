@@ -2,17 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ParfolioWebSiteView.ViewModels
 {
-    public class BlogVM
+    public class BlogVCM
     {
         public Blog Blog { get; set; }
-        public List<Commet> Commets { get; set; }
-        public List<Tag> Tags { get; set; }
-        // Comment Section
-        public int CommentCount { get; set; }
+        public List<Blog> Blogs { get; set; }
     }
 }

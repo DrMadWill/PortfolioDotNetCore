@@ -49,10 +49,10 @@
 
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Blogs</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Blogs and User</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Users</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tags</a>
                             </li>
                         </ul>
                         <div class="tab-content mt-3" id="myTabContent">
@@ -78,9 +78,9 @@
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="widget-sidebar mt-3 mb-2 p-0 sidebar-search">
-                                    <h5 class="sidebar-title">Search Users</h5>
+                                    <h5 class="sidebar-title">Search Tag</h5>
                                     <div class="sidebar-content">
-                                        <form>
+                                        <form id="tagSherch">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search for Users"
                                                        aria-label="Search for...">
@@ -93,25 +93,6 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="widget-sidebar mb-2 p-0 sidebar-search">
-                            <h5 class="sidebar-title">Search All Blogs and Users</h5>
-                            <div class="sidebar-content">
-                                <form method="post" asp-controller="Assistant" asp-action="Search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" required name="info" placeholder="Search for..."
-                                               aria-label="Search for...">
-                                        <input type="checkbox" style="width:0;height:0;visibility:hidden;" name="isAll" checked value="@true.ToString()" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary btn-search" type="submit">
-                                                <span class="bi bi-search"></span>
-                                            </button>
-                                        </span>
-
-                                    </div>
-                                </form>
                             </div>
                         </div>
 
@@ -210,10 +191,22 @@
 
 </main><!-- End #main -->
 
+<div class="modal fade" id="TagsModalCenter" tabindex="-1" role="dialog" aria-labelledby="TagsModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
+
 @section script{
     <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+
+
+
+
 }
 

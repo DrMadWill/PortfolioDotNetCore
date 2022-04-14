@@ -92,12 +92,6 @@ namespace ParfolioWebSiteView.Controllers
                 .Where(dr => dr.BlogId == blog.Id)
                 .Select(x => x.Tag)
                 .ToListAsync(),
-
-                Blogs = await dbContext.Blogs
-                .Where(dr => dr.UserId == blog.UserId)
-                .OrderByDescending(x => x.Id)
-                .Take(10)
-                .ToListAsync(),
             };
 
             return View(blogVM);
