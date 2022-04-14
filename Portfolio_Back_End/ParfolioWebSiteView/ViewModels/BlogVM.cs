@@ -13,10 +13,7 @@ namespace ParfolioWebSiteView.ViewModels
         public List<Blog> Blogs { get; set; }
         public List<Commet> Commets { get; set; }
         public List<Tag> Tags { get; set; }
-
         // Comment Section
-
         public int CommentCount { get; set; }
-
     }
 }
