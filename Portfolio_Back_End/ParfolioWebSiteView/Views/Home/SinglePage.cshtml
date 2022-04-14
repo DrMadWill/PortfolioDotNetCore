@@ -555,7 +555,7 @@
                     return;
                 }
 
-                Swal.fire({
+                let alerWait = Swal.fire({
                     title: 'Give me a second.',
                     text: '"',
                     imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
@@ -569,15 +569,16 @@
                     type: 'GET',
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 404) {
+                            alerWait.close()
                             Swal.fire(
                                 'Not Find Concat Onlie Link',
                                 '',
                                 'error'
                             )
                         } else {
-                            console.log(response)
                             $("#UpdateCommentId").val(updateCommentId)
                             $("#updateTextMessage").val(response.comment)
+                            alerWait.close()
                         }
                     }
                 });
@@ -714,7 +715,7 @@
         })
     </script>
 
-    @* Comment More *@
+    @* Comment More GET *@
 
     <script>
 
@@ -725,7 +726,7 @@
                 let BlogId = $("#BlogId").val()
                 let CommentSectionIndexHtml = $(showMore)
                 let CommentSectionIndex = CommentSectionIndexHtml.attr("data-index")
-                Swal.fire({
+                let alertWait = Swal.fire({
                     title: 'Give me a second.',
                     text: '"',
                     imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
@@ -740,6 +741,7 @@
                     type: 'GET',
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 404) {
+                            alertWait.close()
                             Swal.fire(
                                 'Max Messenge Show',
                                 '',
@@ -752,7 +754,7 @@
                             } else {
                                 CommentSectionIndexHtml.attr("data-index", new Number(CommentSectionIndex) + 1)
                             }
-
+                            alertWait.close()
                             WriteComment(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim())
                         }
                     }
@@ -787,37 +789,15 @@
                                     </p>
                                     <a class='replay' data-add='0' data-userid='' data-blog="0" data-commentid='${e.id}' href='#'>Reply</a>
                                 </div>
-                            `
+                        `
+                    if (e.isChild) {
+                        html = html + `<button data-index="1"  data-id="${e.id}" class="btn btn-child  w-100 my-2 btn-light text-center">See Answers</button>`
+                    }
+
                     li.innerHTML = html
                     let btnReplay = li.children[1].children[3]
-                    btnReplay.addEventListener('click', function (x) {
+                    btnReplay.addEventListener('click', ReplayComent)
 
-                        x.preventDefault();
-
-                        let parent = x.target.parentElement
-                        const elemet = x.target
-                        let isAdded = elemet.getAttribute("data-add")
-
-                        if (isAdded == "0") {
-                            elemet.setAttribute("data-add", "1")
-                            let userId = x.target.getAttribute("data-userid")
-                            let commentId = x.target.getAttribute("data-commentid")
-                            let blogId = x.target.getAttribute("data-blog")
-
-                            let comment = ComentCreate(userId, commentId, blogId)
-                            parent.appendChild(comment)
-
-                            Vaildation(comment)
-                            let canceled = comment.children[2].children[0]
-                            // Remove Form
-                            canceled.addEventListener("click", function (x) {
-                                let comment = x.target.parentElement.parentElement
-                                RemoveForm(comment)
-                                elemet.setAttribute("data-add", "0")
-                            })
-
-                        }
-                    })
                     commentsHtmlArray.push(li)
                 })
             } else {
@@ -863,7 +843,7 @@
 
                             `
                     if (e.isChild) {
-                        html = html + `<button class="btn d-block w-100 my-2 showMore btn-light text-center">See Answers</button>`
+                        html = html + `<button data-index="1" data-id="${e.id}" class="btn btn-child w-100 my-2 btn-light text-center">See Answers</button>`
                     }
 
                     li.innerHTML = html
@@ -918,16 +898,16 @@
                 let showMoreAnswer = e.currentTarget
                 let parentLi = showMoreAnswer.parentElement
                 let parentId = $(showMoreAnswer).attr("data-id")
-                let index = $(showMoreAnswer).attr("data-index")
+                let index = new Number($(showMoreAnswer).attr("data-index"))
 
-                //Swal.fire({
-                //    title: 'Give me a second.',
-                //    text: '"',
-                //    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
-                //    imageWidth: 400,
-                //    imageHeight: 350,
-                //    imageAlt: 'Loading',
-                //})
+                let alertWait = Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
 
                 $.ajax({
                     url: `/Comment/GetChildComment`,
@@ -935,17 +915,18 @@
                     type: 'GET',
                     success: (response) => {
                         if (response.hasOwnProperty('status') && response.status === 404) {
+                            alertWait.close()
                             Swal.fire(
                                 'Max Messenge Show',
                                 '',
                                 'error'
                             )
                         } else {
-
+                            alertWait.close()
                             if (response.length != 5) {
                                 showMoreAnswer.style.display = "none"
                             } else {
-                                showMoreAnswer.attr("data-index", new Number(showMoreAnswer) + 1)
+                                $(showMoreAnswer).attr("data-index", new Number(index) + 1)
                             }
                             // Write Html
                             WriteComentChild(response, $("#editUserId").val().trim(), $("#UserIdentityName").val().trim(), parentLi)
@@ -1076,6 +1057,7 @@
                     let btnCompanet = document.createElement("button")
                     $(btnCompanet).attr("class","btn bg-transparent border border-1 rounded-circle more-btn")
                     btnCompanet.innerHTML = '<i style="font-size:1.2rem;" class="ti-more-alt"></i>'
+                    $(btnCompanet).click(CommentCompanentEventFunction)
 
                     divIconMore.appendChild(btnCompanet)
 
