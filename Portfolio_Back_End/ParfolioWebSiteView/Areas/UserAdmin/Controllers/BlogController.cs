@@ -204,15 +204,31 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
+            
             var blog = await dbContext.Blogs
-                .Include(x => x.BlogDetails).ThenInclude(x=>x.Commets)
+
+                // One => One
+                //Blog => BlogDetails
+                .Include(x => x.BlogDetails)
+
+                // One => Many
+                // blog => Comment 
+                .ThenInclude(x=>x.Commets)
+
+                //  Many    To         Many   
+                // Blog => BlogToTag => Tags
                 .Include(x => x.BlogToTags)
                 .FirstOrDefaultAsync(dr => dr.User.UserName == User.Identity.Name
                 && dr.Id == id);
+
+
             if (blog == null) return Redirect("/System/Error404");
             string folder = @"img\Blog";
             FileExtension.Delete(env.WebRootPath, folder, blog.Image);
+
+            // Remove All Blog Data
             dbContext.Blogs.Remove(blog);
+            // Database Save
             await dbContext.SaveChangesAsync();
 
             TempData["BlogAlert"] = blog.Title + " Blog Deleted";
