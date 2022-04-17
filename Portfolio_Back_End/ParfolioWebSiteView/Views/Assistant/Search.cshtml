@@ -3,6 +3,11 @@
 
 @{
     ViewData["Title"] = "Search";
+    string namesss = "@sweetalert2";
+}
+
+@section header{
+    <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
 }
 <div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
     <div class="overlay-mf"></div>
@@ -82,10 +87,10 @@
                                     <div class="sidebar-content">
                                         <form id="tagSherch">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Search for Users"
+                                                <input type="text" id="tag-search-txt" class="form-control" placeholder="Search for Users"
                                                        aria-label="Search for...">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-secondary btn-search" type="button">
+                                                    <button class="btn btn-secondary btn-search" type="submit">
                                                         <span class="bi bi-search"></span>
                                                     </button>
                                                 </span>
@@ -106,7 +111,9 @@
                                 {
                                     <a class="btn ml-1 mb-2 rounded-pill btn-primary" href="/Assistant/TagBlogs/@item.Id">@item.Name <i class="bi bi-tag"></i></a>
                                 }
-
+                                <div class="alert alert-primary py-0" role="alert">
+                                    If you see more tags, you must see Search Tags Section
+                                </div>
                             </div>
                         }
 
@@ -194,16 +201,75 @@
 <div class="modal fade" id="TagsModalCenter" tabindex="-1" role="dialog" aria-labelledby="TagsModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tags Search Resault</h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="tags-container">
+
+                </div>
+            </div>
             
         </div>
     </div>
 </div>
+
 
 @section script{
     <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
     <script src="~/Admin/assets/js/popper.min.js"></script>
     <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+
+    <script>
+
+
+        $(document).ready(function (e) {
+
+            $(document).on('submit', '#tagSherch', (e) => {
+                e.preventDefault();
+                // Data Selection Section
+                let searchInfo = $("#tag-search-txt").val()
+
+                let alertWait = Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
+
+                $.ajax({
+                    url: `/Assistant/SearchTags/${searchInfo}`,
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            alertWait.close()
+                            Swal.fire(
+                                'Not Found Tags',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            let tagHtml = ``;
+                            response.forEach(e => {
+                                tagHtml = tagHtml + `<a class="btn  m-2 rounded-pill btn-primary" href="/Assistant/TagBlogs/${e.id}">${e.name} <i class="bi bi-tag"></i></a>`
+                            })
+                            $(".tags-container").html(tagHtml)
+
+                            alertWait.close()
+
+                            $('#TagsModalCenter').modal('show');
+                        }
+                    }
+                });
+            })
+        })
+    </script>
 
 
 

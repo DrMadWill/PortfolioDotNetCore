@@ -9,7 +9,6 @@ namespace ParfolioWebSiteView.ViewModels
     public class SearchVM
     {
         public List<Blog> Blogs { get; set; }
-        public List<Blog> Popliar { get; set; }
         public List<Tag> Tags { get; set; }
         public User User { get; set; }
         public List<User> Users { get; set; }

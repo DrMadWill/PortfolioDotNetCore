@@ -94,12 +94,9 @@ namespace ParfolioWebSiteView.Controllers
 
             SearchVM searchInfo = new SearchVM
             {
-                Popliar = await dbContext.Blogs
-                .Include(x => x.User)
-                .OrderByDescending(dr => dr.Id)
-                .Take(5).ToListAsync(),
+                
                 Type = "Search",
-                Tags = await dbContext.Tags.ToListAsync()
+                Tags = await dbContext.Tags.Take(35).ToListAsync()
             };
 
             return View(searchInfo);
@@ -108,14 +105,7 @@ namespace ParfolioWebSiteView.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(string info, bool isAll, string userName)
         {
-            SearchVM searchInfo = new SearchVM
-            {
-                Popliar = await dbContext.Blogs
-                .Include(x => x.User)
-                .OrderByDescending(dr => dr.Id)
-                .Take(5).ToListAsync(),
-
-            };
+            SearchVM searchInfo = new SearchVM();
 
             if (string.IsNullOrEmpty(info)) return View(searchInfo);
 
@@ -124,6 +114,7 @@ namespace ParfolioWebSiteView.Controllers
                 searchInfo.Blogs = await dbContext.Blogs
                     .Where(dr => dr.Title.ToUpper().Contains(info.ToUpper()))
                     .Include(x => x.BlogCategory)
+                    .Include(x=>x.User)
                     .ToListAsync();
                 searchInfo.Users = await dbContext.User.Include(x => x.Blogs).Where(dr => dr.NormalizedUserName.Contains(info.ToUpper()))
                     .ToListAsync();
@@ -135,6 +126,7 @@ namespace ParfolioWebSiteView.Controllers
                 if (user == null) return View(searchInfo);
 
                 searchInfo.Blogs = await dbContext.Blogs
+                    .Include(x => x.User)
                     .Include(x => x.BlogCategory)
                     .Where(dr => dr.UserId == user.Id && dr.Title.ToUpper().Contains(info.ToUpper()))
                     .ToListAsync();
@@ -147,6 +139,7 @@ namespace ParfolioWebSiteView.Controllers
 
 
         // ============================ SeeArchives ==========================
+        [HttpGet]
         public async Task<IActionResult> SeeArchives(int? id)
         {
             if (id == null) return RedirectToAction("Search");
@@ -155,12 +148,9 @@ namespace ParfolioWebSiteView.Controllers
 
             SearchVM searchInfo = new SearchVM
             {
-                Popliar = await dbContext.Blogs
-                .Include(x => x.User)
-                .OrderByDescending(dr => dr.Id)
-                .Take(5).ToListAsync(),
                 User = blog.User,
                 Blogs = await dbContext.Blogs
+                    .Include(x => x.User)
                     .Include(x => x.BlogCategory)
                     .Where(dr => dr.UserId == blog.UserId)
                     .ToListAsync(),
@@ -173,6 +163,7 @@ namespace ParfolioWebSiteView.Controllers
 
 
         // ============================ TagBlogs ==========================
+        [HttpGet]
         public async Task<IActionResult> TagBlogs(int? id)
         {
             if (id == null) RedirectToAction("Search"); ;
@@ -180,13 +171,10 @@ namespace ParfolioWebSiteView.Controllers
             if (tag == null) return NotFound();
             SearchVM searchInfo = new SearchVM
             {
-                Popliar = await dbContext.Blogs
-                .Include(x => x.User)
-                .OrderByDescending(dr => dr.Id)
-                .Take(5).ToListAsync(),
                 Users = new List<User>(),
                 Blogs = await dbContext.BlogToTags
                 .Where(dr => dr.TagId == id)
+                .Include(x => x.Blog.User)
                 .Include(x => x.Blog.BlogCategory)
                 .Select(x => x.Blog)
                 .ToListAsync(),
@@ -195,6 +183,17 @@ namespace ParfolioWebSiteView.Controllers
             };
 
             return View("Search", searchInfo);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> SearchTags(string id)
+        {
+            string searchInfo = id.ToUpper();
+
+            if (string.IsNullOrEmpty(searchInfo)) return Json(new { status = 404 });
+
+            var tags = await dbContext.Tags.Where(dr => dr.Name.ToUpper().Contains(searchInfo)).ToListAsync();
+            return Json(tags);
         }
 
         [HttpPost]
@@ -221,8 +220,5 @@ namespace ParfolioWebSiteView.Controllers
                 status = 201
             });
         }
-
-
-
     }
 }
