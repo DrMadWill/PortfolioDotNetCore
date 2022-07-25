@@ -1,0 +1,70 @@
+﻿@model Portfolio
+
+@{ 
+    ViewData["Title"] = "Portfolio Detail";
+}
+
+<div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
+    <div class="overlay-mf"></div>
+    <div class="hero-content display-table">
+        <div class="table-cell">
+            <div class="container">
+                <h2 class="hero-title mb-4">Portfolio Details</h2>
+                <ol class="breadcrumb d-flex justify-content-center">
+                    <li class="breadcrumb-item">
+                        <a href="/Home/Index/@Model.User.UserName">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Portfolio Details</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main id="main">
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+        <div class="container">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="portfolio-details-slider swiper">
+                        <div class="swiper-wrapper align-items-center">
+
+                            @foreach (var item in Model.PortfolioDetail.DetailImages)
+                            {
+                                <div class="swiper-slide">
+                                    <img src="~/img/PorfolioDetails/@item.Image">
+                                </div>
+                            }
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="portfolio-info">
+                        <h3>Project information</h3>
+                        <ul>
+                            <li><strong>Category</strong>: @Model.PortfolioCategory.Name </li>
+                            <li><strong>Client</strong>: @Model.PortfolioDetail.Client</li>
+                            <li><strong>Project date</strong>: @Model.Date.Day @Model.Date.ToString("Y")</li>
+                            <li><strong>Project URL</strong>: <a href="@Model.PortfolioDetail.LocatoionURL" class="text-primary">Project Location</a></li>
+                        </ul>
+                    </div>
+                    <div class="portfolio-description">
+                        <h2>@Model.Title</h2>
+                        <p>
+                            @Html.Raw(Model.PortfolioDetail.Descriptoion)
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+</main><!-- End #main -->

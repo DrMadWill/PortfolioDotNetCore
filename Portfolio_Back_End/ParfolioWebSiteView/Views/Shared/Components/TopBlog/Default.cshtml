@@ -1,0 +1,18 @@
+﻿
+@model IList<Blog>
+
+@{
+}
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Top Post in All Users</h5>
+    <div class="sidebar-content">
+        <ul class="list-sidebar">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="/Home/SinglePage/@item.Id">@item.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

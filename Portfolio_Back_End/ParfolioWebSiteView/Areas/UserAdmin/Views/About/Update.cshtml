@@ -1,0 +1,60 @@
+﻿@model About
+@{
+
+    ViewData["Location"] = "Account";
+    ViewData["Title"] = "About";
+
+}
+
+@section header_link {
+    <partial name="_AdminPanelHeaderLink" />
+}
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <form class="card-body" method="post">
+                    <h4 class="header-title">
+                        About Update
+                    </h4>
+                    <div class="form-group">
+                        <label asp-for="MainSkill" class="col-form-label">Main Skill</label>
+                        <input class="form-control" type="text" asp-for="MainSkill">
+                        <span asp-validation-for="Descriptoion" class="text-danger my-1"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="Descriptoion">Description</label>
+                        <textarea class="form-control" asp-for="Descriptoion" id="Descriptoion" rows="3"></textarea>
+                        <span asp-validation-for="Descriptoion" class="text-danger my-1"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Textual inputs end -->
+    </div>
+</div>
+
+@section footer_link{
+
+
+    <partial name="_AdminPanelScripts" />
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Descriptoion'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

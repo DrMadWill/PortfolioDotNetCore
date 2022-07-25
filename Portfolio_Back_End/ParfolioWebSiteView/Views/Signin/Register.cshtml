@@ -1,0 +1,159 @@
+﻿@model SignUpVM
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/Admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/metisMenu.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/slicknav.min.css">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- others css -->
+    <link rel="stylesheet" href="~/Admin/assets/css/typography.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/default-css.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/responsive.css">
+    <!-- modernizr css -->
+    <script src="~/Admin/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <link href="~/img/uversalfilo.png" rel="icon">
+    <link href="~/img/uversalfilo.png" rel="apple-touch-icon">
+
+</head>
+
+<body>
+
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end -->
+    <!-- login area start -->
+    <div class="login-area login-bg" style="background: url(/img/image.jpg)">
+        <div class="container">
+            <div class="login-box ptb--100">
+                <form method="post">
+                    <div class="login-form-head">
+                        <h4>Sign up</h4>
+                        <p>Hello , Welcome Unversal Portfolio</p>
+                    </div>
+                    <div class="login-form-body">
+                        @if (ViewBag.IsShowing)
+                        {
+                            <div class="text-danger mb-3" asp-validation-summary="All"></div>
+                        }
+
+                        <div class="form-gp">
+                            <label asp-for="FirstName">First Name</label>
+                            <input type="text" asp-for="FirstName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="FirstName" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="LastName">Last Name</label>
+                            <input type="text" asp-for="LastName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="LastName" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="UserName">User Name</label>
+                            <input type="text" asp-for="UserName">
+                            <i class="ti-user"></i>
+                            <span asp-validation-for="UserName" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="Email">Email address</label>
+                            <input type="email" asp-for="Email">
+                            <i class="ti-email"></i>
+                            <span asp-validation-for="Email" class="d-block text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <span asp-validation-for="Gender" class="d-block text-danger"></span>
+                            <label asp-for="Gender" class="col-form-label">Gender</label>
+                            <select asp-for="Gender" class="form-control">
+                                <option value="@bool.TrueString">Male</option>
+                                <option value="@bool.FalseString">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="Password">Password</label>
+                            <input type="password" asp-for="Password">
+                            <i class="ti-lock"></i>
+                            <span asp-validation-for="Password" class="d-block text-danger"></span>
+                        </div>
+                        <div class="form-gp">
+                            <label asp-for="ConfirmPassword">Confirm Password</label>
+                            <input type="password" asp-for="ConfirmPassword">
+                            <i class="ti-lock"></i>
+                            <span asp-validation-for="ConfirmPassword" class="d-block text-danger"></span>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-6">
+                                I accepet <a class="" href="/Home/Policies">Site Policies</a>
+                            </div>
+                        </div>
+                        <div class="submit-btn-area">
+                            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
+
+                            @*<div class="login-other row mt-4">
+                                    <div class="col-6">
+                                        <a class="fb-login" href="#">Sign up with <i class="fa fa-facebook"></i></a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="google-login" href="#">Sign up with <i class="fa fa-google"></i></a>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <div class="form-footer text-center mt-5">
+                            <p class="text-muted">Don't have an account? <a href="/Signin/Login">Sign in</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".form-gp input").each(function (x) {
+                if ($(this).val() != "") {
+                    $(this).focus()
+                }
+            })
+        })
+    </script>
+    <!-- login area end -->
+    <!-- jquery latest version -->
+    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="~/Admin/assets/js/popper.min.js"></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Admin/assets/js/metisMenu.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Admin/assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- others plugins -->
+    <script src="~/Admin/assets/js/plugins.js"></script>
+    <script src="~/Admin/assets/js/scripts.js"></script>
+
+</body>
+
+</html>
+
+
+
