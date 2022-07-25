@@ -1,0 +1,81 @@
+﻿@model Home
+@{
+    ViewData["Location"] = "Account";
+    ViewData["Title"] = "Home";
+}
+
+@section header_link {
+
+    <partial name="_AdminPanelHeaderLink" />
+    <style>
+        #file-ip-1-preview {
+            display: none;
+        }
+    </style>
+}
+
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="card">
+                <form class="card-body" method="post" enctype="multipart/form-data">
+                    <h4 class="header-title">
+                        Home Update
+                    </h4>
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                    <div class="form-group">
+                        <label asp-for="HomeSlogan" class="col-form-label">Slogan</label>
+                        <input class="form-control" type="text" asp-for="HomeSlogan">
+                        <span asp-validation-for="HomeSlogan" class="text-danger my-1"></span>
+                    </div>
+                    <p class="p-1">Image</p>
+                    <span asp-validation-for="Potho" class="text-danger my-1"></span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Upload Image</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" asp-for="Potho"  onchange="showPreview(event);">
+                            <label class="custom-file-label" asp-for="Potho">Choose Image</label>
+                        </div>
+                        <div class="w-100 d-flex mt-3 justify-content-center">
+                            <img id="file-ip-1-preview" class="img-fluid" src="0" alt="your image" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="col-form-label d-block">Current Image</label>
+                        <img style="width:300px;height:auto;" src="~/img/Home/@Model.Image" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Skills" class="col-form-label">Skills</label>
+                        <input class="form-control" placeholder="Developer,Photographer,ect..." type="text" asp-for="Skills">
+                        <span asp-validation-for="Skills" class="text-danger my-1"></span>
+                    </div>
+                    <div class="form-group col-12">
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Textual inputs end -->
+    </div>
+</div>
+
+@section footer_link{
+    <partial name="_AdminPanelScripts" />
+    <partial name="_ValidationScriptsPartial" />
+    <!-- others plugins -->
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
+    
+}

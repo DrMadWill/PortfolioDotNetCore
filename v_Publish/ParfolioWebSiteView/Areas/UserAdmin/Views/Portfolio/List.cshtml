@@ -1,0 +1,82 @@
+﻿@model IList<Portfolio>
+@{
+    ViewData["Location"] = "Portfolio";
+    ViewData["Title"] = "Portfolio List";
+ }
+@section header_link{
+    <partial name="_AdminPanelListHeaderLink" />
+}
+
+
+<div class="main-content-inner">
+    <div class="row">
+        <!-- Primary table start -->
+        <div class="col-12  mt-5">
+            @if (TempData["PortfolioAlert"] != null)
+            {
+                <div class="col-12 mt-2 alert-dismiss">
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        @TempData["PortfolioAlert"].ToString()
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
+                </div>
+            }
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12 mt-2 alert-dismiss">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Your Portfolio Limit 15!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex my-3 justify-content-between">
+                        <h4 class="header-title">Portfolio List</h4>
+                        <a href="/UserAdmin/Portfolio/Create" class="btn btn-success"><i class="ti-plus"></i></a>
+                    </div>
+                    <div class="data-tables datatable-primary">
+                        <table id="dataTable2" class=" w-100 text-center">
+                            <thead class="text-capitalize">
+                                <tr>
+                                    <th>Title </th>
+                                    <th>Category</th>
+                                    <th>Client</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Title</td>
+                                        <td>@item.PortfolioCategory.Name </td>
+                                        <td>
+                                            @item.PortfolioDetail.Client
+                                        </td>
+                                        <td>@item.Date</td>
+                                        <td>
+                                            <a href="/UserAdmin/Portfolio/Show/@item.Id" class="text-primary"><span class="ti-eye"></span></a>
+                                            <a href="/UserAdmin/Portfolio/Update/@item.Id" class="text-warning mx-2"><span class="fa fa-edit"></span></a>
+                                            <a onclick="return confirm('Are You Sure Delete?')" href="/UserAdmin/Portfolio/Delete/@item.Id" class="text-danger"><i class="ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Primary table end -->
+
+    </div>
+</div>
+
+
+@section footer_link{
+    <partial name="_AdminPanelListScripts" />
+}

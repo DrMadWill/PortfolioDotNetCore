@@ -1,0 +1,71 @@
+﻿@model BlogVCM
+
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Recent Post In @Model.Blog.User.UserName</h5>
+    <div class="sidebar-content">
+        <ul class="list-sidebar">
+
+            @foreach (var item in Model.Blogs.Take(10))
+            {
+                <li>
+                    <a href="/Home/SinglePage/@item.Id">
+                        @if (item.Title.Length > 50)
+                        {
+                            <span>
+                                @item.Title.Substring(0, 50) ...
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                @item.Title
+                            </span>
+                        }
+
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="widget-sidebar">
+    <h5 class="sidebar-title">Archives In @Model.Blog.User.UserName</h5>
+    <div class="sidebar-content">
+
+        @if (Model.Blogs.Count > 10)
+        {
+            <ul class="list-sidebar">
+                @foreach (var item in Model.Blogs.Skip(10))
+                {
+                    <li>
+                        <a href="/Home/SinglePage/@item.Id">
+                            @if (item.Title.Length > 50)
+                            {
+                                <span>
+                                    @item.Title.Substring(0, 50) ...
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    @item.Title
+                                </span>
+                            }
+
+                        </a>
+                    </li>
+                }
+            </ul>
+            <a class="btn mt-3 d-block btn-primary" href="/Assistant/SeeArchives/@Model.Blog.Id">See All</a>
+        }
+        else
+        {
+            <ul class="list-sidebar">
+                <li>
+                    Not yet Archived
+                </li>
+            </ul>
+        }
+
+    </div>
+</div>

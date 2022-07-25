@@ -1,0 +1,278 @@
+﻿
+@model SearchVM
+
+@{
+    ViewData["Title"] = "Search";
+    string namesss = "@sweetalert2";
+}
+
+@section header{
+    <link href="//cdn.jsdelivr.net/npm/@namesss/theme-dark@4/dark.css" rel="stylesheet">
+}
+<div class="hero hero-single route bg-image" style="background-image: url(/img/overlay-bg.jpg)">
+    <div class="overlay-mf"></div>
+    <div class="hero-content display-table">
+        <div class="table-cell">
+            <div class="container">
+                <h2 class="hero-title mb-4">Search</h2>
+                <ol class="breadcrumb d-flex justify-content-center">
+                    @if (Model.User == null)
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="#">All</a>
+                        </li>
+
+                        <li class="breadcrumb-item active">
+                            <a href="#"> @Model.Type</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index/@Model.User.UserName">@Model.User.UserName</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#"> @Model.Type</a>
+                        </li>
+                    }
+
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main id="main">
+
+    <!-- ======= Blog Single Section ======= -->
+    <section class="blog-wrapper sect-pt4" id="search">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="post-box">
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Blogs and User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tags</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="widget-sidebar mb-2 p-0 sidebar-search">
+                                    <h5 class="sidebar-title">Search All Blogs and Users</h5>
+                                    <div class="sidebar-content">
+                                        <form method="post" asp-controller="Assistant" asp-action="Search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" required name="info" placeholder="Search for..."
+                                                       aria-label="Search for...">
+                                                <input type="checkbox" style="width:0;height:0;visibility:hidden;" name="isAll" checked value="@true.ToString()" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-secondary btn-search" type="submit">
+                                                        <span class="bi bi-search"></span>
+                                                    </button>
+                                                </span>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="widget-sidebar mt-3 mb-2 p-0 sidebar-search">
+                                    <h5 class="sidebar-title">Search Tag</h5>
+                                    <div class="sidebar-content">
+                                        <form id="tagSherch">
+                                            <div class="input-group">
+                                                <input type="text" id="tag-search-txt" class="form-control" placeholder="Search for Users"
+                                                       aria-label="Search for...">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-secondary btn-search" type="submit">
+                                                        <span class="bi bi-search"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.Tags != null)
+                        {
+
+                            <div class="post-meta">
+                                <h1 class="article-title">All Tags</h1>
+
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <a class="btn ml-1 mb-2 rounded-pill btn-primary" href="/Assistant/TagBlogs/@item.Id">@item.Name <i class="bi bi-tag"></i></a>
+                                }
+                                <div class="alert alert-primary py-0" role="alert">
+                                    If you see more tags, you must see Search Tags Section
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.Users != null && Model.Blogs != null)
+                        {
+                            @if (!(Model.Users.Count == 0 && Model.Blogs.Count == 0))
+                            {
+                                <div class="post-meta">
+                                    <h1 class="article-title">Search Resault</h1>
+                                    @foreach (var item in Model.Blogs)
+                                    {
+                                        <ul>
+                                            <li>
+                                                <span class="bi bi-chat-left-text"></span>
+                                                <a href="/Home/SinglePage/@item.Id">@item.Title</a>
+                                            </li>
+                                            <li>
+                                                <span class="bi bi-person"></span>
+                                                <a href="/Home/Index/@item.User.UserName">@item.User.UserName</a>
+                                            </li>
+                                            <li>
+                                                <span class="bi bi-collection"></span>
+                                                <a href="#">@item.BlogCategory.Name</a>
+                                            </li>
+                                            <li>
+                                                <span class="bi bi-calendar3"></span>
+                                                <a href="/Home/SinglePage/@item.Id">@item.Date.Day @item.Date.ToString("Y")</a>
+                                            </li>
+                                        </ul>
+                                    }
+
+                                    @foreach (var item in Model.Users)
+                                    {
+                                        <ul>
+                                            <li>
+                                                <span class="bi bi-person"></span>
+                                                <a href="/Home/Index/@item.UserName">@item.UserName</a>
+                                            </li>
+                                            <li>
+                                                <span class="bi bi-chat-left-text"></span>
+                                                <a href="/Home/Index/@item.UserName">@item.Blogs.Count</a>
+                                            </li>
+                                        </ul>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+                    @if (Model.User != null)
+                    {
+                        <div class="widget-sidebar sidebar-search">
+                            <h5 class="sidebar-title">Search in @Model.User.UserName</h5>
+                            <div class="sidebar-content">
+                                <form method="post" asp-action="Search" asp-controller="Assistant">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="info" placeholder="Search for..."
+                                               aria-label="Search for...">
+                                        <input type="checkbox"
+                                               style="width:0;height:0;visibility:hidden;"
+                                               name="isAll"
+                                               value="@false.ToString()" />
+                                        <input type="hidden" name="userName" value="@Model.User.UserName" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary btn-search" type="submit">
+                                                <span class="bi bi-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    @await Component.InvokeAsync("TopBlog")
+                </div>
+            </div>
+        </div>
+    </section><!-- End Blog Single Section -->
+
+</main><!-- End #main -->
+
+<div class="modal fade" id="TagsModalCenter" tabindex="-1" role="dialog" aria-labelledby="TagsModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tags Search Resault</h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="tags-container">
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+@section script{
+    <script src="~/Admin/assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="~/Admin/assets/js/popper.min.js"></script>
+    <script src="~/Admin/assets/js/bootstrap.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+
+    <script>
+
+
+        $(document).ready(function (e) {
+
+            $(document).on('submit', '#tagSherch', (e) => {
+                e.preventDefault();
+                // Data Selection Section
+                let searchInfo = $("#tag-search-txt").val()
+
+                let alertWait = Swal.fire({
+                    title: 'Give me a second.',
+                    text: '"',
+                    imageUrl: 'https://media.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.gif',
+                    imageWidth: 400,
+                    imageHeight: 350,
+                    imageAlt: 'Loading',
+                })
+
+                $.ajax({
+                    url: `/Assistant/SearchTags/${searchInfo}`,
+                    type: 'GET',
+                    success: (response) => {
+                        if (response.hasOwnProperty('status') && response.status === 404) {
+                            alertWait.close()
+                            Swal.fire(
+                                'Not Found Tags',
+                                '',
+                                'error'
+                            )
+                        } else {
+                            let tagHtml = ``;
+                            response.forEach(e => {
+                                tagHtml = tagHtml + `<a class="btn  m-2 rounded-pill btn-primary" href="/Assistant/TagBlogs/${e.id}">${e.name} <i class="bi bi-tag"></i></a>`
+                            })
+                            $(".tags-container").html(tagHtml)
+
+                            alertWait.close()
+
+                            $('#TagsModalCenter').modal('show');
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+
+
+
+
+}
+
