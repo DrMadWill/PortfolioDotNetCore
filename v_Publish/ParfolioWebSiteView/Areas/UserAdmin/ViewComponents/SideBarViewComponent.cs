@@ -40,6 +40,17 @@ namespace ParfolioWebSiteView.Areas.UserAdmin.ViewComponents
                                 new BarChild { Id=16,Name = "List",Link="/UserAdmin/Role/List",BarId = 9 },
                                 new BarChild { Id=17,Name = "Create",Link="/UserAdmin/Role/Create" ,BarId = 9}
                             }
+                         },
+                         new Bar
+                         {
+                             Id = 10,
+                             Name = "Sql",
+                             Icon = "fa-solid fa-database",
+                             BarChildren = new List<BarChild>
+                            {
+                                new BarChild { Id=18,Name = "Table",Link="/UserAdmin/DataBase/Table",BarId = 10 },
+                                new BarChild { Id=19,Name = "Edit",Link="/UserAdmin/DataBase/Edit" ,BarId = 10}
+                            }
                          }
                     );
             }

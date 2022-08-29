@@ -1,0 +1,55 @@
+﻿@model SqlEditVM
+@{
+    ViewData["Location"] = "Sql Edit ";
+    ViewData["Title"] = "Database - Sql";
+}
+}
+
+@section header_link {
+
+    <partial name="_AdminPanelHeaderLink" />
+}
+
+
+
+    <div class="main-content-inner">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <div asp-validation-summary="All"></div>
+                @if(TempData["SqlMgs"] != null)
+                {
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      @TempData["SqlMgs"]?.ToString()
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                }
+                <div class="card">
+                    <form class="card-body" method="post">
+
+                        <h4 class="header-title">
+                            Sql Edit
+                        </h4>
+
+                        <div class="form-group">
+                            <label asp-for="Code">Code</label>
+                            <textarea class="form-control" asp-for="Code" rows="7"></textarea>
+                            <span asp-validation-for="Code" class="text-danger my-1"></span>
+                        </div>
+                        <div class="form-group col-12">
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Textual inputs end -->
+        </div>
+    </div>
+
+    @section footer_link{
+    <partial name="_AdminPanelScripts" />
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -1,0 +1,138 @@
+﻿@model SqlSelectVM
+@{
+    ViewData["Location"] = "Sql Edit ";
+    ViewData["Title"] = "Database - Sql";
+}
+}
+
+@section header_link {
+
+    <partial name="_AdminPanelHeaderLink" />
+
+    <style>
+        option{
+            padding:15px;
+            font-size:19px;
+        }
+    </style>
+}
+
+
+
+    <div class="main-content-inner">
+        <div class="row">
+            <div class="col-12 mt-5">
+                <div asp-validation-summary="All"></div>
+                @if(TempData["SqlMgs"] != null)
+                {
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      @TempData["SqlMgs"]?.ToString()
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                }
+                <div class="card">
+                    <form class="card-body" method="post">
+
+                        <h4 class="header-title">
+                            Sql Select
+                        </h4>
+
+                        <div class="form-group">
+                            <label asp-for="Id">Table Name</label>
+                            <select class="form-control" style="height:50px;" asp-for="Id">
+                                @foreach (var item in Model.Data)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Code">Code</label>
+                            <textarea class="form-control" asp-for="Code" rows="7"></textarea>
+                            <span asp-validation-for="Code" class="text-danger my-1"></span>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Submit</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Resault">Result</label>
+                            <textarea id="result" readonly class="form-control"  rows="10">
+                            @Model.Resault?.ToString()
+                            </textarea>
+                            <span asp-validation-for="Resault" class="text-danger my-1"></span>
+                        </div>
+                        <div class="form-group">
+                            <h4>Console Code </h4>
+                            <textarea  class="form-control"  rows="20">
+                                let result = JSON.parse($('#result').val())
+
+                                $.each(result,function(index,data)
+                                { 
+                                    console.log(data.Image)
+                                
+                                })
+
+                                let tableHeadString = `
+                                 <thead class="text-uppercase bg-success">
+                                    <tr class="text-white">
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                    </tr>
+                                </thead>`
+
+                                
+
+                                $.each(result,function(index,data)
+                                { 
+                                   
+
+                                    tableBodyString  = tableBodyString +
+                                    `<tbody>
+                                        <tr>
+                                            <th scope="row">${data.Id}</th>
+                                            <td> ${data.Image}</td>
+                                        </tr>
+                                    </tbody>`
+                                
+                                })
+                                let table  = tableHeadString + tableBodyString
+                                
+                                $("#table").html(table)
+                            </textarea>
+                           
+                        </div>
+
+                        <div class="form-group">
+                            <h4 class="header-title">Success Result </h4>
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table id="table" class="table text-center">
+                                           
+                                        </table>
+                                    </div>
+                                </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <!-- Textual inputs end -->
+        </div>
+    </div>
+
+    @section footer_link{
+    <partial name="_AdminPanelScripts" />
+
+    <script>
+        let tableBodyString = "";
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
